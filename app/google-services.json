@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067393879512",
+    "project_id": "plantoid-64f52",
+    "storage_bucket": "plantoid-64f52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067393879512:android:6bbffbf4aee9f2bfe2b6ad",
+        "android_client_info": {
+          "package_name": "com.softeng306team15.plantoid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067393879512-ubpdikhkjt59onhr4fudkn7ekfus2cc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYW2krbwkSE0Rc0cBePEvgEympkmeS3bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067393879512-ubpdikhkjt59onhr4fudkn7ekfus2cc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
