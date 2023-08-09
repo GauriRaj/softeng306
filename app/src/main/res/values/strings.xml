@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Plantoid</string>
+    <string name="searchBarPrompt">Search for anything…</string>
 </resources>

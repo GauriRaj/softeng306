@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Auto-generated Colours -->
     <color name="seed">#0F6C4B</color>
     <color name="md_theme_light_primary">#006C4A</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
@@ -61,4 +62,15 @@
     <color name="md_theme_dark_surfaceTint">#6EDBA9</color>
     <color name="md_theme_dark_outlineVariant">#44483E</color>
     <color name="md_theme_dark_scrim">#000000</color>
+
+    <!-- Surface Colors -->
+    <color name="md_theme_light_surface_container_highest">#EDE0DC</color>
+    <color name="md_theme_light_surface_container_high">#F3E5E1</color>
+    <color name="md_theme_light_surface_container">#F8EBE7</color>
+    <color name="md_theme_light_surface_container_low">#FEF1ED</color>
+
+    <!-- Extra Material Design Colours -->
+    <color name="md_theme_onPrimaryVariant">#005237</color>
+    <color name="md_theme_Primary90">#8BF8C4</color>
+    <color name="md_theme_Primary50">#00885E</color>
 </resources>
