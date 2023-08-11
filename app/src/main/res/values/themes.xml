@@ -48,6 +48,12 @@
         <item name="android:searchIcon">@drawable/search_icon</item>
     </style>
 
+    <!-- For general text on surfaces -->
+    <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+    </style>
+
+    <!-- Only for branding text -->
     <style name="plantoidLogoText" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/rancho</item>
         <item name="android:textColor">@color/md_theme_Primary90</item>
@@ -56,6 +62,14 @@
     <style name="item_card_main" parent="CardView">
         <item name="cardBackgroundColor">@color/md_theme_light_surface_container_highest</item>
         <item name="cardCornerRadius">10dp</item>
+    </style>
+
+    <style name="navBarButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="navBarBackground">
+        <item name="android:background">@color/md_theme_Neutral50</item>
     </style>
 
 </resources>
