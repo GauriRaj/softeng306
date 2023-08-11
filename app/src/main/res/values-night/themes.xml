@@ -35,5 +35,19 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="materialCardViewStyle">@style/item_card_main</item>
+    </style>
+
+    <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
+
+    <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/md_theme_dark_surface</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
+
+    <style name="navBarBackground">
+        <item name="android:background">@color/md_theme_dark_surface</item>
     </style>
 </resources>

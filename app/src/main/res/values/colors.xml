@@ -72,5 +72,11 @@
     <!-- Extra Material Design Colours -->
     <color name="md_theme_onPrimaryVariant">#005237</color>
     <color name="md_theme_Primary90">#8BF8C4</color>
+    <color name="md_theme_Primary60">#30A376</color>
     <color name="md_theme_Primary50">#00885E</color>
+    <color name="md_theme_Neutral50">#7F7572</color>
+    <color name="md_theme_Neutral80">#D0C4C0</color>
+    <color name="md_theme_Neutral10">#000000</color>
+
+
 </resources>
