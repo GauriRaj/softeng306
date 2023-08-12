@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.Plantoid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:backgroundTint="@color/md_theme_light_surface_container_low">
+    android:background="?attr/backgroundColor">
 
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
@@ -69,7 +70,7 @@
     <!-- Main Scrolling Section -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:scrollbars="none"
         android:layout_weight="1">
 
@@ -85,6 +86,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/seeds_category_card"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     style="@style/item_card_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +116,7 @@
                             android:layout_margin="5dp"
                             android:text="Seeds &amp;\nSeedlings"
                             android:textAlignment="center"
-                            style="@style/textViewOnSurface"/>
+                            style="@style/categoryTextView"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -151,7 +153,7 @@
                             android:layout_margin="5dp"
                             android:text="Plants &amp;\nTrees"
                             android:textAlignment="center"
-                            style="@style/textViewOnSurface"/>
+                            style="@style/categoryTextView"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -187,7 +189,7 @@
                             android:layout_margin="5dp"
                             android:text="Pots &amp;\nPlanters"
                             android:textAlignment="center"
-                            style="@style/textViewOnSurface"/>
+                            style="@style/categoryTextView"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -223,7 +225,7 @@
                             android:layout_margin="5dp"
                             android:text="Plant Care\n&amp; Decor"
                             android:textAlignment="center"
-                            style="@style/textViewOnSurface"/>
+                            style="@style/categoryTextView"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -237,8 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Recycler View 1"
-                style="@style/textViewOnSurface"
-                android:textSize="18sp" />
+                style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_main_1"
@@ -250,8 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Recycler View 2"
-                style="@style/textViewOnSurface"
-                android:textSize="18sp" />
+                style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_main_2"
@@ -264,8 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Recycler View 3"
-                style="@style/textViewOnSurface"
-                android:textSize="18sp" />
+                style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_main_3"
@@ -278,6 +277,7 @@
 
     <!-- TODO Navigation bar -->
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
