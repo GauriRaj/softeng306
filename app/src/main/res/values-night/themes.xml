@@ -1,11 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Plantoid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Plantoid" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="android:colorPrimaryDark">@color/md_theme_light_onPrimaryContainer</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/md_theme_dark_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
@@ -24,7 +28,6 @@
         <!-- Material Design surface color. -->
         <item name="colorOutline">@color/md_theme_dark_outline</item>
         <item name="android:colorBackground">@color/md_theme_dark_background</item>
-        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
         <item name="colorSurface">@color/md_theme_dark_surface</item>
         <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
         <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
@@ -32,8 +35,9 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="backgroundColor">@color/md_theme_dark_surface_container_low</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/md_theme_light_primary</item>
         <!-- Customize your theme here. -->
         <item name="materialCardViewStyle">@style/item_card_main</item>
     </style>
@@ -43,11 +47,11 @@
     </style>
 
     <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/md_theme_dark_surface</item>
-        <item name="cardCornerRadius">10dp</item>
+        <item name="cardBackgroundColor">@color/md_theme_dark_surface_container_highest</item>
+        <item name="cardCornerRadius">8dp</item>
     </style>
 
     <style name="navBarBackground">
-        <item name="android:background">@color/md_theme_dark_surface</item>
+        <item name="android:background">@color/md_theme_dark_surface_container_highest</item>
     </style>
 </resources>

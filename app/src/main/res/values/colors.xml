@@ -69,6 +69,11 @@
     <color name="md_theme_light_surface_container">#F8EBE7</color>
     <color name="md_theme_light_surface_container_low">#FEF1ED</color>
 
+    <color name="md_theme_dark_surface_container_highest">#3B3331</color>
+    <color name="md_theme_dark_surface_container_high">#2F2826</color>
+    <color name="md_theme_dark_surface_container">#251E1C</color>
+    <color name="md_theme_dark_surface_container_low">#201A18</color>
+
     <!-- Extra Material Design Colours -->
     <color name="md_theme_onPrimaryVariant">#005237</color>
     <color name="md_theme_Primary90">#8BF8C4</color>
