@@ -86,36 +86,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Categories
-    // Uncomment the contents when the activities have been set up
     public void goSeeds(View v) {
-        //Intent seedIntent = new Intent(getBaseContext(), SeedsActivity.class);
-        //startActivity(seedIntent);
+        Intent seedIntent = new Intent(getBaseContext(), SeedsActivity.class);
+        startActivity(seedIntent);
     }
 
     public void goPlants(View v) {
-        //Intent plantIntent = new Intent(getBaseContext(), PlantsActivity.class);
-        //startActivity(plantIntent);
+        Intent plantIntent = new Intent(getBaseContext(), PlantsActivity.class);
+        startActivity(plantIntent);
     }
 
     public void goPlanters(View v) {
-        //Intent planterIntent = new Intent(getBaseContext(), PlantersActivity.class);
-        //startActivity(planterIntent);
+        Intent planterIntent = new Intent(getBaseContext(), PlantersActivity.class);
+        startActivity(planterIntent);
     }
 
     public void goCare(View v) {
-        //Intent careIntent = new Intent(getBaseContext(), CareActivity.class);
-        //startActivity(careIntent);
+        Intent careIntent = new Intent(getBaseContext(), CareActivity.class);
+        startActivity(careIntent);
     }
 
     // Navbar
     public void goWishlist(View v) {
-        //Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
-        //startActivity(wishlistIntent);
+        Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+        startActivity(wishlistIntent);
     }
 
     public void goProfile(View v) {
-        //Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        //startActivity(profileIntent);
+        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
+        startActivity(profileIntent);
     }
 
     public void goSearch(View v) {
