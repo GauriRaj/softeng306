@@ -59,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
         vh = new ViewHolder();
         setUserDisplay("1");
 
+        vh.seedsCardView.setOnClickListener(this::goSeeds);
+
+        vh.plantsCardView.setOnClickListener(this::goPlants);
+
+        vh.plantersCardView.setOnClickListener(this::goPlanters);
+
+        vh.careCardView.setOnClickListener(this::goCare);
+
+        vh.wishlistButton.setOnClickListener(this::goWishlist);
+
+        vh.profileButton.setOnClickListener(this::goProfile);
+        
     }
 
     public void setUserDisplay(String id) {
@@ -87,23 +99,27 @@ public class MainActivity extends AppCompatActivity {
 
     // Categories
     public void goSeeds(View v) {
-        Intent seedIntent = new Intent(getBaseContext(), SeedsActivity.class);
-        startActivity(seedIntent);
+        Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
+        categoryIntent.putExtra("Category", "Seeds");
+        startActivity(categoryIntent);
     }
 
     public void goPlants(View v) {
-        Intent plantIntent = new Intent(getBaseContext(), PlantsActivity.class);
-        startActivity(plantIntent);
+        Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
+        categoryIntent.putExtra("Category", "Plants");
+        startActivity(categoryIntent);
     }
 
     public void goPlanters(View v) {
-        Intent planterIntent = new Intent(getBaseContext(), PlantersActivity.class);
-        startActivity(planterIntent);
+        Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
+        categoryIntent.putExtra("Category", "Planters");
+        startActivity(categoryIntent);
     }
 
     public void goCare(View v) {
-        Intent careIntent = new Intent(getBaseContext(), CareActivity.class);
-        startActivity(careIntent);
+        Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
+        categoryIntent.putExtra("Category", "Care");
+        startActivity(categoryIntent);
     }
 
     // Navbar
