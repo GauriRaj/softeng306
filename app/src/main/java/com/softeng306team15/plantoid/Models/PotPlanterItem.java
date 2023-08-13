@@ -19,7 +19,7 @@ public class PotPlanterItem extends Item{
         this.category = category;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        this.pics = pics;
+        this.images = pics;
         this.tags = tags;
     }
 

@@ -14,7 +14,7 @@ public interface IItem {
 
     public float getItemPrice();
 
-    public List<String> getPics();
+    public List<String> getImages();
 
     public String getKeyPic();
 

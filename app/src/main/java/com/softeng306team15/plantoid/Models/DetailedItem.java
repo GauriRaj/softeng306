@@ -7,8 +7,8 @@ public class DetailedItem extends Item{
     protected String itemDesc;
 
     @Override
-    public List<String> getPics(){
-        return pics;
+    public List<String> getImages(){
+        return images;
     }
 
     @Override
@@ -16,12 +16,12 @@ public class DetailedItem extends Item{
         return itemDesc;
     }
 
-    public DetailedItem(String id, String category, String itemName, float itemPrice, List<String> pics, List<String> tags, String itemDesc){
+    public DetailedItem(String id, String category, String itemName, float itemPrice, List<String> images, List<String> tags, String itemDesc){
         this.id = id;
         this.category = category;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        this.pics = pics;
+        this.images = images;
         this.tags = tags;
         this.itemDesc = itemDesc;
     }

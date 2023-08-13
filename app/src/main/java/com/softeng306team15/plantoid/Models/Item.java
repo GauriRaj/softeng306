@@ -2,14 +2,13 @@ package com.softeng306team15.plantoid.Models;
 
 import com.google.firebase.firestore.Exclude;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class Item implements IItem{
     protected String id, category, itemName;
     protected float itemPrice;
-    protected List<String> pics, tags;
+    protected List<String> images, tags;
 
     protected List<String> plantAndTreeSubTags = Arrays.asList("Evergreen", "Deciduous", "Flowering", "Fruit", "Vegetable", "Herb", "Succulent");
     protected List<String> seedAndSeedlingSubTags = Arrays.asList("Seed", "Seedling");
@@ -38,12 +37,12 @@ public abstract class Item implements IItem{
     }
 
     @Exclude
-    public List<String> getPics(){
+    public List<String> getImages(){
         throw new RuntimeException(this.getClass().getSimpleName() + " doesn't have this method");
     }
 
     public String getKeyPic(){
-        return pics.get(0);
+        return images.get(0);
     }
 
     public List<String> getTags(){
