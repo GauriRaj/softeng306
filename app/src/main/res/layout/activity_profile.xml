@@ -261,106 +261,105 @@
                     android:layout_weight="1"
                     android:text="Log out" />
 
+                <LinearLayout
+                    style="@style/navBarBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/discover_navbar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top|center"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/discover_icon"
+                            app:tint="@color/md_theme_Primary90" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0"
+                            android:text="Discover"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_theme_Primary90" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/wishlist_navbar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top|center"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/wishlist_icon"
+                            app:tint="@color/md_theme_Neutral80" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0"
+                            android:text="Wishlist"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_theme_Neutral80" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/profile_navbar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top|center"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/profile_icon"
+                            app:tint="@color/md_theme_Neutral80" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0"
+                            android:text="My Plantoid"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_theme_Neutral80" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        style="@style/navBarBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/discover_navbar_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="top|center"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:src="@drawable/discover_icon"
-                app:tint="@color/md_theme_Primary90" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="Discover"
-                android:textAlignment="center"
-                android:textColor="@color/md_theme_Primary90" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/wishlist_navbar_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="top|center"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:src="@drawable/wishlist_icon"
-                app:tint="@color/md_theme_Neutral80" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="Wishlist"
-                android:textAlignment="center"
-                android:textColor="@color/md_theme_Neutral80" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/profile_navbar_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="top|center"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:src="@drawable/profile_icon"
-                app:tint="@color/md_theme_Neutral80" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="My Plantoid"
-                android:textAlignment="center"
-                android:textColor="@color/md_theme_Neutral80" />
-        </LinearLayout>
-
-    </LinearLayout>
 
 </LinearLayout>
