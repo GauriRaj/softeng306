@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        vh = new ViewHolder();
+        vh = new MainActivity.ViewHolder();
         setUserDisplay("1");
         fetchItemData();
 
