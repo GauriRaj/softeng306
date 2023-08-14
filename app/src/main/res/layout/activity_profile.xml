@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/Theme.Plantoid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical"
-    tools:context=".Activities.MainActivity"
-    android:background="?attr/backgroundColor">
+    android:theme="@style/Theme.Plantoid"
+    tools:context=".Activities.MainActivity">
 
     <!-- Top bar with logo, user welcome and search bar -->
 
@@ -20,35 +20,24 @@
         android:paddingBottom="5dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="45dp"
+                android:id="@+id/imageProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="79dp"
+                app:srcCompat="@drawable/debug_image" />
+
+            <TextView
+                android:id="@+id/textUsername"
+                style="@style/textViewOnSurface"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="?attr/actionModeCloseDrawable" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="397dp"
-                    android:layout_height="61dp"
-                    app:srcCompat="@drawable/debug_image" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </LinearLayout>
-
+                android:gravity="center"
+                android:text="username" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -64,7 +53,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,191 +61,246 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button3"
-                    android:layout_width="200dp"
+                    android:id="@+id/btnCustomise"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Customise Profile" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Password"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textPassword"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="password"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Email"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textEmail"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="email"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Phone"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textPhone"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="phone"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Card Number"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textCardNo"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="card no"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Billing Address"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textBillAddress"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="bill address"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:text="Shipping Address"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/textShipAddress"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="ship address"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/btnSettings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="Settings" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/btnLogout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="Log out" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:baselineAligned="false"
+        style="@style/navBarBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@style/navBarBackground">
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/discover_navbar_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:layout_weight="1"
-            android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/discover_icon"
-                android:adjustViewBounds="true"
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
-                app:tint="@color/md_theme_Primary90"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/discover_icon"
+                app:tint="@color/md_theme_Primary90" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="0"
                 android:text="Discover"
                 android:textAlignment="center"
-                android:layout_weight="0"
-                android:textColor="@color/md_theme_Primary90"/>
+                android:textColor="@color/md_theme_Primary90" />
         </LinearLayout>
 
         <LinearLayout
@@ -264,28 +308,28 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:layout_weight="1"
-            android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/wishlist_icon"
-                android:adjustViewBounds="true"
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
-                app:tint="@color/md_theme_Neutral80"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/wishlist_icon"
+                app:tint="@color/md_theme_Neutral80" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="0"
                 android:text="Wishlist"
                 android:textAlignment="center"
-                android:layout_weight="0"
-                android:textColor="@color/md_theme_Neutral80"/>
+                android:textColor="@color/md_theme_Neutral80" />
         </LinearLayout>
 
         <LinearLayout
@@ -293,28 +337,28 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:layout_weight="1"
-            android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/profile_icon"
-                android:adjustViewBounds="true"
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
-                app:tint="@color/md_theme_Neutral80"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/profile_icon"
+                app:tint="@color/md_theme_Neutral80" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="0"
                 android:text="My Plantoid"
                 android:textAlignment="center"
-                android:layout_weight="0"
-                android:textColor="@color/md_theme_Neutral80"/>
+                android:textColor="@color/md_theme_Neutral80" />
         </LinearLayout>
 
     </LinearLayout>
