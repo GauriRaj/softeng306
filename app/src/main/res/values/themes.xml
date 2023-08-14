@@ -65,6 +65,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="globalTagTextView" parent="categoryTagTextView">
+        <item name="android:textColor">@color/md_theme_light_secondary</item>
+    </style>
+
     <style name="mainRecyclerViewTitleTextView" parent="textViewOnSurface">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>

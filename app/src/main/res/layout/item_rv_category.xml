@@ -18,29 +18,41 @@
             android:backgroundTint="@color/md_theme_light_primaryContainer">
             <ImageView
                 android:id="@+id/categoryTagImageView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/evergreen_icon"
                 app:tint="@color/md_theme_light_primary"/>
             <TextView
                 android:id="@+id/categoryTagTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Evergreen"
                 style="@style/categoryTagTextView"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="22dp"/>
         </RelativeLayout>
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/globalTagLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:background="@drawable/category_tag_background"
             android:backgroundTint="@color/md_theme_light_secondaryContainer">
-
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/globalTagImageView"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                app:tint="@color/md_theme_light_secondary"/>
+            <TextView
+                android:id="@+id/globalTagTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                style="@style/globalTagTextView"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="22dp"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

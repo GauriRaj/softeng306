@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Plantoid</string>
     <string name="searchBarPrompt">Search for anything…</string>
+    <!-- Global Category Tags -->
+    <string name="tagBestSeller">Best Seller</string>
+    <string name="tagNewIn">New In</string>
+    <!-- Plant Category Tags -->
+    <string name="tagEvergreen">Evergreen</string>
+    <string name="tagDeciduous">Deciduous</string>
+    <string name="tagFlowering">Flowering</string>
+    <string name="tagFruit">Fruit</string>
+    <string name="tagVegetable">Vegetable</string>
+    <string name="tagHerb">Herb</string>
+    <string name="tagSucculent">Succulent</string>
+    <!-- Pots and Planters Category Tags -->
+    <string name="tagSmallPot">Small</string>
+    <string name="tagMediumPot">Medium</string>
+    <string name="tagLargePot">Large</string>
 </resources>
