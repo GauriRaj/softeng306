@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
                         android:text="email" />
 
                     <TextView
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="text"
+                        android:inputType="phone"
                         android:text="phone" />
 
                     <Button
