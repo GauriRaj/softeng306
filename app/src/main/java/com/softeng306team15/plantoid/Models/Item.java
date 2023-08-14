@@ -19,6 +19,8 @@ public abstract class Item implements IItem{
         return id;
     }
 
+    public void setId(String id){ this.id = id;}
+
     public String getCategory(){
         return category;
     }
@@ -41,12 +43,20 @@ public abstract class Item implements IItem{
         throw new RuntimeException(this.getClass().getSimpleName() + " doesn't have this method");
     }
 
+    public void setImages(List<String> images){
+        this.images = images;
+    }
+
     public String getKeyPic(){
         return images.get(0);
     }
 
     public List<String> getTags(){
         return tags;
+    }
+
+    public void setTags(List<String> tags){
+        this.tags = tags;
     }
 
     public boolean isBestSeller(){
