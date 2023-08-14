@@ -60,8 +60,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         public CategoryViewHolder(View currentItemView){
             super(currentItemView);
-            bestSellerImageView = currentItemView.findViewById(R.id.best_seller_image_view);
-            newItemImageView = currentItemView.findViewById(R.id.new_item_image_view);
+            //bestSellerImageView = currentItemView.findViewById(R.id.best_seller_image_view);
+            //newItemImageView = currentItemView.findViewById(R.id.new_item_image_view);
         }
 
     }
@@ -72,7 +72,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private PlantAndTreeViewHolder(View currentItemView){
             super(currentItemView);
-            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
+            //subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
         }
 
     }
@@ -84,8 +84,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private SeedAndSeedlingViewHolder(View currentItemView){
             super(currentItemView);
-            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
-            seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_seedling_tag_image_view);
+            //subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
+            //seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_seedling_tag_image_view);
         }
     }
 
@@ -94,7 +94,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private PotAndPlanterViewHolder(View currentItemView){
             super(currentItemView);
-            sizeTagTextView = currentItemView.findViewById(R.id.size_tag_text_view);
+            //sizeTagTextView = currentItemView.findViewById(R.id.size_tag_text_view);
         }
     }
 

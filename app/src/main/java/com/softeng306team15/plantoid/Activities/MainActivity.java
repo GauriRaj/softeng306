@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         vh = new ViewHolder();
         setUserDisplay("1");
+        fetchItemData();
 
         vh.seedsCardView.setOnClickListener(this::goSeeds);
 
@@ -112,6 +113,98 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void fetchItemData(){
+
+        List<IItem> itemList = new LinkedList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot results = task.getResult();
+                    for(QueryDocumentSnapshot itemDoc: results){
+                        IItem item = itemDoc.toObject(MainItem.class);
+                        item.setId(itemDoc.getId());
+                        itemList.add(item);
+                    }
+                    if (itemList.size() > 0) {
+                        // Once the task is successful and data is fetched, propagate the adaptor
+                        getItemSubCollections(itemList);
+
+                    } else {
+                        Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    Toast.makeText(getBaseContext(), "Loading items collection failed from Firestore!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    private void getItemSubCollections(List<IItem> data){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        List<IItem> bestSellerItems = new LinkedList<>();
+        List<IItem> newItems = new LinkedList<>();
+
+        for(IItem item: data){
+            db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot results = task.getResult();
+                        List<String> images = new ArrayList<>();
+                        for(QueryDocumentSnapshot imageDoc: results){
+                            images.add((String) imageDoc.get("image"));
+                        }
+                        item.setImages(images);
+                        if(item == data.get(data.size()-1)){
+                            propagateAdaptor(bestSellerItems, vh.recyclerView_main_1);
+                            propagateAdaptor(newItems, vh.recyclerView_main_2);
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                        Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            db.collection("items/"+item.getId()+"/tags").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot results = task.getResult();
+                        List<String> tags = new ArrayList<>();
+                        for(QueryDocumentSnapshot imageDoc: results){
+                            tags.add((String) imageDoc.get("tagName"));
+                        }
+                        item.setTags(tags);
+                        if(item.isBestSeller()){
+                            bestSellerItems.add(item);
+                        }
+                        if(item.isNewItem()){
+                            newItems.add(item);
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                        Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+
+//        propagateAdaptor(data);
+    }
+    private void propagateAdaptor(List<IItem> data, RecyclerView recyclerView) {
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main);
+        recyclerView.setAdapter(itemAdapter);
+        LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(lm);
     }
 
     // Categories
