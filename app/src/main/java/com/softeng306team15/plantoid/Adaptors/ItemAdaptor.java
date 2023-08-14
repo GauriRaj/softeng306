@@ -33,59 +33,59 @@ public class ItemAdaptor extends ArrayAdapter {
         ImageView itemKeyImageView;
 
         public ViewHolder(View currentItemView){
-            itemNameTextView = currentItemView.findViewById(R.id.item_name_text_view);
-            itemPriceTextView = currentItemView.findViewById(R.id.item_price_text_view);
-            itemKeyImageView = currentItemView.findViewById(R.id.item_key_image_view);
+            itemNameTextView = currentItemView.findViewById(R.id.title_textView);
+            itemPriceTextView = currentItemView.findViewById(R.id.price_textView);
+            itemKeyImageView = currentItemView.findViewById(R.id.key_imageView);
         }
 
     }
 
-    private class CategoryViewHolder extends ViewHolder{
-        /*
-        This View Holder is used as a basis for category items, Plant Care and Decor uses this directly
-         */
-        ImageView bestSellerImageView;
-        ImageView newItemImageView;
+//    private class CategoryViewHolder extends ViewHolder{
+//        /*
+//        This View Holder is used as a basis for category items, Plant Care and Decor uses this directly
+//         */
+//        ImageView bestSellerImageView;
+//        ImageView newItemImageView;
+//
+//        public CategoryViewHolder(View currentItemView){
+//            super(currentItemView);
+//            bestSellerImageView = currentItemView.findViewById(R.id.best_seller_image_view);
+//            newItemImageView = currentItemView.findViewById(R.id.new_item_image_view);
+//        }
+//
+//    }
 
-        public CategoryViewHolder(View currentItemView){
-            super(currentItemView);
-            bestSellerImageView = currentItemView.findViewById(R.id.best_seller_image_view);
-            newItemImageView = currentItemView.findViewById(R.id.new_item_image_view);
-        }
+//    private class PlantAndTreeViewHolder extends CategoryViewHolder{
 
-    }
-
-    private class PlantAndTreeViewHolder extends CategoryViewHolder{
-
-        TextView subCategoryTextView;
-
-        private PlantAndTreeViewHolder(View currentItemView){
-            super(currentItemView);
-            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
-        }
-
-    }
-
-    private class SeedAndSeedlingViewHolder extends CategoryViewHolder{
-
-        TextView subCategoryTextView;
-        ImageView seedSeedlingTagImageView;
-
-        private SeedAndSeedlingViewHolder(View currentItemView){
-            super(currentItemView);
-            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
-            seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_seedling_tag_image_view);
-        }
-    }
-
-    private class PotAndPlanterViewHolder extends CategoryViewHolder{
-        TextView sizeTagTextView;
-
-        private PotAndPlanterViewHolder(View currentItemView){
-            super(currentItemView);
-            sizeTagTextView = currentItemView.findViewById(R.id.size_tag_text_view);
-        }
-    }
+//        TextView subCategoryTextView;
+//
+//        private PlantAndTreeViewHolder(View currentItemView){
+//            super(currentItemView);
+//            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
+//        }
+//
+//    }
+//
+//    private class SeedAndSeedlingViewHolder extends CategoryViewHolder{
+//
+//        TextView subCategoryTextView;
+//        ImageView seedSeedlingTagImageView;
+//
+//        private SeedAndSeedlingViewHolder(View currentItemView){
+//            super(currentItemView);
+//            subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
+//            seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_seedling_tag_image_view);
+//        }
+//    }
+//
+//    private class PotAndPlanterViewHolder extends CategoryViewHolder{
+//        TextView sizeTagTextView;
+//
+//        private PotAndPlanterViewHolder(View currentItemView){
+//            super(currentItemView);
+//            sizeTagTextView = currentItemView.findViewById(R.id.size_tag_text_view);
+//        }
+//    }
 
     int layoutId;
     Context context;
@@ -113,14 +113,14 @@ public class ItemAdaptor extends ArrayAdapter {
 
         if(currentItem.getClass() == MainItem.class){
             return populateMainItem(currentItem, currentListViewItem);
-        } else if(currentItem.getClass() == PlantTreeItem.class){
-            return populatePlantTreeItem(currentItem, currentListViewItem);
-        } else if (currentItem.getClass() == SeedSeedlingItem.class) {
-            return populateSeedSeedlingItem(currentItem, currentListViewItem);
-        } else if (currentItem.getClass() == PotPlanterItem.class) {
-            return populatePotPlanterItem(currentItem, currentListViewItem);
-        } else if (currentItem.getClass() == PlantCareDecorItem.class) {
-            return populatePlantCareDecorItem(currentItem, currentListViewItem);
+//        } else if(currentItem.getClass() == PlantTreeItem.class){
+//            return populatePlantTreeItem(currentItem, currentListViewItem);
+//        } else if (currentItem.getClass() == SeedSeedlingItem.class) {
+//            return populateSeedSeedlingItem(currentItem, currentListViewItem);
+//        } else if (currentItem.getClass() == PotPlanterItem.class) {
+//            return populatePotPlanterItem(currentItem, currentListViewItem);
+//        } else if (currentItem.getClass() == PlantCareDecorItem.class) {
+//            return populatePlantCareDecorItem(currentItem, currentListViewItem);
         } else{
             return null;
         }
@@ -145,112 +145,112 @@ public class ItemAdaptor extends ArrayAdapter {
         
     }
 
-    private View populatePlantTreeItem(IItem currentItem, View currentListViewItem) {
-        PlantAndTreeViewHolder vh = new PlantAndTreeViewHolder(currentListViewItem);
-
-        vh.itemNameTextView.setText(currentItem.getItemName());
-        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
-        vh.subCategoryTextView.setText(currentItem.getPlantSubTag());
-
-        if(currentItem.isBestSeller()){
-            vh.bestSellerImageView.setVisibility(View.VISIBLE);
-        }
-        if(currentItem.isNewItem()){
-            vh.newItemImageView.setVisibility(View.VISIBLE);
-        }
-
-        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
-
-        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //functionality to open appropriate detailed view
-            }
-        });
-
-        return  currentListViewItem;
-    }
-
-    private View populateSeedSeedlingItem(IItem currentItem, View currentListViewItem) {
-        SeedAndSeedlingViewHolder vh = new SeedAndSeedlingViewHolder(currentListViewItem);
-
-        vh.itemNameTextView.setText(currentItem.getItemName());
-        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
-        vh.subCategoryTextView.setText(currentItem.getPlantSubTag());
-        
-        if(currentItem.getSeedSubTag().equals("Seed")){
-            //set image view with seed tag image
-        } else if (currentItem.getSeedSubTag().equals("Seedling")) {
-            //set image view with seedling tag image
-        }
-
-        if(currentItem.isBestSeller()){
-            vh.bestSellerImageView.setVisibility(View.VISIBLE);
-        }
-        if(currentItem.isNewItem()){
-            vh.newItemImageView.setVisibility(View.VISIBLE);
-        }
-
-        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
-
-        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //functionality to open appropriate detailed view
-            }
-        });
-
-        return  currentListViewItem;
-    }
-
-    private View populatePotPlanterItem(IItem currentItem, View currentListViewItem) {
-        PotAndPlanterViewHolder vh = new PotAndPlanterViewHolder(currentListViewItem);
-
-        vh.itemNameTextView.setText(currentItem.getItemName());
-        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
-        vh.sizeTagTextView.setText(currentItem.getSize());
-
-        if(currentItem.isBestSeller()){
-            vh.bestSellerImageView.setVisibility(View.VISIBLE);
-        }
-        if(currentItem.isNewItem()){
-            vh.newItemImageView.setVisibility(View.VISIBLE);
-        }
-
-        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
-
-        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //functionality to open appropriate detailed view
-            }
-        });
-
-        return  currentListViewItem;
-    }
-
-    private View populatePlantCareDecorItem(IItem currentItem, View currentListViewItem) {
-        CategoryViewHolder vh = new CategoryViewHolder(currentListViewItem);
-
-        vh.itemNameTextView.setText(currentItem.getItemName());
-        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
-
-        if(currentItem.isBestSeller()){
-            vh.bestSellerImageView.setVisibility(View.VISIBLE);
-        }
-        if(currentItem.isNewItem()){
-            vh.newItemImageView.setVisibility(View.VISIBLE);
-        }
-
-        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
-
-        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //functionality to open appropriate detailed view
-            }
-        });
-
-        return  currentListViewItem;
-    }
+//    private View populatePlantTreeItem(IItem currentItem, View currentListViewItem) {
+//        PlantAndTreeViewHolder vh = new PlantAndTreeViewHolder(currentListViewItem);
+//
+//        vh.itemNameTextView.setText(currentItem.getItemName());
+//        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
+//        vh.subCategoryTextView.setText(currentItem.getPlantSubTag());
+//
+//        if(currentItem.isBestSeller()){
+//            vh.bestSellerImageView.setVisibility(View.VISIBLE);
+//        }
+//        if(currentItem.isNewItem()){
+//            vh.newItemImageView.setVisibility(View.VISIBLE);
+//        }
+//
+//        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
+//
+//        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //functionality to open appropriate detailed view
+//            }
+//        });
+//
+//        return  currentListViewItem;
+//    }
+//
+//    private View populateSeedSeedlingItem(IItem currentItem, View currentListViewItem) {
+//        SeedAndSeedlingViewHolder vh = new SeedAndSeedlingViewHolder(currentListViewItem);
+//
+//        vh.itemNameTextView.setText(currentItem.getItemName());
+//        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
+//        vh.subCategoryTextView.setText(currentItem.getPlantSubTag());
+//
+//        if(currentItem.getSeedSubTag().equals("Seed")){
+//            //set image view with seed tag image
+//        } else if (currentItem.getSeedSubTag().equals("Seedling")) {
+//            //set image view with seedling tag image
+//        }
+//
+//        if(currentItem.isBestSeller()){
+//            vh.bestSellerImageView.setVisibility(View.VISIBLE);
+//        }
+//        if(currentItem.isNewItem()){
+//            vh.newItemImageView.setVisibility(View.VISIBLE);
+//        }
+//
+//        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
+//
+//        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //functionality to open appropriate detailed view
+//            }
+//        });
+//
+//        return  currentListViewItem;
+//    }
+//
+//    private View populatePotPlanterItem(IItem currentItem, View currentListViewItem) {
+//        PotAndPlanterViewHolder vh = new PotAndPlanterViewHolder(currentListViewItem);
+//
+//        vh.itemNameTextView.setText(currentItem.getItemName());
+//        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
+//        vh.sizeTagTextView.setText(currentItem.getSize());
+//
+//        if(currentItem.isBestSeller()){
+//            vh.bestSellerImageView.setVisibility(View.VISIBLE);
+//        }
+//        if(currentItem.isNewItem()){
+//            vh.newItemImageView.setVisibility(View.VISIBLE);
+//        }
+//
+//        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
+//
+//        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //functionality to open appropriate detailed view
+//            }
+//        });
+//
+//        return  currentListViewItem;
+//    }
+//
+//    private View populatePlantCareDecorItem(IItem currentItem, View currentListViewItem) {
+//        CategoryViewHolder vh = new CategoryViewHolder(currentListViewItem);
+//
+//        vh.itemNameTextView.setText(currentItem.getItemName());
+//        vh.itemPriceTextView.setText("$"+currentItem.getItemPrice());
+//
+//        if(currentItem.isBestSeller()){
+//            vh.bestSellerImageView.setVisibility(View.VISIBLE);
+//        }
+//        if(currentItem.isNewItem()){
+//            vh.newItemImageView.setVisibility(View.VISIBLE);
+//        }
+//
+//        Picasso.get().load(currentItem.getKeyPic()).into(vh.itemKeyImageView);
+//
+//        vh.itemKeyImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //functionality to open appropriate detailed view
+//            }
+//        });
+//
+//        return  currentListViewItem;
+//    }
 }
