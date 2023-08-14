@@ -202,48 +202,18 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:paddingHorizontal="15dp"
-                        android:text="Billing Address"
+                        android:text="Address"
                         android:textAlignment="textStart" />
 
                     <TextView
-                        android:id="@+id/textBillAddress"
+                        android:id="@+id/textAddress"
                         style="@style/textViewOnSurface"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="bill address"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="15dp"
-                        android:text="Shipping Address"
-                        android:textAlignment="textStart" />
-
-                    <TextView
-                        android:id="@+id/textShipAddress"
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:text="ship address"
+                        android:text="address"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 
