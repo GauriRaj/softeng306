@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +24,16 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
+import com.softeng306team15.plantoid.Models.IItem;
+import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.R;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout discoverButton, wishlistButton, profileButton;
         SearchView searchBar;
         TextView usernameText;
+
+        RecyclerView recyclerView_main_1, recyclerView_main_2,recyclerView_main_3;
 
         public ViewHolder() {
 
@@ -45,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             searchBar = findViewById(R.id.searchView);
 
             usernameText = findViewById(R.id.banner_welcome_text);
+            recyclerView_main_1 = findViewById(R.id.recyclerView_main_1);
+            recyclerView_main_2 = findViewById(R.id.recyclerView_main_2);
+            recyclerView_main_3 = findViewById(R.id.recyclerView_main_3);
 
         }
     }

@@ -6,6 +6,8 @@ public interface IItem {
 
     public String getId();
 
+    public void setId(String id);
+
     public String getCategory();
 
     public String getItemDesc();
@@ -16,9 +18,13 @@ public interface IItem {
 
     public List<String> getImages();
 
+    public void setImages(List<String> images);
+
     public String getKeyPic();
 
     public List<String> getTags();
+
+    public void setTags(List<String> tags);
 
     public boolean isBestSeller();
 
