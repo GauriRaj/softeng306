@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Plantoid"
         tools:targetApi="31">
+        <activity android:name=".Activities.LogInActivity"/>
         <activity
             android:name=".Activities.MainActivity"
             android:exported="true">
