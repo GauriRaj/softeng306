@@ -7,7 +7,7 @@
     android:background="?attr/backgroundColor"
     android:orientation="vertical"
     android:theme="@style/Theme.Plantoid"
-    tools:context=".Activities.MainActivity">
+    tools:context=".Activities.ProfileActivity">
 
     <!-- Top bar with logo, user welcome and search bar -->
 
