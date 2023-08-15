@@ -42,13 +42,13 @@
             android:backgroundTint="@color/md_theme_light_secondaryContainer"
             android:visibility="invisible">
             <ImageView
-                android:id="@+id/globalTagImageView"
+                android:id="@+id/global_tag_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginTop="5dp"
                 app:tint="@color/md_theme_light_secondary"/>
             <TextView
-                android:id="@+id/globalTagTextView"
+                android:id="@+id/global_tag_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"

@@ -66,8 +66,9 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         public CategoryViewHolder(View currentItemView){
             super(currentItemView);
-            //bestSellerImageView = currentItemView.findViewById(R.id.best_seller_image_view);
-            //newItemImageView = currentItemView.findViewById(R.id.new_item_image_view);
+            globalTagLayout = currentItemView.findViewById(R.id.global_tag_layout);
+            globalTagImageView = currentItemView.findViewById(R.id.global_tag_imageView);
+            globalTagLayout = currentItemView.findViewById(R.id.global_tag_textView);
         }
 
     }
@@ -79,7 +80,9 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private PlantAndTreeViewHolder(View currentItemView){
             super(currentItemView);
-            //subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
+            subCategoryLayout = currentItemView.findViewById(R.id.category_tag_layout);
+            subCategoryImageView = currentItemView.findViewById(R.id.category_tag_imageView);
+            subCategoryTextView = currentItemView.findViewById(R.id.category_tag_textView);
         }
 
     }
@@ -94,8 +97,12 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private SeedAndSeedlingViewHolder(View currentItemView){
             super(currentItemView);
-            //subCategoryTextView = currentItemView.findViewById(R.id.plant_sub_tag_text_view);
-            //seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_seedling_tag_image_view);
+            subCategoryLayout = currentItemView.findViewById(R.id.category_tag_layout);
+            subCategoryImageView = currentItemView.findViewById(R.id.category_tag_imageView);
+            subCategoryTextView = currentItemView.findViewById(R.id.category_tag_textView);
+            seedSeedlingTagLayout = currentItemView.findViewById(R.id.seed_tag_layout);
+            seedSeedlingTagImageView = currentItemView.findViewById(R.id.seed_tag_imageView);
+            seedSeedlingTagTextView = currentItemView.findViewById(R.id.seed_tag_textView);
         }
     }
 
@@ -106,7 +113,9 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         private PotAndPlanterViewHolder(View currentItemView){
             super(currentItemView);
-            //sizeTagTextView = currentItemView.findViewById(R.id.size_tag_text_view);
+            sizeTagLayout = currentItemView.findViewById(R.id.category_tag_layout);
+            sizeTagImageView = currentItemView.findViewById(R.id.category_tag_imageView);
+            sizeTagTextView = currentItemView.findViewById(R.id.category_tag_textView);
         }
     }
 
@@ -282,15 +291,15 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
             ((PotAndPlanterViewHolder) vh).sizeTagLayout.setVisibility(View.VISIBLE);
             String size = currentItem.getSize();
             switch (size){
-                case "Small":
+                case "S":
                     ((PotAndPlanterViewHolder) vh).sizeTagImageView.setImageResource(R.drawable.icon_small_pot);
                     ((PotAndPlanterViewHolder) vh).sizeTagTextView.setText(R.string.tag_smallPot);
                     break;
-                case "Medium":
+                case "M":
                     ((PotAndPlanterViewHolder) vh).sizeTagImageView.setImageResource(R.drawable.icon_medium_pot);
                     ((PotAndPlanterViewHolder) vh).sizeTagTextView.setText(R.string.tag_mediumPot);
                     break;
-                case "Large":
+                case "L":
                     ((PotAndPlanterViewHolder) vh).sizeTagImageView.setImageResource(R.drawable.icon_large_pot);
                     ((PotAndPlanterViewHolder) vh).sizeTagTextView.setText(R.string.tag_largePot);
                     break;
