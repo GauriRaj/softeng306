@@ -65,6 +65,15 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="categoryTagTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_primary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="globalTagTextView" parent="categoryTagTextView">
+        <item name="android:textColor">@color/md_theme_light_secondary</item>
+    </style>
+
     <!-- Only for branding text -->
     <style name="plantoidLogoText" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/rancho</item>
