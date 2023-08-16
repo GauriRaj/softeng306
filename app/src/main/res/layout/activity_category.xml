@@ -19,6 +19,7 @@
         android:paddingBottom="5dp">
 
         <TextView
+            android:id="@+id/category_title_textView"
             style="@style/textViewOnPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
