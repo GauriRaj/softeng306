@@ -56,6 +56,10 @@
         <item name="android:textColor">@color/md_theme_light_onSurface</item>
     </style>
 
+    <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+    </style>
+
     <style name="categoryTextView" parent="textViewOnSurface">
         <item name="android:textSize">12sp</item>
     </style>
