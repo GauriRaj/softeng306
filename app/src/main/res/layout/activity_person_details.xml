@@ -237,7 +237,7 @@
                         android:text="New Phone Number" />
 
                     <EditText
-                        android:id="@+id/editPhonr"
+                        android:id="@+id/editPhoneNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
