@@ -28,7 +28,6 @@ public interface IUser {
 
     public String getEmail();
 
-    public String getCardNo();
 
     public String getAddress();
 
@@ -51,6 +50,19 @@ public interface IUser {
     public void incrementCategoryHit(String category);
 
     public void incrementPriceRangeHit(String priceRange);
+
+    public void updateUserName(String newUserName);
+
+    public void updateUserImage(String newUserImage);
+
+    public void updatePassword(String newPassword);
+
+    public void updatePhoneNumber(String newPhoneNumber);
+
+    public void updateEmail(String newEmail);
+
+    public void updateAddress(String newAddress);
+
 
     public void createNewUserDocument();
 

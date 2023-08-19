@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class User implements IUser{
 
-    String id, userName, userImage, phoneNumber, password, email, cardNo, address;
+    String id, userName, userImage, phoneNumber, password, email, address;
 
 
     Map<String, Integer> categoryHits, priceRangeHits;
@@ -53,10 +53,6 @@ public class User implements IUser{
 
     public String getEmail() {
         return this.email;
-    }
-
-    public String getCardNo() {
-        return this.cardNo;
     }
 
     public String getAddress() {
@@ -153,7 +149,6 @@ public class User implements IUser{
     }
 
     @Exclude
-    @Override
     public String getTopCategory() {
         int bestHits = 0;
         String topCat = plantsAndTrees;
@@ -170,7 +165,6 @@ public class User implements IUser{
     }
 
     @Exclude
-    @Override
     public String getTopPriceRange() {
         int bestHits = 0;
         String topPriceRange = price50plus;
@@ -186,28 +180,91 @@ public class User implements IUser{
         return  topPriceRange;
     }
 
-    @Override
     public void incrementCategoryHit(String category) {
         int hit = categoryHits.get(category);
         categoryHits.replace(category, hit+1);
     }
 
-    @Override
     public void incrementPriceRangeHit(String priceRange) {
         int hit = priceRangeHits.get(priceRange);
         priceRangeHits.replace(priceRange, hit+1);
     }
 
+    public void updateUserName(String newUserName) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("userName", newUserName).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                userName = newUserName;
+            } else {
+                Log.d(TAG, "failed to update username");
+            }
+        });
+    }
+
+    public void updateUserImage(String newUserImage) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("userImage", newUserImage).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                userImage = newUserImage;
+            } else {
+                Log.d(TAG, "failed to update user image");
+            }
+        });
+    }
+
+    public void updatePassword(String newPassword) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("password", newPassword).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                password = newPassword;
+            } else {
+                Log.d(TAG, "failed to update password");
+            }
+        });
+    }
+
+    public void updatePhoneNumber(String newPhoneNumber) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("phoneNumber", newPhoneNumber).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                phoneNumber = newPhoneNumber;
+            } else {
+                Log.d(TAG, "failed to update phone number");
+            }
+        });
+    }
+
+    public void updateEmail(String newEmail) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("email", newEmail).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                email = newEmail;
+            } else {
+                Log.d(TAG, "failed to update email");
+            }
+        });
+    }
+
+    public void updateAddress(String newAddress) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("address", newAddress).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                address = newAddress;
+            } else {
+                Log.d(TAG, "failed to update address");
+            }
+        });
+    }
+
     public User(){}
 
-    public User(String userName, String userImage, String phoneNumber, String password, String email, String address, String cardNo){
+    public User(String userName, String email, String password, String phoneNumber){
         this.userName = userName;
-        this.userImage = userImage;
-        this.phoneNumber = phoneNumber;
         this.password = password;
+        this.userImage = "default image";
+        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.address = address;
-        this.cardNo = cardNo;
+        this.address = "";
 
         this.categoryHits = new HashMap<>();
         categoryHits.put(plantsAndTrees, 0);
