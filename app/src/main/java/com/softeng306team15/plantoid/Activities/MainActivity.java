@@ -28,7 +28,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
 import com.softeng306team15.plantoid.Models.IItem;
+import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
+import com.softeng306team15.plantoid.Models.User;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;
@@ -71,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //get intent to get userID
+        String userId = "1";
         setContentView(R.layout.activity_main);
 
         vh = new ViewHolder();
-        setUserDisplay("1");
+        setUserDisplay(userId);
         fetchItemData();
 
         vh.seedsCardView.setOnClickListener(this::goSeeds);
@@ -100,9 +104,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot userData = task.getResult();
-                    if (userData.exists()) {
-                        String message = "Welcome,\n" + userData.get("userName");
+                    DocumentSnapshot userDoc = task.getResult();
+                    if (userDoc.exists()) {
+                        IUser user = userDoc.toObject(User.class);
+                        String message = "Welcome,\n" + user.getUserName();
                         vh.usernameText.setText(message);
                     } else {
                         Log.d(TAG, "No such document");

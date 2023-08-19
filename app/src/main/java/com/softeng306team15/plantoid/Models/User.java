@@ -18,6 +18,8 @@ import java.util.Map;
 public class User implements IUser{
 
     String id, userName, userImage, phoneNumber, password, email, cardNo, address;
+
+    
     Map<String, Integer> categoryHits, priceRangeHits;
 
     @Exclude
