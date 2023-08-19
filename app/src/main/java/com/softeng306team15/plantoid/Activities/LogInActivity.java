@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,6 @@ public class LogInActivity extends AppCompatActivity {
     private class ViewHolder {
         EditText enterUsername, enterPassword;
         Button btnSignIn, btnCreateAccount;
-        LinearLayout discoverButton, wishlistButton, profileButton;
 
         public ViewHolder() {
 
@@ -33,10 +31,6 @@ public class LogInActivity extends AppCompatActivity {
 
             btnSignIn = findViewById(R.id.btnSignIn);
             btnCreateAccount = findViewById(R.id.btnNewAccount);
-
-            discoverButton = findViewById(R.id.discover_navbar_button);
-            wishlistButton = findViewById(R.id.wishlist_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
         }
     }
 
@@ -50,6 +44,7 @@ public class LogInActivity extends AppCompatActivity {
         vh = new ViewHolder();
 
         vh.btnSignIn.setOnClickListener(this::onSignIn);
+        vh.btnCreateAccount.setOnClickListener(this::goCreateAccount);
 
     }
 
@@ -79,6 +74,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void goCreateAccount(View v) {
-
+        Intent createIntent = new Intent(getBaseContext(), CreateAccountActivity.class);
+        startActivity(createIntent);
     }
 }
