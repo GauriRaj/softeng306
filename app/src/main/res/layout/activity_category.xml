@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.MainActivity"
     android:background="?attr/backgroundColor">
 
     <!-- Top bar with logo, user welcome and search bar -->
