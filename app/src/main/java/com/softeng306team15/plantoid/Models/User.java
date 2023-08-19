@@ -85,9 +85,12 @@ public class User implements IUser{
 
     public void addToWishlist(String newItemId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         Log.d(TAG, "adding to wishlist");
         Map<String, String> newItem = new HashMap<>();
         newItem.put("itemId", newItemId);
+
+        //adding new wishlist item to firestore database
         db.collection("users").document(id).collection("wishlist").add(newItem)
                 .addOnSuccessListener((OnSuccessListener) o -> {
                     Log.d(TAG, "Successfully added item to wishlist");
@@ -99,6 +102,8 @@ public class User implements IUser{
 
     public void removeFromWishlist(String itemId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //get the wishlist item that is to be deleted from firestore
         db.collection("users").document(id).collection("wishlist")
                 .whereEqualTo("itemId", itemId)
                 .get()
@@ -107,6 +112,7 @@ public class User implements IUser{
                         QuerySnapshot results = task.getResult();
                         for(QueryDocumentSnapshot wishlistDoc: results){
                             String wishlistDocId = wishlistDoc.getId();
+                            //remove the document from wishlist in firestore
                             db.collection("users").document(id)
                                     .collection("wishlist").document(wishlistDocId)
                                     .delete().addOnSuccessListener((OnSuccessListener) o -> {
@@ -122,6 +128,11 @@ public class User implements IUser{
     }
 
 
+    /**
+     * Loads user's wishlist from firestore. Method needed for wishlist reloading after adding or
+     * deleting item. As wishlist is stored in a subcollection this method is also needed as
+     * firestore will not load the wishlist data when loading user data.
+     */
     private void loadWishlist(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -212,6 +223,9 @@ public class User implements IUser{
         priceRangeHits.put(price50plus, 0);
     }
 
+    /**
+     * Creates user in the firestore database
+     */
     public void createNewUserDocument(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
