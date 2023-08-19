@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/Theme.Plantoid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical"
-    tools:context=".Activities.LoginActivity"
-    android:background="?attr/backgroundColor">
+    android:theme="@style/Theme.Plantoid"
+    tools:context=".Activities.LoginActivity">
 
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
@@ -59,6 +59,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Log in"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/textError"
+                        style="@style/textViewOnSurface"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:textAlignment="center" />
 
                     <TextView

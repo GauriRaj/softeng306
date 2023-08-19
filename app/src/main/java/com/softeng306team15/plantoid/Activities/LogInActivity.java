@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ public class LogInActivity extends AppCompatActivity {
         EditText enterUsername, enterPassword;
         Button btnSignIn, btnCreateAccount;
 
+        TextView textLoginError;
+
         public ViewHolder() {
 
             enterUsername = findViewById(R.id.editTextUsername);
@@ -31,6 +34,8 @@ public class LogInActivity extends AppCompatActivity {
 
             btnSignIn = findViewById(R.id.btnSignIn);
             btnCreateAccount = findViewById(R.id.btnNewAccount);
+
+            textLoginError = findViewById(R.id.textError);
         }
     }
 
@@ -66,6 +71,10 @@ public class LogInActivity extends AppCompatActivity {
                                 mainIntent.putExtra("User", document.getId());
                                 startActivity(mainIntent);
                             }
+                            // The above loop will not run if no users are found matching the results
+                            vh.textLoginError.setText("Username or password is incorrect");
+                            vh.enterUsername.setText("");
+                            vh.enterPassword.setText("");
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
