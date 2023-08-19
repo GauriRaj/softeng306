@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    String userTopCategory, userTopPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                         String message = "Welcome,\n" + user.getUserName();
                         user.setId(userDoc.getId());
                         vh.usernameText.setText(message);
+                        userTopCategory = user.getTopCategory();
+                        userTopPrice = user.getTopPriceRange();
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         itemList.add(item);
                     }
                     if (itemList.size() > 0) {
-                        // Once the task is successful and data is fetched, propagate the adaptor
+                        // Once the task is successful and data is fetched, get the tag and image data
                         getItemSubCollections(itemList);
 
                     } else {
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         item.setImages(images);
                         if(item == data.get(data.size()-1)){
+                            //propagate to adaptors to fill the recycler views
                             propagateAdaptor(bestSellerItems, vh.recyclerView_main_1);
                             propagateAdaptor(newItems, vh.recyclerView_main_2);
                         }
