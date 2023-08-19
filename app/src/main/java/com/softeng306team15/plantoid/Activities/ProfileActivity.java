@@ -117,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(settingsIntent);
     }
     public void goLogOut(View v) {
-        //Intent logOutIntent = new Intent(getBaseContext(), CustomiseProfileActivity.class);
-        //startActivity(logOutIntent);
+        Intent logOutIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(logOutIntent);
     }
     public void goDiscover(View v, String userId) {
         Intent discoverIntent = new Intent(getBaseContext(), MainActivity.class);
