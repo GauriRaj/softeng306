@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,21 +19,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.softeng306team15.plantoid.Models.IUser;
+import com.softeng306team15.plantoid.Models.User;
 import com.softeng306team15.plantoid.R;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        TextView textUsername, textPassword, textEmail, textPhone, textCardNo, textAddr;
+        TextView textUsername, textPassword, textEmail, textPhone, textAddr;
         LinearLayout discoverButton, wishlistButton, profileButton;
         Button btnCustomiseProfile, btnSettings, btnLogOut;
+
+        ImageView profilePic;
 
         public ViewHolder() {
             textUsername = findViewById(R.id.textUsername);
             textPassword = findViewById(R.id.textPassword);
             textEmail = findViewById(R.id.textEmail);
             textPhone = findViewById(R.id.textPhone);
-            textCardNo = findViewById(R.id.textCardNo);
             textAddr = findViewById(R.id.textAddress);
 
             btnCustomiseProfile = findViewById(R.id.btnCustomise);
@@ -42,6 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
             profileButton = findViewById(R.id.profile_navbar_button);
+
+            profilePic = findViewById(R.id.imageProfile);
         }
     }
 
@@ -54,14 +61,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         vh = new ProfileActivity.ViewHolder();
 
+        String userId = getIntent().getStringExtra("User");
+
         vh.btnCustomiseProfile.setOnClickListener(this::goCustomise);
         vh.btnSettings.setOnClickListener(this::goSettings);
         vh.btnLogOut.setOnClickListener(this::goLogOut);
 
-        vh.discoverButton.setOnClickListener(this::goDiscover);
+        vh.discoverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goDiscover(view, userId);
+            }
+        });
+
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        setUserDisplay("1");
+        setUserDisplay(userId);
     }
 
     public void setUserDisplay(String id) {
@@ -75,12 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot userData = task.getResult();
                     if (userData.exists()) {
-                        vh.textUsername.setText((String) userData.get("userName"));
-                        vh.textPassword.setText((String) userData.get("password"));
-                        vh.textEmail.setText((String) userData.get("email"));
-                        vh.textPhone.setText((String) userData.get("phoneNumber"));
-                        vh.textCardNo.setText((String) userData.get("cardNo"));
-                        vh.textAddr.setText((String) userData.get("address"));
+                        IUser user = userData.toObject(User.class);
+                        vh.textUsername.setText((String) user.getUserName());
+                        vh.textEmail.setText((String) user.getEmail());
+                        vh.textPhone.setText((String) user.getPhoneNumber());
+                        vh.textAddr.setText((String) user.getAddress());
+                        Picasso.get().load(user.getUserImage()).into(vh.profilePic);
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -105,8 +120,9 @@ public class ProfileActivity extends AppCompatActivity {
         //Intent logOutIntent = new Intent(getBaseContext(), CustomiseProfileActivity.class);
         //startActivity(logOutIntent);
     }
-    public void goDiscover(View v) {
+    public void goDiscover(View v, String userId) {
         Intent discoverIntent = new Intent(getBaseContext(), MainActivity.class);
+        discoverIntent.putExtra("User", userId);
         startActivity(discoverIntent);
     }
     public void goWishlist(View v) {
