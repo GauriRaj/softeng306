@@ -10,6 +10,7 @@
     android:background="?attr/backgroundColor">
 
     <!-- Top bar with logo, user welcome and search bar -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -49,7 +50,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageProfilePic"
                         android:layout_width="237dp"
                         android:layout_height="172dp"
                         android:layout_weight="1"
@@ -106,25 +107,6 @@
                         android:inputType="text"
                         android:text="username" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password" />
-
-                    <EditText
-                        android:id="@+id/editUsernamePassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="password" />
-
-                    <Button
-                        android:id="@+id/btnUsername"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Change Username" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -145,19 +127,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Old Password" />
-
-                    <EditText
-                        android:id="@+id/editOldPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword" />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -187,11 +156,6 @@
                         android:inputType="text"
                         android:text="confirm" />
 
-                    <Button
-                        android:id="@+id/btnUpdatePassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Change Password" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -236,24 +200,6 @@
                         android:inputType="text"
                         android:text="email" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password" />
-
-                    <EditText
-                        android:id="@+id/editEmailPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="password" />
-
-                    <Button
-                        android:id="@+id/btnEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Change Email Address" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -298,24 +244,6 @@
                         android:inputType="text"
                         android:text="phone" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password" />
-
-                    <EditText
-                        android:id="@+id/editPhonePassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="password" />
-
-                    <Button
-                        android:id="@+id/btnPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Change Phone Number" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -333,13 +261,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Update Billing Address" />
+                        android:text="Update Address" />
 
                     <TextView
-                        android:id="@+id/textBillAddress"
+                        android:id="@+id/textAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="bill address" />
+                        android:text="address" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -350,34 +278,16 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="New Billing Address" />
+                        android:text="New Address" />
 
                     <EditText
-                        android:id="@+id/editBillAddress"
+                        android:id="@+id/editAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="bill address" />
+                        android:text="address" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password" />
-
-                    <EditText
-                        android:id="@+id/editBillAddressPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="password" />
-
-                    <Button
-                        android:id="@+id/btnBillAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Change Billing Address" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -386,6 +296,20 @@
     </ScrollView>
 
     <!-- TODO Navigation bar -->
+
+    <EditText
+        android:id="@+id/textPasswordConfirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnConfirmChanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Changes" />
+
     <LinearLayout
         android:baselineAligned="false"
         android:layout_width="match_parent"
