@@ -82,7 +82,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp">
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/seeds_category_card"
@@ -238,7 +240,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Recycler View 1"
+                android:text="Recommended For You"
+                android:paddingTop="15dp"
                 style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -250,7 +253,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Recycler View 2"
+                android:text="Best Seller"
+                android:paddingTop="15dp"
                 style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -263,7 +267,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Recycler View 3"
+                android:text="Newly In"
+                android:paddingTop="15dp"
                 style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView

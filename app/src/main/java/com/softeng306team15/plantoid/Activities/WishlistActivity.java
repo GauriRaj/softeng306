@@ -1,6 +1,9 @@
 package com.softeng306team15.plantoid.Activities;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
