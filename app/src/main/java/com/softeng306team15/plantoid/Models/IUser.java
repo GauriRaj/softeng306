@@ -52,4 +52,6 @@ public interface IUser {
 
     public void incrementPriceRangeHit(String priceRange);
 
+    public void createNewUserDocument();
+
 }

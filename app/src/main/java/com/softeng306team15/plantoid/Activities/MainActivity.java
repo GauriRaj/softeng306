@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     if (userDoc.exists()) {
                         IUser user = userDoc.toObject(User.class);
                         String message = "Welcome,\n" + user.getUserName();
+                        user.setId(userDoc.getId());
                         vh.usernameText.setText(message);
                     } else {
                         Log.d(TAG, "No such document");

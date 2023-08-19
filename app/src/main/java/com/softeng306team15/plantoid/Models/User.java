@@ -19,16 +19,18 @@ public class User implements IUser{
 
     String id, userName, userImage, phoneNumber, password, email, cardNo, address;
 
-    
+
     Map<String, Integer> categoryHits, priceRangeHits;
 
     @Exclude
     List<String> wishlist;
 
+    @Exclude
     public String getId(){
         return this.id;
     }
 
+    @Exclude
     public void setId(String id){
         this.id = id;
     }
@@ -83,10 +85,9 @@ public class User implements IUser{
 
     public void addToWishlist(String newItemId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+        Log.d(TAG, "adding to wishlist");
         Map<String, String> newItem = new HashMap<>();
         newItem.put("itemId", newItemId);
-
         db.collection("users").document(id).collection("wishlist").add(newItem)
                 .addOnSuccessListener((OnSuccessListener) o -> {
                     Log.d(TAG, "Successfully added item to wishlist");
@@ -97,9 +98,6 @@ public class User implements IUser{
     }
 
     public void removeFromWishlist(String itemId){
-        if (!wishlist.contains(itemId)){
-            return;
-        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(id).collection("wishlist")
                 .whereEqualTo("itemId", itemId)
@@ -112,7 +110,7 @@ public class User implements IUser{
                             db.collection("users").document(id)
                                     .collection("wishlist").document(wishlistDocId)
                                     .delete().addOnSuccessListener((OnSuccessListener) o -> {
-                                        Log.d(TAG, "Successfully added removed item from wishlist");
+                                        Log.d(TAG, "Successfully removed item from wishlist");
                                         loadWishlist();
                                     })
                                     .addOnFailureListener(e -> Log.d(TAG, "Failed removing item from wishlist"));
