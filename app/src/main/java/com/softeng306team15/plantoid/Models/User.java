@@ -3,14 +3,8 @@ package com.softeng306team15.plantoid.Models;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -88,23 +82,15 @@ public class User implements IUser{
     public void addToWishlist(String newItemId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Map<String, String> newItem = new HashMap<String, String>();
+        Map<String, String> newItem = new HashMap<>();
         newItem.put("itemId", newItemId);
 
         db.collection("users").document(id).collection("wishlist").add(newItem)
-                .addOnSuccessListener(new OnSuccessListener() {
-            @Override
-            public void onSuccess(Object o) {
-                Log.d(TAG, "Successfully added item to wishlist");
-                loadWishlist();
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Failed adding item to wishlist");
-            }
-        });
+                .addOnSuccessListener((OnSuccessListener) o -> {
+                    Log.d(TAG, "Successfully added item to wishlist");
+                    loadWishlist();
+                })
+                .addOnFailureListener(e -> Log.d(TAG, "Failed adding item to wishlist"));
 
     }
 
@@ -116,32 +102,21 @@ public class User implements IUser{
         db.collection("users").document(id).collection("wishlist")
                 .whereEqualTo("itemId", itemId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            QuerySnapshot results = task.getResult();
-                            for(QueryDocumentSnapshot wishlistDoc: results){
-                                String wishlistDocId = wishlistDoc.getId();
-                                db.collection("users").document(id)
-                                        .collection("wishlist").document(wishlistDocId)
-                                        .delete().addOnSuccessListener(new OnSuccessListener() {
-                                            @Override
-                                            public void onSuccess(Object o) {
-                                                Log.d(TAG, "Successfully added removed item from wishlist");
-                                                loadWishlist();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "Failed removing item from wishlist");
-                                            }
-                                        });
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot results = task.getResult();
+                        for(QueryDocumentSnapshot wishlistDoc: results){
+                            String wishlistDocId = wishlistDoc.getId();
+                            db.collection("users").document(id)
+                                    .collection("wishlist").document(wishlistDocId)
+                                    .delete().addOnSuccessListener((OnSuccessListener) o -> {
+                                        Log.d(TAG, "Successfully added removed item from wishlist");
+                                        loadWishlist();
+                                    })
+                                    .addOnFailureListener(e -> Log.d(TAG, "Failed removing item from wishlist"));
                         }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
                     }
                 });
     }
@@ -151,22 +126,19 @@ public class User implements IUser{
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users").document(id).collection("wishlist").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot results = task.getResult();
-                    List<String> updatedWishlist = new ArrayList<>();
-                    for(QueryDocumentSnapshot wishlistDoc: results){
-                        updatedWishlist.add((String) wishlistDoc.get("itemId"));
-                    }
-                    wishlist = updatedWishlist;
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot results = task.getResult();
+                        List<String> updatedWishlist = new ArrayList<>();
+                        for(QueryDocumentSnapshot wishlistDoc: results){
+                            updatedWishlist.add((String) wishlistDoc.get("itemId"));
+                        }
+                        wishlist = updatedWishlist;
 
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                });
     }
 
     @Exclude
@@ -226,13 +198,13 @@ public class User implements IUser{
         this.address = address;
         this.cardNo = cardNo;
 
-        this.categoryHits = new HashMap<String, Integer>();
+        this.categoryHits = new HashMap<>();
         categoryHits.put(plantsAndTrees, 0);
         categoryHits.put(potsAndPlanters, 0);
         categoryHits.put(seedsAndSeedlings, 0);
         categoryHits.put(plantCardAndDecor, 0);
 
-        this.priceRangeHits = new HashMap<String, Integer>();
+        this.priceRangeHits = new HashMap<>();
         priceRangeHits.put(price0To5, 0);
         priceRangeHits.put(price5To15, 0);
         priceRangeHits.put(price15To25, 0);
@@ -244,18 +216,8 @@ public class User implements IUser{
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users").add(this)
-                .addOnSuccessListener(new OnSuccessListener() {
-                    @Override
-                    public void onSuccess(Object o) {
-                        Log.d(TAG, "Successfully added user");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Failed adding user");
-                    }
-                });
+                .addOnSuccessListener((OnSuccessListener) o -> Log.d(TAG, "Successfully added user"))
+                .addOnFailureListener(e -> Log.d(TAG, "Failed adding user"));
 
     }
 
