@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchBar;
         TextView usernameText;
 
-        RecyclerView recyclerView_main_1, recyclerView_main_2,recyclerView_main_3;
+        RecyclerView forYouRecyclerView, bestSellerRecyclerView,newItemsRecyclerView;
 
         public ViewHolder() {
 
@@ -61,9 +61,10 @@ public class MainActivity extends AppCompatActivity {
             searchBar = findViewById(R.id.searchView);
 
             usernameText = findViewById(R.id.banner_welcome_text);
-            recyclerView_main_1 = findViewById(R.id.recyclerView_main_1);
-            recyclerView_main_2 = findViewById(R.id.recyclerView_main_2);
-            recyclerView_main_3 = findViewById(R.id.recyclerView_main_3);
+
+            forYouRecyclerView = findViewById(R.id.recyclerView_main_1);
+            bestSellerRecyclerView = findViewById(R.id.recyclerView_main_2);
+            newItemsRecyclerView = findViewById(R.id.recyclerView_main_3);
 
         }
     }
@@ -161,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<IItem> bestSellerItems = new LinkedList<>();
         List<IItem> newItems = new LinkedList<>();
+        List<IItem> forYouItems = new LinkedList<>();
 
         for(IItem item: data){
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -175,8 +177,9 @@ public class MainActivity extends AppCompatActivity {
                         item.setImages(images);
                         if(item == data.get(data.size()-1)){
                             //propagate to adaptors to fill the recycler views
-                            propagateAdaptor(bestSellerItems, vh.recyclerView_main_1);
-                            propagateAdaptor(newItems, vh.recyclerView_main_2);
+                            propagateAdaptor(forYouItems, vh.forYouRecyclerView);
+                            propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
+                            propagateAdaptor(newItems, vh.newItemsRecyclerView);
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
@@ -199,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if(item.isNewItem()){
                             newItems.add(item);
+                        }
+                        if(item.getTags().contains(userTopPrice)){
+                            if (item.getCategory().equals(userTopCategory)){
+                                forYouItems.add(item);
+                            }
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
