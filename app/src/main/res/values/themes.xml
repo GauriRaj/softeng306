@@ -101,7 +101,6 @@
     <style name="textInputBar">
         <item name="android:layout_marginHorizontal">30dp</item>
         <item name="android:layout_marginVertical">5dp</item>
-        <item name="android:background">@color/md_theme_light_surface_container_highest</item>
         <item name="android:paddingHorizontal">5dp</item>
         <item name="android:paddingVertical">3dp</item>
         <item name="android:textSize">16sp</item>

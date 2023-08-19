@@ -69,10 +69,10 @@
 
             <TextView
                 android:id="@+id/textError"
-                style="@style/textViewOnSurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_dark_secondary" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -91,6 +91,7 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="5dp"
                 android:ems="10"
+                android:queryHint="Username"
                 android:inputType="text" />
 
             <TextView
@@ -110,13 +111,13 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="5dp"
                 android:ems="10"
+                android:queryHint="Password"
                 android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/btnSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/md_theme_Primary90"
                 android:text="Sign in" />
 
             <RelativeLayout
@@ -130,7 +131,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="60dp"
                     android:layout_marginVertical="30dp"
-                    android:background="@color/md_theme_Primary90"
                     android:text="Create New Account" />
             </RelativeLayout>
 
