@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get intent to get userID
-        String userId = "1";
+        String userId = getIntent().getStringExtra("User");
         setContentView(R.layout.activity_main);
 
         vh = new ViewHolder();
@@ -107,24 +105,21 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Change the 1 to whichever user is being displayed
         DocumentReference userDoc = db.collection("users").document(id);
-        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot userDoc = task.getResult();
-                    if (userDoc.exists()) {
-                        IUser user = userDoc.toObject(User.class);
-                        String message = "Welcome,\n" + user.getUserName();
-                        user.setId(userDoc.getId());
-                        vh.usernameText.setText(message);
-                        userTopCategory = user.getTopCategory();
-                        userTopPrice = user.getTopPriceRange();
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
+        userDoc.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot userDoc1 = task.getResult();
+                if (userDoc1.exists()) {
+                    IUser user = userDoc1.toObject(User.class);
+                    String message = "Welcome,\n" + user.getUserName();
+                    user.setId(userDoc1.getId());
+                    vh.usernameText.setText(message);
+                    userTopCategory = user.getTopCategory();
+                    userTopPrice = user.getTopPriceRange();
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
 
@@ -135,29 +130,25 @@ public class MainActivity extends AppCompatActivity {
         List<IItem> itemList = new LinkedList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot results = task.getResult();
-                    for(QueryDocumentSnapshot itemDoc: results){
-                        IItem item = itemDoc.toObject(MainItem.class);
-                        item.setId(itemDoc.getId());
-                        itemList.add(item);
-                    }
-                    if (itemList.size() > 0) {
-                        // Once the task is successful and data is fetched, get the tag and image data
-                        getItemSubCollections(itemList);
-
-                    } else {
-                        Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                    Toast.makeText(getBaseContext(), "Loading items collection failed from Firestore!", Toast.LENGTH_LONG).show();
+        db.collection("items").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot results = task.getResult();
+                for(QueryDocumentSnapshot itemDoc: results){
+                    IItem item = itemDoc.toObject(MainItem.class);
+                    item.setId(itemDoc.getId());
+                    itemList.add(item);
                 }
+                if (itemList.size() > 0) {
+                    // Once the task is successful and data is fetched, get the tag and image data
+                    getItemSubCollections(itemList);
+
+                } else {
+                    Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "No such document");
+                }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
+                Toast.makeText(getBaseContext(), "Loading items collection failed from Firestore!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -170,53 +161,47 @@ public class MainActivity extends AppCompatActivity {
         List<IItem> forYouItems = new LinkedList<>();
 
         for(IItem item: data){
-            db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot results = task.getResult();
-                        List<String> images = new ArrayList<>();
-                        for(QueryDocumentSnapshot imageDoc: results){
-                            images.add((String) imageDoc.get("image"));
-                        }
-                        item.setImages(images);
-                        if(item == data.get(data.size()-1)){
-                            //propagate to adaptors to fill the recycler views
-                            propagateAdaptor(forYouItems, vh.forYouRecyclerView);
-                            propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
-                            propagateAdaptor(newItems, vh.newItemsRecyclerView);
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                        Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
+            db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot results = task.getResult();
+                    List<String> images = new ArrayList<>();
+                    for(QueryDocumentSnapshot imageDoc: results){
+                        images.add((String) imageDoc.get("image"));
                     }
+                    item.setImages(images);
+                    if(item == data.get(data.size()-1)){
+                        //propagate to adaptors to fill the recycler views
+                        propagateAdaptor(forYouItems, vh.forYouRecyclerView);
+                        propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
+                        propagateAdaptor(newItems, vh.newItemsRecyclerView);
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
                 }
             });
-            db.collection("items/"+item.getId()+"/tags").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot results = task.getResult();
-                        List<String> tags = new ArrayList<>();
-                        for(QueryDocumentSnapshot imageDoc: results){
-                            tags.add((String) imageDoc.get("tagName"));
-                        }
-                        item.setTags(tags);
-                        if(item.isBestSeller()){
-                            bestSellerItems.add(item);
-                        }
-                        if(item.isNewItem()){
-                            newItems.add(item);
-                        }
-                        if(item.getTags().contains(userTopPrice)){
-                            if (item.getCategory().equals(userTopCategory)){
-                                forYouItems.add(item);
-                            }
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                        Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
+            db.collection("items/"+item.getId()+"/tags").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot results = task.getResult();
+                    List<String> tags = new ArrayList<>();
+                    for(QueryDocumentSnapshot imageDoc: results){
+                        tags.add((String) imageDoc.get("tagName"));
                     }
+                    item.setTags(tags);
+                    if(item.isBestSeller()){
+                        bestSellerItems.add(item);
+                    }
+                    if(item.isNewItem()){
+                        newItems.add(item);
+                    }
+                    if(item.getTags().contains(userTopPrice)){
+                        if (item.getCategory().equals(userTopCategory)){
+                            forYouItems.add(item);
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
                 }
             });
         }
