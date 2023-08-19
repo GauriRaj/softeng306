@@ -56,6 +56,10 @@
         <item name="android:textColor">@color/md_theme_light_onSurface</item>
     </style>
 
+    <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+    </style>
+
     <style name="categoryTextView" parent="textViewOnSurface">
         <item name="android:textSize">12sp</item>
     </style>
@@ -63,6 +67,15 @@
     <style name="mainRecyclerViewTitleTextView" parent="textViewOnSurface">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="categoryTagTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_primary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="globalTagTextView" parent="categoryTagTextView">
+        <item name="android:textColor">@color/md_theme_light_secondary</item>
     </style>
 
     <!-- Only for branding text -->
@@ -84,4 +97,13 @@
         <item name="android:background">@color/md_theme_Neutral50</item>
     </style>
 
+    <!-- EditText styles -->
+    <style name="textInputBar">
+        <item name="android:layout_marginHorizontal">30dp</item>
+        <item name="android:layout_marginVertical">5dp</item>
+        <item name="android:background">@color/md_theme_light_surface_container_highest</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
