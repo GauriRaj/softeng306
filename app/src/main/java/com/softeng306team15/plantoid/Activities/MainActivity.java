@@ -28,7 +28,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
 import com.softeng306team15.plantoid.Models.IItem;
+import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
+import com.softeng306team15.plantoid.Models.User;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchBar;
         TextView usernameText;
 
-        RecyclerView recyclerView_main_1, recyclerView_main_2,recyclerView_main_3;
+        RecyclerView forYouRecyclerView, bestSellerRecyclerView,newItemsRecyclerView;
 
         public ViewHolder() {
 
@@ -59,22 +61,26 @@ public class MainActivity extends AppCompatActivity {
             searchBar = findViewById(R.id.searchView);
 
             usernameText = findViewById(R.id.banner_welcome_text);
-            recyclerView_main_1 = findViewById(R.id.recyclerView_main_1);
-            recyclerView_main_2 = findViewById(R.id.recyclerView_main_2);
-            recyclerView_main_3 = findViewById(R.id.recyclerView_main_3);
+
+            forYouRecyclerView = findViewById(R.id.recyclerView_main_1);
+            bestSellerRecyclerView = findViewById(R.id.recyclerView_main_2);
+            newItemsRecyclerView = findViewById(R.id.recyclerView_main_3);
 
         }
     }
 
     ViewHolder vh;
+    String userTopCategory, userTopPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //get intent to get userID
+        String userId = "1";
         setContentView(R.layout.activity_main);
 
-        vh = new MainActivity.ViewHolder();
-        setUserDisplay("1");
+        vh = new ViewHolder();
+        setUserDisplay(userId);
         fetchItemData();
 
         vh.seedsCardView.setOnClickListener(this::goSeeds);
@@ -105,10 +111,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot userData = task.getResult();
-                    if (userData.exists()) {
-                        String message = "Welcome,\n" + userData.get("userName");
+                    DocumentSnapshot userDoc = task.getResult();
+                    if (userDoc.exists()) {
+                        IUser user = userDoc.toObject(User.class);
+                        String message = "Welcome,\n" + user.getUserName();
+                        user.setId(userDoc.getId());
                         vh.usernameText.setText(message);
+                        userTopCategory = user.getTopCategory();
+                        userTopPrice = user.getTopPriceRange();
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -137,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                         itemList.add(item);
                     }
                     if (itemList.size() > 0) {
-                        // Once the task is successful and data is fetched, propagate the adaptor
+                        // Once the task is successful and data is fetched, get the tag and image data
                         getItemSubCollections(itemList);
 
                     } else {
@@ -157,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<IItem> bestSellerItems = new LinkedList<>();
         List<IItem> newItems = new LinkedList<>();
+        List<IItem> forYouItems = new LinkedList<>();
 
         for(IItem item: data){
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -170,8 +181,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         item.setImages(images);
                         if(item == data.get(data.size()-1)){
-                            propagateAdaptor(bestSellerItems, vh.recyclerView_main_1);
-                            propagateAdaptor(newItems, vh.recyclerView_main_2);
+                            //propagate to adaptors to fill the recycler views
+                            propagateAdaptor(forYouItems, vh.forYouRecyclerView);
+                            propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
+                            propagateAdaptor(newItems, vh.newItemsRecyclerView);
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
@@ -194,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if(item.isNewItem()){
                             newItems.add(item);
+                        }
+                        if(item.getTags().contains(userTopPrice)){
+                            if (item.getCategory().equals(userTopCategory)){
+                                forYouItems.add(item);
+                            }
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
