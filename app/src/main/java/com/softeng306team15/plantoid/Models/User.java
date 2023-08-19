@@ -261,7 +261,9 @@ public class User implements IUser{
     public User(String userName, String email, String password, String phoneNumber){
         this.userName = userName;
         this.password = password;
-        this.userImage = "default image";
+        //set default image
+        this.userImage = "https://firebasestorage.googleapis.com/v0/b/plantoid-64f52.appspot.com/o/userPics%2Fplant%20image.jpg?alt=media&token=795f3517-e412-456f-9910-0ccb0b9db4e3";
+
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = "";
