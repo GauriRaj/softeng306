@@ -61,6 +61,12 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/textErrorCreate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0" />
+
+                    <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,8 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="text"
-                        android:text="username" />
+                        android:inputType="text" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -89,8 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="text"
-                        android:text="password" />
+                        android:inputType="text" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -105,8 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="text"
-                        android:text="passwordConfirm" />
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -120,8 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="textEmailAddress"
-                        android:text="email" />
+                        android:inputType="textEmailAddress" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -136,8 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="phone"
-                        android:text="phone" />
+                        android:inputType="phone" />
 
                     <Button
                         android:id="@+id/btnCreateAccount"
