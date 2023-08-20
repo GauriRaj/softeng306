@@ -72,9 +72,12 @@ public class LogInActivity extends AppCompatActivity {
                                 startActivity(mainIntent);
                             }
                             // The above loop will not run if no users are found matching the results
-                            vh.textLoginError.setText("Username or password is incorrect");
-                            vh.enterUsername.setText("");
-                            vh.enterPassword.setText("");
+                            if(task.getResult().size() == 0){
+                                vh.textLoginError.setText("Username or password is incorrect");
+                                vh.enterUsername.setText("");
+                                vh.enterPassword.setText("");
+                            }
+
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
