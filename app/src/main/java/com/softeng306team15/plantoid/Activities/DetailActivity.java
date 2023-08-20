@@ -53,7 +53,7 @@ public class DetailActivity extends FragmentActivity {
         ImageView backArrowImageView;
         Button wishlistButton;
         public ViewHolder(){
-            topTitleTextView = findViewById(R.id.top_title);
+            topTitleTextView = findViewById(R.id.detail_top_title);
             itemTitleTextView = findViewById(R.id.detail_title_textView);
             itemPriceTextView = findViewById(R.id.detail_price_textView);
             itemDescTextView = findViewById(R.id.detail_description_textView);
@@ -176,6 +176,7 @@ public class DetailActivity extends FragmentActivity {
                 fetchItemData(itemId, () -> {
                     Log.d(TAG, "fetched item " + item.getItemName());
                     float price = item.getItemPrice();
+                    vh.topTitleTextView.setText(item.getItemName());
                     vh.itemTitleTextView.setText(item.getItemName());
                     vh.itemPriceTextView.setText("$" + price);
                     vh.itemDescTextView.setText(item.getItemDesc());
@@ -204,12 +205,12 @@ public class DetailActivity extends FragmentActivity {
                     if (isInWishlist){
                         vh.wishlistButton.setText(R.string.remove_wishlist);
                         vh.wishlistButton.setOnClickListener(v -> {
-                            user.removeFromWishlist(itemId);
+                            removeFromWishlist(itemId);
                         });
                     } else {
-                        vh.wishlistButton.setOnClickListener(v -> {
-                            vh.wishlistButton.setText(R.string.add_wishlist);
-                            user.addToWishlist(itemId);
+                        vh.wishlistButton.setText(R.string.add_wishlist);
+                        vh.wishlistButton.setOnClickListener(v2 -> {
+                            addToWishlist(itemId);
                         });
                     }
 
@@ -217,6 +218,30 @@ public class DetailActivity extends FragmentActivity {
                     // ImageSlidePagerAdapter handles each fragment (for displaying images)
                     viewPager.setAdapter(pagerAdapter);
                 });});});
+    }
+
+    private void addToWishlist(String itemId){
+        vh.wishlistButton.setText(R.string.remove_wishlist);
+        user.addToWishlist(itemId);
+        CharSequence text = "Added to Wishlist";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+        toast.show();
+        vh.wishlistButton.setOnClickListener(v -> {
+            removeFromWishlist(itemId);
+        });
+    }
+
+    private void removeFromWishlist(String itemId){
+        vh.wishlistButton.setText(R.string.add_wishlist);
+        user.removeFromWishlist(itemId);
+        CharSequence text = "Removed from Wishlist";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+        toast.show();
+        vh.wishlistButton.setOnClickListener(v -> {
+            addToWishlist(itemId);
+        });
     }
 
     private class ImageSlidePagerAdapter extends FragmentStateAdapter {
