@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -93,6 +94,10 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
         vh.btnConfirm.setOnClickListener(view -> onConfirmChanges(userId));
         vh.btnProfilePic.setOnClickListener(view -> imageChooser());
+
+        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
+        vh.discoverButton.setOnClickListener(view -> goMain(view, userId));
+        vh.wishlistButton.setOnClickListener(view -> goWishlist(view, userId));
     }
 
     public void setUserDisplay(String id) {
@@ -302,5 +307,24 @@ public class ChangeProfileActivity extends AppCompatActivity {
     /**
      * End of copied code
      */
+
+    // Navbar
+    public void goWishlist(View v, String userId) {
+        Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+        wishlistIntent.putExtra("User", userId);
+        startActivity(wishlistIntent);
+    }
+
+    public void goProfile(View v, String userId) {
+        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
+        profileIntent.putExtra("User", userId);
+        startActivity(profileIntent);
+    }
+
+    public void goMain(View v, String userId) {
+        Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+        mainIntent.putExtra("User", userId);
+        startActivity(mainIntent);
+    }
 
 }
