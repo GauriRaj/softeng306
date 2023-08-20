@@ -2,11 +2,14 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,7 +45,24 @@ public class DetailActivity extends FragmentActivity {
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
 
-    private void fetchUserData(String userId){
+    private class ViewHolder {
+        TextView topTitleTextView;
+        TextView itemTitleTextView;
+        TextView itemPriceTextView;
+        TextView itemDescTextView;
+        ImageView backArrowImageView;
+        Button wishlistButton;
+        public ViewHolder(){
+            topTitleTextView = findViewById(R.id.top_title);
+            itemTitleTextView = findViewById(R.id.detail_title_textView);
+            itemPriceTextView = findViewById(R.id.detail_price_textView);
+            itemDescTextView = findViewById(R.id.detail_description_textView);
+            backArrowImageView = findViewById(R.id.detail_back_imageView);
+            wishlistButton = findViewById(R.id.wishlist_button);
+        }
+    }
+
+    private void fetchUserData(String userId, MyCallback callback){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -54,6 +74,8 @@ public class DetailActivity extends FragmentActivity {
                 if (userDoc1.exists()) {
                     user = userDoc1.toObject(User.class);
                     user.setId(userDoc1.getId());
+                    Log.d(TAG, "got me a user " + user.getUserName());
+                    callback.onCallback();
                 } else {
                     Log.d(TAG, "No such document");
                 }
@@ -126,10 +148,18 @@ public class DetailActivity extends FragmentActivity {
         });
     }
 
+    ViewHolder vh;
+
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        // Back button functionality
+        vh = new ViewHolder();
+        vh.backArrowImageView.setOnClickListener(v -> {
+            finish();
+        });
         // Get the user id and item id from previous activity
         String itemId, userId;
         itemId = getIntent().getStringExtra("itemId");
@@ -137,16 +167,56 @@ public class DetailActivity extends FragmentActivity {
         Log.d(TAG, "Detail view item id: " + itemId);
         Log.d(TAG, "Detail view user id: " + userId);
         pagerAdapter = new ImageSlidePagerAdapter(this);
-        fetchItemData(itemId, new MyCallback() {
-            @Override
-            public void onCallback() {
-                Log.d(TAG, "Callback received");
-                // ViewPager acts as parent to the fragment collection,
-                // ImageSlidePagerAdapter handles each fragment (for displaying images)
-                viewPager = findViewById(R.id.image_pager);
-                viewPager.setAdapter(pagerAdapter);
-            }
-        });
+        viewPager = findViewById(R.id.image_pager);
+
+        fetchUserData(userId, () ->{
+            Log.d(TAG, "fetched user " + user.getUserName());
+            user.loadWishlist(() -> {
+                Log.d(TAG, "fetched wishlist");
+                fetchItemData(itemId, () -> {
+                    Log.d(TAG, "fetched item " + item.getItemName());
+                    float price = item.getItemPrice();
+                    vh.itemTitleTextView.setText(item.getItemName());
+                    vh.itemPriceTextView.setText("$" + price);
+                    vh.itemDescTextView.setText(item.getItemDesc());
+
+                    user.incrementCategoryHit(item.getCategory());
+                    if (price < 5) {
+                        user.incrementPriceRangeHit("0 - 4.99");
+                    } else if (price < 15) {
+                        user.incrementPriceRangeHit("5 - 14.99");
+                    } else if (price < 25) {
+                        user.incrementPriceRangeHit("15 - 24.99");
+                    } else if (price < 50) {
+                        user.incrementPriceRangeHit("25 - 49.99");
+                    } else {
+                        user.incrementPriceRangeHit("50+");
+                    }
+
+                    List<String> currentUserWishlist = user.getWishlist();
+                    boolean isInWishlist = false;
+                    for (String wishlistItemId : currentUserWishlist){
+                        if (wishlistItemId.equals(itemId)) {
+                            isInWishlist = true;
+                            break;
+                        }
+                    }
+                    if (isInWishlist){
+                        vh.wishlistButton.setText(R.string.remove_wishlist);
+                        vh.wishlistButton.setOnClickListener(v -> {
+                            user.removeFromWishlist(itemId);
+                        });
+                    } else {
+                        vh.wishlistButton.setOnClickListener(v -> {
+                            vh.wishlistButton.setText(R.string.add_wishlist);
+                            user.addToWishlist(itemId);
+                        });
+                    }
+
+                    // ViewPager acts as parent to the fragment collection,
+                    // ImageSlidePagerAdapter handles each fragment (for displaying images)
+                    viewPager.setAdapter(pagerAdapter);
+                });});});
     }
 
     private class ImageSlidePagerAdapter extends FragmentStateAdapter {
