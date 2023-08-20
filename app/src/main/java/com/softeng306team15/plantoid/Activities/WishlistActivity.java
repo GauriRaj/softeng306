@@ -66,7 +66,7 @@ public class WishlistActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("User");
 
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_wishlist);
         vh = new ViewHolder();
         getUserData(() -> user.loadWishlist(() -> {
             List<String> wishlist = user.getWishlist();
