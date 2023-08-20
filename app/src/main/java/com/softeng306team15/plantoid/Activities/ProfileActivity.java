@@ -67,12 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         vh.btnSettings.setOnClickListener(this::goSettings);
         vh.btnLogOut.setOnClickListener(this::goLogOut);
 
-        vh.discoverButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goDiscover(view, userId);
-            }
-        });
+        vh.discoverButton.setOnClickListener(view -> goDiscover(view, userId));
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
@@ -84,24 +79,22 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Change the 1 to whichever user is being displayed
         DocumentReference userDoc = db.collection("users").document(id);
-        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot userData = task.getResult();
-                    if (userData.exists()) {
-                        IUser user = userData.toObject(User.class);
-                        vh.textUsername.setText((String) user.getUserName());
-                        vh.textEmail.setText((String) user.getEmail());
-                        vh.textPhone.setText((String) user.getPhoneNumber());
-                        vh.textAddr.setText((String) user.getAddress());
-                        Picasso.get().load(user.getUserImage()).into(vh.profilePic);
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
+        userDoc.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot userData = task.getResult();
+                if (userData.exists()) {
+                    IUser user = userData.toObject(User.class);
+                    user.setId(userData.getId());
+                    vh.textUsername.setText(user.getUserName());
+                    vh.textEmail.setText(user.getEmail());
+                    vh.textPhone.setText(user.getPhoneNumber());
+                    vh.textAddr.setText(user.getAddress());
+                    Picasso.get().load(user.getUserImage()).into(vh.profilePic);
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
 

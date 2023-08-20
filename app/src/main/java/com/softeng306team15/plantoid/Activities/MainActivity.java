@@ -88,12 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        vh.profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goProfile(view, userId);
-            }
-        });
+        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
         
     }
 
