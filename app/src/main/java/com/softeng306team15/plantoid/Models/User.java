@@ -5,10 +5,12 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.softeng306team15.plantoid.MyCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -285,11 +287,18 @@ public class User implements IUser{
     /**
      * Creates user in the firestore database
      */
-    public void createNewUserDocument(){
+    public void createNewUserDocument(MyCallback myCallback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users").add(this)
-                .addOnSuccessListener((OnSuccessListener) o -> Log.d(TAG, "Successfully added user"))
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        id = documentReference.getId();
+                        Log.d(TAG, "Successfully added user");
+                        myCallback.onCallback();
+                    }
+                })
                 .addOnFailureListener(e -> Log.d(TAG, "Failed adding user"));
 
     }
