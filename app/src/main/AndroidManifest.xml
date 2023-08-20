@@ -13,7 +13,12 @@
         <activity android:name=".Activities.MainActivity"/>
         <activity android:name=".Activities.CategoryActivity"/>
         <activity android:name=".Activities.CreateAccountActivity"/>
+        <activity android:name=".Activities.WishlistActivity"/>
         <activity
+            android:name=".Activities.ProfileActivity">
+        </activity>
+        <activity
+
             android:name=".Activities.LogInActivity"
             android:exported="true">
             <intent-filter>

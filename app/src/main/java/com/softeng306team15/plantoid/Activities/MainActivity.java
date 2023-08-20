@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        vh.profileButton.setOnClickListener(this::goProfile);
+        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
         
     }
 
@@ -253,8 +253,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v) {
+    public void goProfile(View v, String userId) {
         Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
+        profileIntent.putExtra("User", userId);
         startActivity(profileIntent);
     }
 
