@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         userId = getIntent().getStringExtra("User");
 
-        vh.btnCustomiseProfile.setOnClickListener(this::goCustomise);
+        vh.btnCustomiseProfile.setOnClickListener(view -> goCustomise(view, userId));
         vh.btnSettings.setOnClickListener(this::goSettings);
         vh.btnLogOut.setOnClickListener(this::goLogOut);
 
@@ -99,8 +99,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void goCustomise(View v) {
-        Intent customiseIntent = new Intent(getBaseContext(), CustomiseProfileActivity.class);
+    public void goCustomise(View v, String userId) {
+        Intent customiseIntent = new Intent(getBaseContext(), ChangeProfileActivity.class);
+        customiseIntent.putExtra("User", userId);
         startActivity(customiseIntent);
     }
     public void goSettings(View v) {
