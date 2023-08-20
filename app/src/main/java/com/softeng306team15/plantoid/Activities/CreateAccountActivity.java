@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
 public class CreateAccountActivity  extends AppCompatActivity {
@@ -59,30 +60,6 @@ public class CreateAccountActivity  extends AppCompatActivity {
         vh.btnLogin.setOnClickListener(this::goLogin);
     }
 
-    public void goMain(View v, String username, String password) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("users")
-                .whereEqualTo("userName", username)
-                .whereEqualTo("password", password)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
-                                mainIntent.putExtra("User", document.getId());
-                                startActivity(mainIntent);
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
     public void createNewUser(View v) {
         // Check if passwords match
         String password = vh.passText.getText().toString();
@@ -105,9 +82,15 @@ public class CreateAccountActivity  extends AppCompatActivity {
         }
 
         IUser user = new User(username, email, password, phone);
-        user.createNewUserDocument();
+        user.createNewUserDocument(new MyCallback(){
+            @Override
+            public void onCallback() {
+                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+                mainIntent.putExtra("User", user.getId());
+                startActivity(mainIntent);
+            }
+        });
 
-        goMain(v, username, password);
     }
 
     public void goLogin(View v) {
