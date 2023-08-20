@@ -1,20 +1,20 @@
 package com.softeng306team15.plantoid.Adaptors;
 
-import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.Intent;
 import android.util.Log;
+=======
+>>>>>>> main
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.softeng306team15.plantoid.Activities.CategoryActivity;
@@ -27,11 +27,9 @@ import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
-import kotlin.reflect.KVisibility;
 
 public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
@@ -70,7 +68,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
             super(currentItemView);
             globalTagLayout = currentItemView.findViewById(R.id.global_tag_layout);
             globalTagImageView = currentItemView.findViewById(R.id.global_tag_imageView);
-            globalTagLayout = currentItemView.findViewById(R.id.global_tag_textView);
+            globalTagTextView = currentItemView.findViewById(R.id.global_tag_textView);
         }
 
     }
@@ -121,9 +119,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         }
     }
 
-    private List<IItem> items;
-    private Context context;
-    private int layoutId;
+    private final List<IItem> items;
+    private final int layoutId;
 
     public ItemAdaptor(@NonNull List<IItem> items, int resource) {
         this.items = items;
@@ -133,7 +130,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     @NonNull
     @Override
     public ItemAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
+        Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View currentItemView = inflater.inflate(layoutId, parent, false);
 
@@ -150,7 +147,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         }else if(items.get(0).getClass() == PlantCareDecorItem.class){
             holder = new CategoryViewHolder(currentItemView);
         }else{
-            return null;
+            return holder = new ViewHolder(currentItemView);
         }
 
         return holder;
@@ -158,8 +155,21 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdaptor.ViewHolder vh, int position) {
+        IItem currentItem;
+        if(vh.getClass() == ViewHolder.class){
+            currentItem = (MainItem) items.get(position);
+        }else if(vh.getClass() == PlantAndTreeViewHolder.class){
+            currentItem = (PlantTreeItem) items.get(position);
+        }else if(vh.getClass() == SeedAndSeedlingViewHolder.class){
+            currentItem = (SeedSeedlingItem) items.get(position);
+        }else if(vh.getClass() == PotAndPlanterViewHolder.class){
+            currentItem = (PotPlanterItem) items.get(position);
+        }else if(vh.getClass() == CategoryViewHolder.class){
+            currentItem = (PlantCareDecorItem) items.get(position);
+        }else{
+            return;
+        }
         // Get the data object for the item view in this position
-        MainItem currentItem = (MainItem) items.get(position);
 
         //shared view holder functionality
         vh.itemNameTextView.setText(currentItem.getItemName());

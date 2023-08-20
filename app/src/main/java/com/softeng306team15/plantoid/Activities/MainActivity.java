@@ -2,7 +2,6 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +16,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
-    String userTopCategory, userTopPrice;
+    String userTopCategory, userTopPrice,userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get intent to get userID
-        String userId = getIntent().getStringExtra("User");
+        userId = getIntent().getStringExtra("User");
         setContentView(R.layout.activity_main);
 
         vh = new ViewHolder();
@@ -91,14 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        vh.profileButton.setOnClickListener(this::goProfile);
+        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
         
     }
 
     public void setUserDisplay(String id) {
         // set to actual user's name
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Change the 1 to whichever user is being displayed
+
         DocumentReference userDoc = db.collection("users").document(id);
         userDoc.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -120,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * load all items from firestore
+     */
     private void fetchItemData(){
 
         List<IItem> itemList = new LinkedList<>();
@@ -149,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Load the image and tag subcollections for all of the items from firestore
+     *
+     * @param data items with type IItem
+     */
     private void getItemSubCollections(List<IItem> data){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<IItem> bestSellerItems = new LinkedList<>();
@@ -156,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         List<IItem> forYouItems = new LinkedList<>();
 
         for(IItem item: data){
+            //load all images for item
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     QuerySnapshot results = task.getResult();
@@ -165,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     item.setImages(images);
                     if(item == data.get(data.size()-1)){
-                        //propagate to adaptors to fill the recycler views
+                        //propagate to adaptors to fill the recycler views once all images are loaded
                         propagateAdaptor(forYouItems, vh.forYouRecyclerView);
                         propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
                         propagateAdaptor(newItems, vh.newItemsRecyclerView);
@@ -175,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
                 }
             });
+            //load all tags for item
             db.collection("items/"+item.getId()+"/tags").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     QuerySnapshot results = task.getResult();
@@ -183,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
                         tags.add((String) imageDoc.get("tagName"));
                     }
                     item.setTags(tags);
+
+                    //separate items for the recycler views
                     if(item.isBestSeller()){
                         bestSellerItems.add(item);
                     }
@@ -201,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-//        propagateAdaptor(data);
     }
     private void propagateAdaptor(List<IItem> data, RecyclerView recyclerView) {
         ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main);
@@ -214,24 +222,28 @@ public class MainActivity extends AppCompatActivity {
     public void goSeeds(View v) {
         Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
         categoryIntent.putExtra("Category", "Seeds");
+        categoryIntent.putExtra("User", userId);
         startActivity(categoryIntent);
     }
 
     public void goPlants(View v) {
         Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
         categoryIntent.putExtra("Category", "Plants");
+        categoryIntent.putExtra("User", userId);
         startActivity(categoryIntent);
     }
 
     public void goPlanters(View v) {
         Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
         categoryIntent.putExtra("Category", "Planters");
+        categoryIntent.putExtra("User", userId);
         startActivity(categoryIntent);
     }
 
     public void goCare(View v) {
         Intent categoryIntent = new Intent(getBaseContext(), CategoryActivity.class);
         categoryIntent.putExtra("Category", "Care");
+        categoryIntent.putExtra("User", userId);
         startActivity(categoryIntent);
     }
 
@@ -241,8 +253,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v) {
+    public void goProfile(View v, String userId) {
         Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
+        profileIntent.putExtra("User", userId);
         startActivity(profileIntent);
     }
 
