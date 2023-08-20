@@ -108,6 +108,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 DocumentSnapshot userData = task.getResult();
                 if (userData.exists()) {
                     IUser user = userData.toObject(User.class);
+                    user.setId(userData.getId());
                     vh.textUsername.setText(user.getUserName());
                     vh.textEmail.setText(user.getEmail());
                     vh.textPhone.setText(user.getPhoneNumber());
