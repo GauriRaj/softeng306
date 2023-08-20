@@ -11,11 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         vh = new ProfileActivity.ViewHolder();
 
-        String userId = getIntent().getStringExtra("User");
+        userId = getIntent().getStringExtra("User");
 
         vh.btnCustomiseProfile.setOnClickListener(this::goCustomise);
         vh.btnSettings.setOnClickListener(this::goSettings);
@@ -120,6 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void goWishlist(View v) {
         Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+        wishlistIntent.putExtra("User", userId);
         startActivity(wishlistIntent);
     }
 }

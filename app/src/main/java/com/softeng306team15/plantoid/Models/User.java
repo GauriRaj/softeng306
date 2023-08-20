@@ -72,7 +72,6 @@ public class User implements IUser{
     @Exclude
     @Override
     public List<String> getWishlist() {
-        loadWishlist();
         return this.wishlist;
     }
 
@@ -92,7 +91,7 @@ public class User implements IUser{
         db.collection("users").document(id).collection("wishlist").add(newItem)
                 .addOnSuccessListener((OnSuccessListener) o -> {
                     Log.d(TAG, "Successfully added item to wishlist");
-                    loadWishlist();
+                    loadWishlist(null);
                 })
                 .addOnFailureListener(e -> Log.d(TAG, "Failed adding item to wishlist"));
 
@@ -115,7 +114,7 @@ public class User implements IUser{
                                     .collection("wishlist").document(wishlistDocId)
                                     .delete().addOnSuccessListener((OnSuccessListener) o -> {
                                         Log.d(TAG, "Successfully removed item from wishlist");
-                                        loadWishlist();
+                                        loadWishlist(null);
                                     })
                                     .addOnFailureListener(e -> Log.d(TAG, "Failed removing item from wishlist"));
                         }
@@ -131,7 +130,7 @@ public class User implements IUser{
      * deleting item. As wishlist is stored in a subcollection this method is also needed as
      * firestore will not load the wishlist data when loading user data.
      */
-    private void loadWishlist(){
+    public void loadWishlist(MyCallback callback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users").document(id).collection("wishlist").get()
@@ -143,6 +142,9 @@ public class User implements IUser{
                             updatedWishlist.add((String) wishlistDoc.get("itemId"));
                         }
                         wishlist = updatedWishlist;
+                        if (callback != null){
+                            callback.onCallback();
+                        }
 
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
@@ -291,13 +293,10 @@ public class User implements IUser{
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users").add(this)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        id = documentReference.getId();
-                        Log.d(TAG, "Successfully added user");
-                        myCallback.onCallback();
-                    }
+                .addOnSuccessListener(documentReference -> {
+                    id = documentReference.getId();
+                    Log.d(TAG, "Successfully added user");
+                    myCallback.onCallback();
                 })
                 .addOnFailureListener(e -> Log.d(TAG, "Failed adding user"));
 

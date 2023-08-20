@@ -64,6 +64,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="wishlistEmptyTextView" parent="textViewOnSurface">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="mainRecyclerViewTitleTextView" parent="textViewOnSurface">
         <item name="android:textSize">25sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
