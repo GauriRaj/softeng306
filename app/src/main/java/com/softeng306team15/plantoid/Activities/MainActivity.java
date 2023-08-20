@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
     // Navbar
     public void goWishlist(View v) {
         Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+        wishlistIntent.putExtra("User", userId);
         startActivity(wishlistIntent);
     }
 

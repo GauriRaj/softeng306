@@ -65,7 +65,7 @@ public interface IUser {
 
      void updateAddress(String newAddress);
 
-
+     void loadWishlist(MyCallback callback);
      void createNewUserDocument(MyCallback myCallback);
 
 }
