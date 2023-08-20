@@ -203,7 +203,11 @@ public class CategoryActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        return (int) dpWidth/170; //170 is item card width
+        int columnNo = (int) dpWidth/170; //170 is item card width
+        if (columnNo < 1){ //show at least one column
+            columnNo = 1;
+        }
+        return columnNo;
     }
 
     public void goDiscover(View v) {
