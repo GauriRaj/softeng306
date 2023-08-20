@@ -82,27 +82,29 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     Boolean pfpChanged;
 
+    String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_details);
         vh = new ViewHolder();
-        String userId = getIntent().getStringExtra("User");
+        userId = getIntent().getStringExtra("User");
         pfpChanged = Boolean.FALSE;
 
-        setUserDisplay(userId);
+        setUserDisplay();
 
-        vh.btnConfirm.setOnClickListener(view -> onConfirmChanges(userId));
+        vh.btnConfirm.setOnClickListener(view -> onConfirmChanges());
         vh.btnProfilePic.setOnClickListener(view -> imageChooser());
 
-        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
-        vh.discoverButton.setOnClickListener(view -> goMain(view, userId));
-        vh.wishlistButton.setOnClickListener(view -> goWishlist(view, userId));
+        vh.profileButton.setOnClickListener(view -> goProfile(view));
+        vh.discoverButton.setOnClickListener(view -> goMain(view));
+        vh.wishlistButton.setOnClickListener(view -> goWishlist(view));
     }
 
-    public void setUserDisplay(String id) {
+    public void setUserDisplay() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userDoc = db.collection("users").document(id);
+        DocumentReference userDoc = db.collection("users").document(userId);
         userDoc.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot userData = task.getResult();
@@ -228,7 +230,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void onConfirmChanges(String id) {
+    public void onConfirmChanges() {
 
         String confirm = vh.editConfirmChanges.getText().toString();
 
@@ -237,7 +239,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Get user doc
-        DocumentReference userDoc = db.collection("users").document(id);
+        DocumentReference userDoc = db.collection("users").document(userId);
         userDoc.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot userDoc1 = task.getResult();
@@ -310,19 +312,19 @@ public class ChangeProfileActivity extends AppCompatActivity {
      */
 
     // Navbar
-    public void goWishlist(View v, String userId) {
+    public void goWishlist(View v) {
         Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
         wishlistIntent.putExtra("User", userId);
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v, String userId) {
+    public void goProfile(View v) {
         Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
         profileIntent.putExtra("User", userId);
         startActivity(profileIntent);
     }
 
-    public void goMain(View v, String userId) {
+    public void goMain(View v) {
         Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
         mainIntent.putExtra("User", userId);
         startActivity(mainIntent);
