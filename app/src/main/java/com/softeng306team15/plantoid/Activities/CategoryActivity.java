@@ -26,6 +26,7 @@ import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
 import com.softeng306team15.plantoid.Models.PlantTreeItem;
 import com.softeng306team15.plantoid.Models.PotPlanterItem;
 import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;
@@ -149,6 +150,21 @@ public class CategoryActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<IItem> categoryItems = new LinkedList<>();
 
+        //Due to async loading it is not known what finishes loading first. Callback counter ensures
+        //adaptor is only called when all of the items have fully loaded.
+        MyCallback callback = new MyCallback() {
+            int responses = 0;
+            @Override
+            public void onCallback() {
+                responses ++;
+                Log.d(TAG, "callback called responses number " + responses);
+                if (responses == 2*data.size()){
+                    Log.d(TAG, "callback called adaptor");
+                    propagateAdaptor(categoryItems);
+                }
+            }
+        };
+
         for(IItem item: data){
             //load all images for item
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(task -> {
@@ -159,10 +175,8 @@ public class CategoryActivity extends AppCompatActivity {
                         images.add((String) imageDoc.get("image"));
                     }
                     item.setImages(images);
-                    if(item == data.get(data.size()-1)){
-                        //propagate to adaptors to fill the recycler view once all images are loaded
-                        propagateAdaptor(categoryItems);
-                    }
+                    callback.onCallback();
+
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
@@ -178,6 +192,7 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                     item.setTags(tags);
                     categoryItems.add(item);
+                    callback.onCallback();
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
