@@ -3,6 +3,7 @@ package com.softeng306team15.plantoid.Adaptors;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.softeng306team15.plantoid.Activities.CategoryActivity;
 import com.softeng306team15.plantoid.Models.IItem;
 import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
@@ -51,7 +53,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
         @Override
         public void onClick(View currentItemView){
-            //click implementation
+
         }
 
     }
