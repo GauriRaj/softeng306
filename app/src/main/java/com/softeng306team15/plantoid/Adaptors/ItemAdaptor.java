@@ -1,12 +1,12 @@
 package com.softeng306team15.plantoid.Adaptors;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-=======
->>>>>>> main
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.softeng306team15.plantoid.Activities.CategoryActivity;
+import com.softeng306team15.plantoid.Activities.DetailActivity;
+import com.softeng306team15.plantoid.Activities.MainActivity;
 import com.softeng306team15.plantoid.Models.IItem;
+import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
 import com.softeng306team15.plantoid.Models.PlantTreeItem;
@@ -121,10 +124,12 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
 
     private final List<IItem> items;
     private final int layoutId;
+    private String userId;
 
-    public ItemAdaptor(@NonNull List<IItem> items, int resource) {
+    public ItemAdaptor(@NonNull List<IItem> items, int resource, String userId) {
         this.items = items;
         this.layoutId = resource;
+        this.userId = userId;
     }
 
     @NonNull
@@ -169,7 +174,18 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         }else{
             return;
         }
-        // Get the data object for the item view in this position
+
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext().getApplicationContext(), DetailActivity.class);
+                intent.putExtra("itemId", currentItem.getId());
+                intent.putExtra("userId", userId);
+                Log.d(TAG, "user id: " + userId);
+                Log.d(TAG, "item id: " + currentItem.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
 
         //shared view holder functionality
         vh.itemNameTextView.setText(currentItem.getItemName());
@@ -338,5 +354,4 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     public int getItemCount() {
         return items.size();
     }
-
 }

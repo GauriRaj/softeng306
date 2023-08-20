@@ -5,9 +5,11 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -24,6 +26,7 @@ import com.softeng306team15.plantoid.Models.IItem;
 import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
 
@@ -38,10 +41,6 @@ public class DetailActivity extends FragmentActivity {
     private IUser user;
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
-
-    private void fetchUserData(){
-
-    }
 
     private void fetchUserData(String userId){
 
@@ -64,20 +63,20 @@ public class DetailActivity extends FragmentActivity {
         });
     }
 
-    private void fetchItemData(String itemId){
+    private void fetchItemData(String itemId, MyCallback callback){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("/items/"+itemId).get().addOnCompleteListener(task -> {
+        db.document("/items/"+itemId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                QuerySnapshot results = task.getResult();
-                for(QueryDocumentSnapshot itemDoc: results){
+                DocumentSnapshot itemDoc = task.getResult();
+                if(itemDoc != null){
                     item = itemDoc.toObject(DetailedItem.class);
                     item.setId(itemDoc.getId());
                 }
                 if (item != null) {
                     // Once the task is successful and data is fetched, get the tag and image data
-                    fetchItemSubCollections(item);
+                    fetchItemSubCollections(item, callback);
 
                 } else {
                     Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
@@ -90,7 +89,7 @@ public class DetailActivity extends FragmentActivity {
         });
     }
 
-    private void fetchItemSubCollections(IItem item) {
+    private void fetchItemSubCollections(IItem item, MyCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("/items/" + item.getId() + "/images").get().addOnCompleteListener(task -> {
@@ -100,7 +99,14 @@ public class DetailActivity extends FragmentActivity {
                 for (QueryDocumentSnapshot imageDoc : results) {
                     images.add((String) imageDoc.get("image"));
                 }
+
+                //TODO remove
+                for (String s: images) {
+                    Log.d(TAG, "image " + s + "loaded");
+                }
+
                 item.setImages(images);
+                callback.onCallback();
             }
         });
         db.collection("items/" + item.getId() + "/tags").get().addOnCompleteListener(task -> {
@@ -125,19 +131,22 @@ public class DetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         // Get the user id and item id from previous activity
-        Bundle extras = getIntent().getExtras();
         String itemId, userId;
-        if (extras != null){
-            itemId = extras.getString("itemId");
-            userId = extras.getString("userId");
-            fetchItemData(itemId);
-            fetchUserData(userId);
-        }
-        // ViewPager acts as parent to the fragment collection,
-        // ImageSlidePagerAdapter handles each fragment (for displaying images)
-        viewPager = findViewById(R.id.image_pager);
+        itemId = getIntent().getStringExtra("itemId");
+        userId = getIntent().getStringExtra("userId");
+        Log.d(TAG, "Detail view item id: " + itemId);
+        Log.d(TAG, "Detail view user id: " + userId);
         pagerAdapter = new ImageSlidePagerAdapter(this);
-        viewPager.setAdapter(pagerAdapter);
+        fetchItemData(itemId, new MyCallback() {
+            @Override
+            public void onCallback() {
+                Log.d(TAG, "Callback received");
+                // ViewPager acts as parent to the fragment collection,
+                // ImageSlidePagerAdapter handles each fragment (for displaying images)
+                viewPager = findViewById(R.id.image_pager);
+                viewPager.setAdapter(pagerAdapter);
+            }
+        });
     }
 
     private class ImageSlidePagerAdapter extends FragmentStateAdapter {
@@ -145,14 +154,16 @@ public class DetailActivity extends FragmentActivity {
             super(fragmentActivity);
         }
 
+        @NonNull
         @Override
         public Fragment createFragment(int position) {
-            ImageSlidePageFragment imageSlide = new ImageSlidePageFragment();
+
+            String image = item.getImages().get(position);
+            Log.d(TAG, "Image string " + position + ": " + item.getImages().get(position));
+
             // Load image from the item model class list of images,
             // corresponding to the position of this fragment in the collection
-            ImageView iv = imageSlide.requireView().findViewById(R.id.detail_imageView);
-            Picasso.get().load(item.getImages().get(position)).into(iv);
-            return imageSlide;
+            return new ImageSlidePageFragment(image);
         }
 
         @Override
