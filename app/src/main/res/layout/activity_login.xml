@@ -90,8 +90,9 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="5dp"
                 android:ems="10"
-                android:queryHint="Username"
-                android:inputType="text" />
+                android:hint="Username"
+                android:inputType="text"
+                android:queryHint="Username" />
 
             <TextView
                 style="@style/textViewOnPrimary"
@@ -109,8 +110,9 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="5dp"
                 android:ems="10"
-                android:queryHint="Password"
-                android:inputType="textPassword" />
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:queryHint="Password" />
 
             <Button
                 android:id="@+id/btnSignIn"
