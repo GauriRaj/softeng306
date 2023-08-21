@@ -78,6 +78,7 @@ public class WishlistActivity extends AppCompatActivity {
             }
         }));
 
+        vh.categoryNameText.setText("Your Wishlist");
         vh.backButton.setVisibility(View.INVISIBLE);
 
         vh.discoverButton.setOnClickListener(this::goDiscover);
