@@ -44,6 +44,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         ImageView imageProfilePic;
         Button btnProfilePic, btnConfirm;
         LinearLayout discoverButton, wishlistButton, profileButton;
+        ImageView backButton;
 
         public ViewHolder() {
             textUsername = findViewById(R.id.textUsername);
@@ -75,6 +76,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
             profileButton = findViewById(R.id.profile_navbar_button);
+            backButton = findViewById(R.id.back_button);
         }
     }
 
@@ -100,6 +102,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         vh.profileButton.setOnClickListener(view -> goProfile(view));
         vh.discoverButton.setOnClickListener(view -> goMain(view));
         vh.wishlistButton.setOnClickListener(view -> goWishlist(view));
+        vh.backButton.setOnClickListener(view -> goProfile(view));
     }
 
     public void setUserDisplay() {
