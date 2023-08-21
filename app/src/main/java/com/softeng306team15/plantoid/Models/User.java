@@ -143,6 +143,7 @@ public class User implements IUser{
                         }
                         wishlist = updatedWishlist;
                         if (callback != null){
+                            Log.d(TAG, "user loaded wishlist");
                             callback.onCallback();
                         }
 
@@ -187,11 +188,25 @@ public class User implements IUser{
     public void incrementCategoryHit(String category) {
         int hit = categoryHits.get(category);
         categoryHits.replace(category, hit+1);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("categoryHits", categoryHits).addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.d(TAG, "failed to update category hits");
+            }
+        });
     }
 
     public void incrementPriceRangeHit(String priceRange) {
         int hit = priceRangeHits.get(priceRange);
         priceRangeHits.replace(priceRange, hit+1);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).update("priceRangeHits", priceRangeHits).addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.d(TAG, "failed to update price range hits");
+            }
+        });
     }
 
     public void updateUserName(String newUserName) {

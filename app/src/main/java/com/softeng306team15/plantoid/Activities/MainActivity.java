@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void propagateAdaptor(List<IItem> data, RecyclerView recyclerView) {
-        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main);
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
         recyclerView.setAdapter(itemAdapter);
         LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(lm);
