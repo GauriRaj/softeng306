@@ -32,17 +32,6 @@
             android:textAlignment="center"
             android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginBottom="6dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_back_arrow" />
-
         <!-- Search Bar -->
     </RelativeLayout>
 
