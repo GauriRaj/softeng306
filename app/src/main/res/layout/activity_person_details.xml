@@ -143,6 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Username"
                             android:inputType="text" />
 
                     </LinearLayout>
@@ -190,9 +191,11 @@
 
                         <EditText
                             android:id="@+id/editNewPassword"
+                            style="Confirm "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Password"
                             android:inputType="text" />
 
                         <TextView
@@ -205,6 +208,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Confirm Password"
                             android:inputType="text" />
 
                     </LinearLayout>
@@ -261,6 +265,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Email"
                             android:inputType="text" />
 
                     </LinearLayout>
@@ -317,6 +322,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Phone"
                             android:inputType="text" />
 
                     </LinearLayout>
@@ -376,6 +382,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:hint="Address"
                             android:inputType="text" />
 
                     </LinearLayout>
@@ -398,8 +405,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:queryHint="Password"
-        android:inputType="textPassword" />
+        android:hint="Enter Password to Confirm Changes"
+        android:inputType="textPassword"
+        android:queryHint="Password" />
 
     <Button
         android:id="@+id/btnConfirmChanges"
@@ -431,7 +439,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:src="@drawable/discover_icon"
-                app:tint="@color/md_theme_Primary90" />
+                app:tint="@color/md_theme_Neutral80" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -440,7 +448,7 @@
                 android:layout_weight="0"
                 android:text="Discover"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_Primary90" />
+                android:textColor="@color/md_theme_Neutral80" />
         </LinearLayout>
 
         <LinearLayout
@@ -489,7 +497,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:src="@drawable/profile_icon"
-                app:tint="@color/md_theme_Neutral80" />
+                app:tint="@color/md_theme_Primary90" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -498,7 +506,7 @@
                 android:layout_weight="0"
                 android:text="My Plantoid"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_Neutral80" />
+                android:textColor="@color/md_theme_Primary90" />
         </LinearLayout>
 
     </LinearLayout>

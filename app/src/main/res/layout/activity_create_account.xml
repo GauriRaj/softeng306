@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:configChanges="keyboardHidden|orientation|screenSize"
-    android:theme="@style/Theme.Plantoid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:background="@color/md_theme_light_surface_container_highest"
     android:orientation="vertical"
-    tools:context=".Activities.MainActivity"
-    android:background="?attr/backgroundColor">
+    android:theme="@style/Theme.Plantoid"
+    tools:context=".Activities.MainActivity">
 
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/md_theme_light_primary"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
@@ -21,14 +21,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="169dp"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="2dp"
+                android:id="@+id/imageView"
+                android:layout_width="112dp"
+                android:layout_height="91dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
@@ -37,133 +37,156 @@
             <TextView
                 style="@style/plantoidLogoText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:text="@string/app_name"
                 android:textSize="45sp" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Create New Account" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/textErrorCreate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Username" />
-
-                    <EditText
-                        android:id="@+id/editUsername"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:ems="10"
-                        android:inputType="text" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Password" />
-
-                    <EditText
-                        android:id="@+id/editPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:ems="10"
-                        android:inputType="text" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Confirm Password" />
-
-                    <EditText
-                        android:id="@+id/editPasswordConfirm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:ems="10"
-                        android:inputType="text" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Email Address" />
-
-                    <EditText
-                        android:id="@+id/editEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:ems="10"
-                        android:inputType="textEmailAddress" />
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Phone Number" />
-
-                    <EditText
-                        android:id="@+id/editPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:ems="10"
-                        android:inputType="phone" />
-
-                    <Button
-                        android:id="@+id/btnCreateAccount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Create Account" />
-
-                    <Button
-                        android:id="@+id/btnLogIn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Sign into existing account" />
-                </LinearLayout>
-
-
-            </ScrollView>
 
 
         </LinearLayout>
 
         <!-- Search Bar -->
     </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@color/md_theme_light_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:text="Create New Account"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textErrorCreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_dark_secondary" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textAlignment="center"
+                android:text="Username" />
+
+            <EditText
+                android:id="@+id/editUsername"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textAlignment="center"
+                android:text="Password" />
+
+            <EditText
+                android:id="@+id/editPassword"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="text"
+                android:queryHint="Password" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textAlignment="center"
+                android:text="Confirm Password" />
+
+            <EditText
+                android:id="@+id/editPasswordConfirm"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textAlignment="center"
+                android:text="Email Address" />
+
+            <EditText
+                android:id="@+id/editEmail"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textAlignment="center"
+                android:text="Phone Number" />
+
+            <EditText
+                android:id="@+id/editPhone"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/btnCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Account" />
+
+            <Button
+                android:id="@+id/btnLogIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign into existing account" />
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <!-- Main Scrolling Section -->
 

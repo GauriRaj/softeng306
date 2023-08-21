@@ -24,21 +24,19 @@ import com.squareup.picasso.Picasso;
 public class ProfileActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        TextView textUsername, textPassword, textEmail, textPhone, textAddr;
+        TextView textUsername, textEmail, textPhone, textAddr;
         LinearLayout discoverButton, wishlistButton, profileButton;
-        Button btnCustomiseProfile, btnSettings, btnLogOut;
+        Button btnCustomiseProfile, btnLogOut;
 
         ImageView profilePic;
 
         public ViewHolder() {
             textUsername = findViewById(R.id.textUsername);
-            textPassword = findViewById(R.id.textPassword);
             textEmail = findViewById(R.id.textEmail);
             textPhone = findViewById(R.id.textPhone);
             textAddr = findViewById(R.id.textAddress);
 
             btnCustomiseProfile = findViewById(R.id.btnCustomise);
-            btnSettings = findViewById(R.id.btnSettings);
             btnLogOut = findViewById(R.id.btnLogout);
 
             discoverButton = findViewById(R.id.discover_navbar_button);
@@ -62,7 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("User");
 
         vh.btnCustomiseProfile.setOnClickListener(view -> goCustomise(view, userId));
-        vh.btnSettings.setOnClickListener(this::goSettings);
         vh.btnLogOut.setOnClickListener(this::goLogOut);
 
         vh.discoverButton.setOnClickListener(view -> goDiscover(view, userId));
@@ -104,10 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
         customiseIntent.putExtra("User", userId);
         startActivity(customiseIntent);
     }
-    public void goSettings(View v) {
-        Intent settingsIntent = new Intent(getBaseContext(), SettingsActivity.class);
-        startActivity(settingsIntent);
-    }
+
     public void goLogOut(View v) {
         Intent logOutIntent = new Intent(getBaseContext(), LogInActivity.class);
         startActivity(logOutIntent);
