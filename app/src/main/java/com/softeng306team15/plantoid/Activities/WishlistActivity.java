@@ -38,7 +38,6 @@ public class WishlistActivity extends AppCompatActivity {
 
     private class ViewHolder {
         LinearLayout discoverButton, profileButton;
-        ImageView backButton;
         SearchView searchBar;
         TextView categoryNameText, emptyWishlistText;
         RecyclerView itemsRecyclerView;
@@ -46,7 +45,6 @@ public class WishlistActivity extends AppCompatActivity {
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
             profileButton = findViewById(R.id.profile_navbar_button);
-            backButton = findViewById(R.id.back_button);
             categoryNameText = findViewById(R.id.category_title_textView);
             emptyWishlistText = findViewById(R.id.emptyWishlistTextView);
 
@@ -76,9 +74,6 @@ public class WishlistActivity extends AppCompatActivity {
             }
         }));
 
-        vh.backButton.setOnClickListener(v -> {
-            finish();
-        });
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.profileButton.setOnClickListener(this::goProfile);
 
