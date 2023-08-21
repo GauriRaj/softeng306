@@ -23,10 +23,26 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="Customise Profile"
-            android:textColor="@color/md_theme_light_onPrimary" />
+            android:textAlignment="center"
+            android:textSize="20sp"
+            style="@style/textViewOnPrimary" />
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_back_arrow" />
     </RelativeLayout>
 
     <!-- Main Scrolling Section -->
@@ -62,14 +78,17 @@
 
                         <ImageView
                             android:id="@+id/imageProfilePic"
-                            android:layout_width="237dp"
+                            android:layout_width="172dp"
                             android:layout_height="172dp"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            android:scaleType="centerCrop"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:paddingLeft="20dp"
                             android:orientation="vertical">
 
                             <Button
@@ -77,7 +96,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Change Profile Image" />
+                                android:text="Change Profile Image"
+                                style="@style/textViewOnPrimary"/>
 
                             <TextView
                                 android:id="@+id/textPicChange"
@@ -94,57 +114,60 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:gravity="right|left"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Update Username" />
+                            android:text="Update Username"
+                            android:textSize="15sp"
+                            style="@style/textViewOnSurface"/>
 
                         <TextView
                             android:id="@+id/textUsername"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="username" />
+                            android:text="username"
+                            style="@style/textViewOnSurface"/>
 
                         <TextView
                             android:id="@+id/textUserChange"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            style="@style/textViewOnSurface"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
                         android:orientation="vertical"
-                        android:translationX="40dp">
+                        android:layout_weight="1.2">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="New Username" />
 
                         <EditText
                             android:id="@+id/editUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Username"
-                            android:inputType="text" />
+                            android:ems="12"
+                            android:hint="New Username"
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -159,171 +182,53 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:gravity="right|left"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Update Password" />
+                            android:text="Update Password"
+                            android:textSize="15sp"
+                            style="@style/textViewOnSurface"/>
 
                         <TextView
                             android:id="@+id/textPassChange"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            style="@style/textViewOnSurface"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
                         android:orientation="vertical"
-                        android:translationX="42dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="New Password" />
+                        android:layout_weight="1.2">
 
                         <EditText
                             android:id="@+id/editNewPassword"
-                            style="Confirm "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Password"
-                            android:inputType="text" />
+                            android:ems="12"
+                            android:hint="New Password"
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Confirm New Password" />
 
                         <EditText
                             android:id="@+id/editPasswordConfirm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ems="10"
+                            android:ems="12"
                             android:hint="Confirm Password"
-                            android:inputType="text" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:gravity="right|left"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Update Email Address" />
-
-                        <TextView
-                            android:id="@+id/textEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="email" />
-
-                        <TextView
-                            android:id="@+id/textEmailChange"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:orientation="vertical"
-                        android:translationX="14dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="New Email Address" />
-
-                        <EditText
-                            android:id="@+id/editEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Email"
-                            android:inputType="text" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:gravity="right|left"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Update Phone Number" />
-
-                        <TextView
-                            android:id="@+id/textPhone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="phone" />
-
-                        <TextView
-                            android:id="@+id/textPhoneChange"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:orientation="vertical"
-                        android:translationX="11dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="New Phone Number" />
-
-                        <EditText
-                            android:id="@+id/editPhoneNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Phone"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -341,49 +246,172 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="right|left"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Update Address" />
+                            android:text="Update Email Address"
+                            android:textSize="15sp"
+                            style="@style/textViewOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/textEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="email"
+                            style="@style/textViewOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/textEmailChange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/textViewOnSurface"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1.2">
+
+                        <EditText
+                            android:id="@+id/editEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:hint="New Email"
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="right|left"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Update Phone Number"
+                            android:textSize="15sp"
+                            style="@style/textViewOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/textPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="phone"
+                            style="@style/textViewOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/textPhoneChange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/textViewOnSurface"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1.2">
+
+                        <EditText
+                            android:id="@+id/editPhoneNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:hint="New Phone Number"
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="right|left"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Update Address"
+                            android:textSize="15sp"
+                            style="@style/textViewOnSurface"/>
 
                         <TextView
                             android:id="@+id/textAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="address" />
+                            android:text="address"
+                            style="@style/textViewOnSurface"/>
 
                         <TextView
                             android:id="@+id/textAddressChange"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            style="@style/textViewOnSurface"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
                         android:orientation="vertical"
-                        android:translationX="52dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="New Address" />
+                        android:layout_weight="1.2">
 
                         <EditText
                             android:id="@+id/editAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Address"
-                            android:inputType="text" />
+                            android:ems="12"
+                            android:hint="New Address"
+                            android:inputType="text"
+                            style="@style/textViewOnSurface"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -407,13 +435,15 @@
         android:ems="10"
         android:hint="Enter Password to Confirm Changes"
         android:inputType="textPassword"
-        android:queryHint="Password" />
+        android:queryHint="Password"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/btnConfirmChanges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm Changes" />
+        android:text="Confirm Changes"
+        style="@style/textViewOnPrimary"/>
 
     <LinearLayout
         style="@style/navBarBackground"

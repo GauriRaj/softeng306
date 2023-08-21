@@ -25,22 +25,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
                 android:id="@+id/imageProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="79dp"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/debug_image" />
 
             <TextView
                 android:id="@+id/textUsername"
                 style="@style/textViewOnPrimary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="username"
-                android:textSize="16sp" />
+                android:textSize="20sp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
     </RelativeLayout>

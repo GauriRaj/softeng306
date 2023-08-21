@@ -73,7 +73,8 @@ public class WishlistActivity extends AppCompatActivity {
                 getWishlistItemData(wishlist);
             }
         }));
-
+        
+        vh.categoryNameText.setText("Your Wishlist");
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.profileButton.setOnClickListener(this::goProfile);
 
