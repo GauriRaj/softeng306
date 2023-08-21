@@ -27,6 +27,7 @@ import com.softeng306team15.plantoid.Models.IItem;
 import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;
@@ -179,6 +180,23 @@ public class MainActivity extends AppCompatActivity {
         List<IItem> newItems = new LinkedList<>();
         List<IItem> forYouItems = new LinkedList<>();
 
+        //Due to async loading it is not known what finishes loading first. Callback counter ensures
+        //adaptor is only called when all of the items have fully loaded.
+        MyCallback callback = new MyCallback() {
+            int responses = 0;
+            @Override
+            public void onCallback() {
+                responses ++;
+                Log.d(TAG, "callback called responses number " + responses);
+                if (responses == 2*data.size()){
+                    Log.d(TAG, "callback called adaptor");
+                    propagateAdaptor(forYouItems, vh.forYouRecyclerView);
+                    propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
+                    propagateAdaptor(newItems, vh.newItemsRecyclerView);
+                }
+            }
+        };
+
         for(IItem item: data){
             //load all images for item
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(task -> {
@@ -189,12 +207,7 @@ public class MainActivity extends AppCompatActivity {
                         images.add((String) imageDoc.get("image"));
                     }
                     item.setImages(images);
-                    if(item == data.get(data.size()-1)){
-                        //propagate to adaptors to fill the recycler views once all images are loaded
-                        propagateAdaptor(forYouItems, vh.forYouRecyclerView);
-                        propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
-                        propagateAdaptor(newItems, vh.newItemsRecyclerView);
-                    }
+                    callback.onCallback();
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
@@ -209,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         tags.add((String) imageDoc.get("tagName"));
                     }
                     item.setTags(tags);
+                    callback.onCallback();
 
                     //separate items for the recycler views
                     if(item.isBestSeller()){
