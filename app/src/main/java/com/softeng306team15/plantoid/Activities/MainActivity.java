@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -89,7 +90,25 @@ public class MainActivity extends AppCompatActivity {
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
         vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
-        
+
+        vh.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Start search activity and pass it the query
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                intent.putExtra("User", userId);
+                intent.putExtra("Query", query);
+                intent.putExtra("Category", "All");
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // TODO auto-fill functionality goes here
+                return false;
+            }
+        });
     }
 
     public void setUserDisplay(String id) {
@@ -259,10 +278,5 @@ public class MainActivity extends AppCompatActivity {
         profileIntent.putExtra("User", userId);
         startActivity(profileIntent);
     }
-
-    public void goSearch(View v) {
-
-    }
-
 
 }

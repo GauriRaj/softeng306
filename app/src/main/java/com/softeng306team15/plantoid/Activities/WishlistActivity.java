@@ -47,8 +47,6 @@ public class WishlistActivity extends AppCompatActivity {
             discoverButton = findViewById(R.id.discover_navbar_button);
             profileButton = findViewById(R.id.profile_navbar_button);
             backButton = findViewById(R.id.back_button);
-
-            searchBar = findViewById(R.id.searchView);
             categoryNameText = findViewById(R.id.category_title_textView);
             emptyWishlistText = findViewById(R.id.emptyWishlistTextView);
 
@@ -78,8 +76,9 @@ public class WishlistActivity extends AppCompatActivity {
             }
         }));
 
-        vh.backButton.setVisibility(View.INVISIBLE);
-
+        vh.backButton.setOnClickListener(v -> {
+            finish();
+        });
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.profileButton.setOnClickListener(this::goProfile);
 
