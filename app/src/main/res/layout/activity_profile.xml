@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="54dp"
         android:background="@color/md_theme_light_primary"
         android:gravity="center"
         android:paddingHorizontal="5dp"
