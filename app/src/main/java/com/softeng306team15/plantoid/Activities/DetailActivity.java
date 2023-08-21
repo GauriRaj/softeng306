@@ -149,6 +149,7 @@ public class DetailActivity extends FragmentActivity {
     }
 
     ViewHolder vh;
+    String navigateFrom;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -157,15 +158,33 @@ public class DetailActivity extends FragmentActivity {
         setContentView(R.layout.activity_detail);
         // Back button functionality
         vh = new ViewHolder();
-        vh.backArrowImageView.setOnClickListener(v -> {
-            finish();
-        });
         // Get the user id and item id from previous activity
         String itemId, userId;
-        itemId = getIntent().getStringExtra("itemId");
-        userId = getIntent().getStringExtra("userId");
+        Intent intent = getIntent();
+        itemId = intent.getStringExtra("itemId");
+        userId = intent.getStringExtra("userId");
         Log.d(TAG, "Detail view item id: " + itemId);
         Log.d(TAG, "Detail view user id: " + userId);
+
+        if(intent.hasExtra("from")){
+            navigateFrom = intent.getStringExtra("from");
+        }
+
+        vh.backArrowImageView.setOnClickListener(v -> {
+            //need to reload main and wishlist incase wishlist or top category/price has changed
+            if(navigateFrom.equals("Main")){
+                Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
+                mainActivityIntent.putExtra("User", userId);
+                startActivity(mainActivityIntent);
+            }else if(navigateFrom.equals("Wishlist")){
+                Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+                wishlistIntent.putExtra("User", userId);
+                startActivity(wishlistIntent);
+            }else {
+                finish();
+            }
+        });
+
         pagerAdapter = new ImageSlidePagerAdapter(this);
         viewPager = findViewById(R.id.image_pager);
 
