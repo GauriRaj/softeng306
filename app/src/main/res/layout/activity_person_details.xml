@@ -78,14 +78,17 @@
 
                         <ImageView
                             android:id="@+id/imageProfilePic"
-                            android:layout_width="237dp"
+                            android:layout_width="172dp"
                             android:layout_height="172dp"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            android:scaleType="centerCrop"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:paddingLeft="20dp"
                             android:orientation="vertical">
 
                             <Button
@@ -111,7 +114,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
