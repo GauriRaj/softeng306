@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
@@ -129,7 +130,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     }
 
-    public void setNewData(IUser user) {
+    public void setNewData(IUser user, MyCallback callback) {
 
         String newUsername = vh.editUsername.getText().toString();
         String newPassword = vh.editPass.getText().toString();
@@ -228,15 +229,23 @@ public class ChangeProfileActivity extends AppCompatActivity {
                         storageRef.child(path).getDownloadUrl().addOnSuccessListener(uri -> {
                             user.updateUserImage(uri.toString());
                             vh.textPicChange.setText("Profile picture change successful");
+                            callback.onCallback();
                         }).addOnFailureListener(exception -> vh.textError.append("Profile picture change failed"));
             });
+        }else{
+            callback.onCallback();
         }
     }
 
     public void onConfirmChanges() {
 
         String confirm = vh.editConfirmChanges.getText().toString();
-
+        MyCallback callback = new MyCallback() {
+            @Override
+            public void onCallback() {
+                setUserDisplay();
+            }
+        };
         // Run all data verification:
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -254,7 +263,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
                         vh.textError.setText("Confirmation password is incorrect");
                         return;
                     }
-                    setNewData(user);
+                    setNewData(user, callback);
                 } else {
                     Log.d(TAG, "No such document");
                 }
