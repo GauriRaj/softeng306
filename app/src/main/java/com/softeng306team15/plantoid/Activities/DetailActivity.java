@@ -172,7 +172,9 @@ public class DetailActivity extends FragmentActivity {
 
         vh.backArrowImageView.setOnClickListener(v -> {
             //need to reload main and wishlist incase wishlist or top category/price has changed
-            if(navigateFrom.equals("Main")){
+            if(navigateFrom == null){
+                finish();
+            }else if(navigateFrom.equals("Main")){
                 Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
                 mainActivityIntent.putExtra("User", userId);
                 startActivity(mainActivityIntent);
@@ -180,8 +182,6 @@ public class DetailActivity extends FragmentActivity {
                 Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
                 wishlistIntent.putExtra("User", userId);
                 startActivity(wishlistIntent);
-            }else {
-                finish();
             }
         });
 

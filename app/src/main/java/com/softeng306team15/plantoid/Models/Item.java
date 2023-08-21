@@ -13,7 +13,7 @@ public abstract class Item implements IItem{
     protected List<String> plantAndTreeSubTags = Arrays.asList("Evergreen", "Deciduous", "Flowering", "Fruit", "Vegetable", "Herb", "Succulent");
     protected List<String> seedAndSeedlingSubTags = Arrays.asList("Seed", "Seedling");
 
-    protected List<String> sizeSubTags = Arrays.asList("S", "M", "L", "XL");
+    protected List<String> sizeSubTags = Arrays.asList("S", "M", "L");
 
     public String getId(){
         return id;
