@@ -13,7 +13,7 @@
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/md_theme_light_primary"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
@@ -28,7 +28,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Plants and Trees"
+            android:text="Wishlist"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -40,21 +40,10 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
-            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_back_arrow" />
 
         <!-- Search Bar -->
-        <SearchView
-            android:id="@+id/searchView"
-            style="@style/globalSearchBar"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:maxWidth="500dp"
-            android:queryHint="@string/searchBarPrompt"
-            android:theme="@style/globalSearchBar" />
     </RelativeLayout>
 
     <!-- Main Scrolling Section -->
