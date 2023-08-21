@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (userData.exists()) {
                     IUser user = userData.toObject(User.class);
                     user.setId(userData.getId());
-                    vh.textUsername.setText(user.getUserName());
+                    vh.textUsername.setText("Welcome " + user.getUserName());
                     vh.textEmail.setText(user.getEmail());
                     vh.textPhone.setText(user.getPhoneNumber());
                     vh.textAddr.setText(user.getAddress());
