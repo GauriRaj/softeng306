@@ -20,18 +20,11 @@ public interface IUser {
      String getId();
 
      void setId(String id);
-     String getUserName();
 
      String getUserImage();
 
-     String getPhoneNumber();
-
-     String getPassword();
-
      String getEmail();
 
-
-     String getAddress();
 
      Map<String, Integer> getCategoryHits();
 
@@ -53,17 +46,11 @@ public interface IUser {
 
      void incrementPriceRangeHit(String priceRange);
 
-     void updateUserName(String newUserName);
 
      void updateUserImage(String newUserImage);
 
-     void updatePassword(String newPassword);
-
-     void updatePhoneNumber(String newPhoneNumber);
-
      void updateEmail(String newEmail);
 
-     void updateAddress(String newAddress);
 
      void loadWishlist(MyCallback callback);
      void createNewUserDocument(MyCallback myCallback);

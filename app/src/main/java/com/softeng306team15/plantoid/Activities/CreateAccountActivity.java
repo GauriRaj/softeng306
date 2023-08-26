@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,18 +33,16 @@ public class CreateAccountActivity  extends AppCompatActivity {
 
         TextView createErrorText;
 
-        EditText usernameText, passText, confirmPassText, emailText, phoneText;
+        EditText passText, confirmPassText, emailText;
 
         Button btnCreate, btnLogin;
 
         public ViewHolder() {
             createErrorText = findViewById(R.id.textErrorCreate);
 
-            usernameText = findViewById(R.id.editUsername);
             passText = findViewById(R.id.editPassword);
             confirmPassText = findViewById(R.id.editPasswordConfirm);
             emailText = findViewById(R.id.editEmail);
-            phoneText = findViewById(R.id.editPhone);
 
             btnCreate = findViewById(R.id.btnCreateAccount);
             btnLogin = findViewById(R.id.btnLogIn);
@@ -48,6 +50,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,60 @@ public class CreateAccountActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         vh = new ViewHolder();
 
-        vh.btnCreate.setOnClickListener(this::createNewUser);
+        vh.btnCreate.setOnClickListener(this::verifyInputs);
 
         vh.btnLogin.setOnClickListener(this::goLogin);
     }
 
-    public void createNewUser(View v) {
+    public void createAccount(String email, String password) {
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+        IUser userInfo = new User(email);
+        userInfo.createNewUserDocument(new MyCallback(){
+            @Override
+            public void onCallback() {
+                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+    }
+
+    public void verifyInputs(View v) {
         // Check if passwords match
         String password = vh.passText.getText().toString();
         String confPassword = vh.confirmPassText.getText().toString();
@@ -72,24 +123,14 @@ public class CreateAccountActivity  extends AppCompatActivity {
             return;
         }
 
-        String username = vh.usernameText.getText().toString();
         String email = vh.emailText.getText().toString();
-        String phone = vh.phoneText.getText().toString();
 
-        if (username.equals("") || password.equals("") || email.equals("") || phone.equals("")) {
+        if (password.equals("") || email.equals("")) {
             vh.createErrorText.setText("All fields must be filled");
             return;
         }
 
-        IUser user = new User(username, email, password, phone);
-        user.createNewUserDocument(new MyCallback(){
-            @Override
-            public void onCallback() {
-                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
-                mainIntent.putExtra("User", user.getId());
-                startActivity(mainIntent);
-            }
-        });
+        createAccount(email, password);
 
     }
 

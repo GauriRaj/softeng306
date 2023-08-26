@@ -22,14 +22,14 @@ import com.softeng306team15.plantoid.R;
 
 public class LogInActivity extends AppCompatActivity {
     private class ViewHolder {
-        EditText enterUsername, enterPassword;
+        EditText enterEmail, enterPassword;
         Button btnSignIn, btnCreateAccount;
 
         TextView textLoginError;
 
         public ViewHolder() {
 
-            enterUsername = findViewById(R.id.editTextUsername);
+            enterEmail = findViewById(R.id.editTextEmail);
             enterPassword = findViewById(R.id.editTextPassword);
 
             btnSignIn = findViewById(R.id.btnSignIn);
@@ -58,7 +58,7 @@ public class LogInActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users")
-                .whereEqualTo("userName", vh.enterUsername.getText().toString())
+                .whereEqualTo("userName", vh.enterEmail.getText().toString())
                 .whereEqualTo("password", vh.enterPassword.getText().toString())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -74,7 +74,7 @@ public class LogInActivity extends AppCompatActivity {
                             // The above loop will not run if no users are found matching the results
                             if(task.getResult().size() == 0){
                                 vh.textLoginError.setText("Username or password is incorrect");
-                                vh.enterUsername.setText("");
+                                vh.enterEmail.setText("");
                                 vh.enterPassword.setText("");
                             }
 
