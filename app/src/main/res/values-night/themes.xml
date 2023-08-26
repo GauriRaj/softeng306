@@ -56,13 +56,21 @@
         <item name="android:textColor">@color/md_theme_dark_secondary</item>
     </style>
 
+    <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/md_theme_dark_surface_container_highest</item>
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
     <style name="detailTitleLayout">
         <item name="android:background">@color/md_theme_dark_background</item>
     </style>
 
-    <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/md_theme_dark_surface_container_highest</item>
-        <item name="cardCornerRadius">8dp</item>
+    <style name="detailTagIcon">
+        <item name="tint">@color/md_theme_dark_primary</item>
+    </style>
+
+    <style name="detailTagText">
+        <item name="android:textColor">@color/md_theme_dark_primary</item>
     </style>
 
     <style name="navBarBackground">

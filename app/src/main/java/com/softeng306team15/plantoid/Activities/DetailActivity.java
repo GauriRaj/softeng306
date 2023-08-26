@@ -4,11 +4,19 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,15 +31,22 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
 import com.softeng306team15.plantoid.Fragments.ImageSlidePageFragment;
 import com.softeng306team15.plantoid.Models.DetailedItem;
 import com.softeng306team15.plantoid.Models.IItem;
 import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
+import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
+import com.softeng306team15.plantoid.Models.PlantTreeItem;
+import com.softeng306team15.plantoid.Models.PotPlanterItem;
+import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
 import com.softeng306team15.plantoid.Models.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -46,19 +61,37 @@ public class DetailActivity extends FragmentActivity {
     private FragmentStateAdapter pagerAdapter;
 
     private class ViewHolder {
-        TextView topTitleTextView;
         TextView itemTitleTextView;
         TextView itemPriceTextView;
         TextView itemDescTextView;
-        ImageView backArrowImageView;
-        Button wishlistButton;
+        CompoundButton wishlistButton;
+
+        LinearLayout tagsLayout;
+        LinearLayout tag1Layout;
+        LinearLayout tag2Layout;
+        LinearLayout tag3Layout;
+        ImageView tag1ImageView;
+        ImageView tag2ImageView;
+        ImageView tag3ImageView;
+        TextView tag1TextView;
+        TextView tag2TextView;
+        TextView tag3TextView;
+
         public ViewHolder(){
-            topTitleTextView = findViewById(R.id.detail_top_title);
             itemTitleTextView = findViewById(R.id.detail_title_textView);
             itemPriceTextView = findViewById(R.id.detail_price_textView);
             itemDescTextView = findViewById(R.id.detail_description_textView);
-            backArrowImageView = findViewById(R.id.detail_back_imageView);
             wishlistButton = findViewById(R.id.wishlist_button);
+            tagsLayout = findViewById(R.id.detail_tags_layout);
+            tag1Layout = findViewById(R.id.tag1Layout);
+            tag2Layout = findViewById(R.id.tag2Layout);
+            tag3Layout = findViewById(R.id.tag3Layout);
+            tag1ImageView = findViewById(R.id.tag1ImageView);
+            tag2ImageView = findViewById(R.id.tag2ImageView);
+            tag3ImageView = findViewById(R.id.tag3ImageView);
+            tag1TextView = findViewById(R.id.tag1TextView);
+            tag2TextView = findViewById(R.id.tag2TextView);
+            tag3TextView = findViewById(R.id.tag3TextView);
         }
     }
 
@@ -126,9 +159,7 @@ public class DetailActivity extends FragmentActivity {
                 for (String s: images) {
                     Log.d(TAG, "image " + s + "loaded");
                 }
-
                 item.setImages(images);
-                callback.onCallback();
             }
         });
         db.collection("items/" + item.getId() + "/tags").get().addOnCompleteListener(task -> {
@@ -141,6 +172,7 @@ public class DetailActivity extends FragmentActivity {
                     //TODO increment tag relevance to user
                 }
                 item.setTags(tags);
+                callback.onCallback();
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
                 Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
@@ -170,21 +202,6 @@ public class DetailActivity extends FragmentActivity {
             navigateFrom = intent.getStringExtra("from");
         }
 
-        vh.backArrowImageView.setOnClickListener(v -> {
-            //need to reload main and wishlist incase wishlist or top category/price has changed
-            if(navigateFrom == null){
-                finish();
-            }else if(navigateFrom.equals("Main")){
-                Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
-                mainActivityIntent.putExtra("User", userId);
-                startActivity(mainActivityIntent);
-            }else if(navigateFrom.equals("Wishlist")){
-                Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
-                wishlistIntent.putExtra("User", userId);
-                startActivity(wishlistIntent);
-            }
-        });
-
         pagerAdapter = new ImageSlidePagerAdapter(this);
         viewPager = findViewById(R.id.image_pager);
 
@@ -195,7 +212,6 @@ public class DetailActivity extends FragmentActivity {
                 fetchItemData(itemId, () -> {
                     Log.d(TAG, "fetched item " + item.getItemName());
                     float price = item.getItemPrice();
-                    vh.topTitleTextView.setText(item.getItemName());
                     vh.itemTitleTextView.setText(item.getItemName());
                     vh.itemPriceTextView.setText("$" + price);
                     vh.itemDescTextView.setText(item.getItemDesc());
@@ -213,6 +229,7 @@ public class DetailActivity extends FragmentActivity {
                         user.incrementPriceRangeHit("50+");
                     }
 
+                    // Set wishlist button initial state
                     List<String> currentUserWishlist = user.getWishlist();
                     boolean isInWishlist = false;
                     for (String wishlistItemId : currentUserWishlist){
@@ -222,16 +239,31 @@ public class DetailActivity extends FragmentActivity {
                         }
                     }
                     if (isInWishlist){
-                        vh.wishlistButton.setText(R.string.remove_wishlist);
+                        vh.wishlistButton.setChecked(true);
                         vh.wishlistButton.setOnClickListener(v -> {
                             removeFromWishlist(itemId);
                         });
                     } else {
-                        vh.wishlistButton.setText(R.string.add_wishlist);
+                        vh.wishlistButton.setChecked(false);
                         vh.wishlistButton.setOnClickListener(v2 -> {
                             addToWishlist(itemId);
                         });
                     }
+                    // Set up wishlist button animation
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
+                    scaleAnimation.setDuration(500);
+                    BounceInterpolator bounceInterpolator = new BounceInterpolator();
+                    scaleAnimation.setInterpolator(bounceInterpolator);
+                    vh.wishlistButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                            //animation
+                            compoundButton.startAnimation(scaleAnimation);
+                        }
+                    });
+
+                    // Use loaded item tag data to populate tag icons
+                    updateTagIcons();
 
                     // ViewPager acts as parent to the fragment collection,
                     // ImageSlidePagerAdapter handles each fragment (for displaying images)
@@ -240,7 +272,6 @@ public class DetailActivity extends FragmentActivity {
     }
 
     private void addToWishlist(String itemId){
-        vh.wishlistButton.setText(R.string.remove_wishlist);
         user.addToWishlist(itemId);
         CharSequence text = "Added to Wishlist";
         int duration = Toast.LENGTH_SHORT;
@@ -252,7 +283,6 @@ public class DetailActivity extends FragmentActivity {
     }
 
     private void removeFromWishlist(String itemId){
-        vh.wishlistButton.setText(R.string.add_wishlist);
         user.removeFromWishlist(itemId);
         CharSequence text = "Removed from Wishlist";
         int duration = Toast.LENGTH_SHORT;
@@ -286,4 +316,140 @@ public class DetailActivity extends FragmentActivity {
         }
     }
 
+    private void updateTagIcons(){
+        String category = item.getCategory();
+        List<String> tags = item.getTags();
+
+        if(tags == null){
+            Log.d(TAG, "tags was null!");
+            vh.tagsLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        if(tags.size() == 0){
+            Log.d(TAG, "Could not find any tags on item.");
+            vh.tagsLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        if(category.equals("Plants and Trees") || category.equals("Seeds and Seedlings")){
+            boolean tagged = false;
+            for (String subCategory : tags){
+                switch (subCategory){
+                    case "Evergreen":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_evergreen);
+                        vh.tag2TextView.setText(R.string.tag_evergreen);
+                        tagged = true;
+                        break;
+                    case "Deciduous":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_deciduous);
+                        vh.tag2TextView.setText(R.string.tag_deciduous);
+                        tagged = true;
+                        break;
+                    case "Flowering":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_flowering);
+                        vh.tag2TextView.setText(R.string.tag_flowering);
+                        tagged = true;
+                        break;
+                    case "Fruit":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_fruit);
+                        vh.tag2TextView.setText(R.string.tag_fruit);
+                        tagged = true;
+                        break;
+                    case "Vegetable":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_vegetable);
+                        vh.tag2TextView.setText(R.string.tag_vegetable);
+                        tagged = true;
+                        break;
+                    case "Herb":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_herb);
+                        vh.tag2TextView.setText(R.string.tag_herb);
+                        tagged = true;
+                        break;
+                    case "Succulent":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_succulent);
+                        vh.tag2TextView.setText(R.string.tag_succulent);
+                        tagged = true;
+                        break;
+                }
+            }
+            if(!tagged){
+                vh.tag2Layout.setVisibility(View.GONE);
+            }
+            if(category.equals("Plants and Trees")) {
+                vh.tag1Layout.setVisibility(View.GONE);
+            } else{
+                tagged = false;
+                for (String seedSubCategory : tags){
+                    if(seedSubCategory.equals("Seed")){
+                        vh.tag1ImageView.setImageResource(R.drawable.icon_seed);
+                        vh.tag1TextView.setText(R.string.tag_seed);
+                        tagged = true;
+                    } else if (seedSubCategory.equals("Seedling")) {
+                        vh.tag1ImageView.setImageResource(R.drawable.icon_seedling);
+                        vh.tag1TextView.setText(R.string.tag_seedling);
+                        tagged = true;
+                    }
+                }
+                if(!tagged){
+                    vh.tag1Layout.setVisibility(View.GONE);
+                }
+            }
+
+        }else if(category.equals("Pots and Planters")){
+            boolean tagged = false;
+            for(String size : tags){
+                switch (size){
+                    case "S":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_small_pot);
+                        vh.tag2TextView.setText(R.string.tag_smallPot);
+                        tagged = true;
+                        break;
+                    case "M":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_medium_pot);
+                        vh.tag2TextView.setText(R.string.tag_mediumPot);
+                        tagged = true;
+                        break;
+                    case "L":
+                        vh.tag2ImageView.setImageResource(R.drawable.icon_large_pot);
+                        vh.tag2TextView.setText(R.string.tag_largePot);
+                        tagged = true;
+                        break;
+                }
+            }
+            if(!tagged){
+                vh.tag2Layout.setVisibility(View.GONE);
+            }
+            vh.tag1Layout.setVisibility(View.GONE);
+
+        }else{
+            // Category does not have sub-categories
+            vh.tag1Layout.setVisibility(View.GONE);
+            vh.tag2Layout.setVisibility(View.GONE);
+        }
+
+
+        boolean tagged = false;
+        // Global tags
+        for(String globalTag : tags) {
+            if (globalTag.equals("BestSeller")) {
+                vh.tag3ImageView.setImageResource(R.drawable.icon_best_seller);
+                vh.tag3TextView.setText(R.string.tag_bestSeller);
+                tagged = true;
+            }
+        }
+        for(String globalTag : tags) {
+            if (globalTag.equals("NewItem") && !tagged) {
+                vh.tag3ImageView.setImageResource(R.drawable.icon_best_seller);
+                vh.tag3TextView.setText(R.string.tag_bestSeller);
+                tagged = true;
+            }
+        }
+        if(!tagged){
+            vh.tag3Layout.setVisibility(View.GONE);
+            if(vh.tag2Layout.getVisibility() == View.GONE && vh.tag1Layout.getVisibility() == View.GONE) {
+                vh.tagsLayout.setVisibility(View.GONE);
+            }
+        }
+    }
 }
