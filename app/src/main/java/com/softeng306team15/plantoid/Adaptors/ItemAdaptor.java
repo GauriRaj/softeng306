@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -87,8 +86,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     }
 
     private class SeedAndSeedlingViewHolder extends CategoryViewHolder{
-        RelativeLayout subCategoryLayout;
-        RelativeLayout seedSeedlingTagLayout;
+        LinearLayout subCategoryLayout;
+        LinearLayout seedSeedlingTagLayout;
         TextView subCategoryTextView;
         ImageView subCategoryImageView;
         TextView seedSeedlingTagTextView;
@@ -256,6 +255,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
             }
 
             String subCategory = currentItem.getPlantSubTag();
+            ((SeedAndSeedlingViewHolder) vh).subCategoryLayout.setVisibility(View.VISIBLE);
+            Log.d(TAG, "came to check subtags");
             switch (subCategory) {
                 case "Evergreen":
                     ((SeedAndSeedlingViewHolder) vh).subCategoryImageView.setImageResource(R.drawable.icon_evergreen);
@@ -286,6 +287,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                     ((SeedAndSeedlingViewHolder) vh).subCategoryTextView.setText(R.string.tag_succulent);
                     break;
                 default:
+                    Log.d(TAG, "Nope!");
                     // Disable the tag if we cannot get the category or category not valid
                     ((SeedAndSeedlingViewHolder) vh).subCategoryLayout.setVisibility(View.GONE);
             }

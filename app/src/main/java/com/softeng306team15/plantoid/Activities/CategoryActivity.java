@@ -223,7 +223,7 @@ public class CategoryActivity extends AppCompatActivity {
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
         if(category.equals("Seeds and Seedlings")){
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category_seeds, userId);
+            itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
         }else{
             itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
         }
