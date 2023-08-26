@@ -106,6 +106,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
             @Override
             public void onCallback() {
                 Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+                mainIntent.putExtra("User", userInfo.getId());
                 startActivity(mainIntent);
             }
         });

@@ -9,12 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,12 +44,14 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    private FirebaseAuth mAuth;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mAuth = FirebaseAuth.getInstance();
         vh = new ViewHolder();
 
         vh.btnSignIn.setOnClickListener(this::onSignIn);
@@ -53,13 +59,10 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    public void onSignIn(View v) {
-
+    public void getUserId() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         db.collection("users")
-                .whereEqualTo("userName", vh.enterEmail.getText().toString())
-                .whereEqualTo("password", vh.enterPassword.getText().toString())
+                .whereEqualTo("email", vh.enterEmail.getText().toString())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -67,13 +70,11 @@ public class LogInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
-                                mainIntent.putExtra("User", document.getId());
-                                startActivity(mainIntent);
+                                userId = document.getId();
                             }
                             // The above loop will not run if no users are found matching the results
                             if(task.getResult().size() == 0){
-                                vh.textLoginError.setText("Username or password is incorrect");
+                                vh.textLoginError.setText("Email not in database");
                                 vh.enterEmail.setText("");
                                 vh.enterPassword.setText("");
                             }
@@ -83,6 +84,36 @@ public class LogInActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void onSignIn(View v) {
+        String email = vh.enterEmail.getText().toString();
+        String password = vh.enterPassword.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            getUserId();
+                            Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+                            mainIntent.putExtra("User", userId);
+                            startActivity(mainIntent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            vh.textLoginError.setText("Email or password is incorrect");
+                            vh.enterEmail.setText("");
+                            vh.enterPassword.setText("");
+                            Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
     }
 
     public void goCreateAccount(View v) {

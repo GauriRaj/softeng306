@@ -17,6 +17,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,11 +69,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    private FirebaseAuth mAuth;
     String userTopCategory, userTopPrice,userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         //get intent to get userID
         userId = getIntent().getStringExtra("User");
         setContentView(R.layout.activity_main);
@@ -113,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUserDisplay(String id) {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
         // set to actual user's name
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 DocumentSnapshot userDoc1 = task.getResult();
                 if (userDoc1.exists()) {
                     IUser user = userDoc1.toObject(User.class);
-                    String message = "Welcome,\n" + user.getUserName();
+                    String message = "Welcome,\n" + firebaseUser.getDisplayName();
                     user.setId(userDoc1.getId());
                     vh.usernameText.setText(message);
                     userTopCategory = user.getTopCategory();
