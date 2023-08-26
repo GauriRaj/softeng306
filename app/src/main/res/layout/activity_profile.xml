@@ -67,13 +67,27 @@
                 android:layout_marginTop="5dp"
                 app:srcCompat="@drawable/debug_image"
                 android:scaleType="centerCrop"/>
-            <Button
-                android:id="@+id/btnCustomise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="Customise Profile" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textPicChange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btnCustomise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Change Profile Image" />
+            </LinearLayout>
+
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,69 +129,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="15dp"
-                        android:text="Phone:"
-                        android:textAlignment="textStart"
-                        android:textSize="20sp"/>
-
-                    <TextView
-                        android:id="@+id/textPhone"
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:text="phone"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="15dp"
-                        android:text="Address:"
-                        android:textAlignment="textStart"
-                        android:textSize="20sp"/>
-
-                    <TextView
-                        android:id="@+id/textAddress"
-                        style="@style/textViewOnSurface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:text="address"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
 
 
             </LinearLayout>

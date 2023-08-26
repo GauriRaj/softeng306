@@ -38,7 +38,6 @@ public class WishlistActivity extends AppCompatActivity {
 
     private class ViewHolder {
         LinearLayout discoverButton, profileButton;
-        SearchView searchBar;
         TextView categoryNameText, emptyWishlistText;
         RecyclerView itemsRecyclerView;
 
