@@ -222,9 +222,11 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
-        if(category.equals("Seeds and Seedlings")){
+        if (category.equals("Seeds and Seedlings")) {
             itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
-        }else{
+        } else if (category.equals("Pots and Planters")) {
+            itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
+        } else{
             itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
         }
 
@@ -236,7 +238,15 @@ public class CategoryActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int columnNo = (int) dpWidth/242; //170 is item card width
+        int cardWidth;
+
+        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
+            cardWidth = 350;
+        }else{ //if pots/planters or plant care/decor
+            cardWidth = 170;
+        }
+
+        int columnNo = (int) dpWidth/cardWidth;
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }

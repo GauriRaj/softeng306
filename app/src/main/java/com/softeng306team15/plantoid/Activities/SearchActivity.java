@@ -222,12 +222,19 @@ public class SearchActivity extends AppCompatActivity {
 
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
-        if(category.equals("Seeds and Seedlings")){
-            itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
-        }else if (category.equals("All")) {
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
-        } else{
-            itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
+        switch (category) {
+            case "Seeds and Seedlings":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
+                break;
+            case "All":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
+                break;
+            case "Pots and Planters":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
+                break;
+            default:
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
+                break;
         }
 
         vh.itemsRecyclerView.setAdapter(itemAdapter);
