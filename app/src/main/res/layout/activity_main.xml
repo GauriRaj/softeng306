@@ -240,9 +240,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:text="Recommended For You"
-                android:paddingTop="15dp"
+                android:paddingTop="10dp"
                 style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -253,9 +253,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:text="Best Seller"
-                android:paddingTop="15dp"
+                android:paddingTop="10dp"
                 style="@style/mainRecyclerViewTitleTextView"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -335,7 +335,7 @@
                 android:adjustViewBounds="true"
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
-                app:tint="@color/md_theme_Neutral80"/>
+                app:tint="@color/md_theme_light_onPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -344,7 +344,7 @@
                 android:text="Wishlist"
                 android:textAlignment="center"
                 android:layout_weight="0"
-                android:textColor="@color/md_theme_Neutral80"/>
+                android:textColor="@color/md_theme_light_onPrimary"/>
         </LinearLayout>
 
         <LinearLayout
@@ -364,7 +364,7 @@
                 android:adjustViewBounds="true"
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
-                app:tint="@color/md_theme_Neutral80"/>
+                app:tint="@color/md_theme_light_onPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -373,7 +373,7 @@
                 android:text="My Plantoid"
                 android:textAlignment="center"
                 android:layout_weight="0"
-                android:textColor="@color/md_theme_Neutral80"/>
+                android:textColor="@color/md_theme_light_onPrimary"/>
         </LinearLayout>
 
     </LinearLayout>

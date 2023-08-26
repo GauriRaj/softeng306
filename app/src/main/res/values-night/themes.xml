@@ -35,15 +35,29 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
-        <item name="backgroundColor">@color/md_theme_dark_surface_container_low</item>
+        <item name="backgroundColor">@color/md_theme_dark_background</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/md_theme_light_primary</item>
+        <item name="android:statusBarColor">@color/md_theme_dark_background</item>
         <!-- Customize your theme here. -->
         <item name="materialCardViewStyle">@style/item_card_main</item>
     </style>
 
     <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
+
+    <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_dark_onPrimary</item>
+    </style>
+
+    <style name="mainRecyclerViewTitleTextView" parent="textViewOnSurface">
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/md_theme_dark_secondary</item>
+    </style>
+
+    <style name="detailTitleLayout">
+        <item name="android:background">@color/md_theme_dark_background</item>
     </style>
 
     <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
