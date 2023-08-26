@@ -4,7 +4,6 @@
     android:layout_width="350dp"
     android:layout_height="165dp"
     android:layout_margin="5dp"
-    android:elevation="10dp"
     style="@style/item_card_main">
     <RelativeLayout
         android:layout_width="match_parent"
