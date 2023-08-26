@@ -5,23 +5,20 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.softeng306team15.plantoid.Activities.CategoryActivity;
 import com.softeng306team15.plantoid.Activities.DetailActivity;
-import com.softeng306team15.plantoid.Activities.MainActivity;
 import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.IUser;
 import com.softeng306team15.plantoid.Models.MainItem;
 import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
 import com.softeng306team15.plantoid.Models.PlantTreeItem;
@@ -29,7 +26,6 @@ import com.softeng306team15.plantoid.Models.PotPlanterItem;
 import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
-
 
 import java.util.List;
 
@@ -63,7 +59,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         /*
         This View Holder is used as a basis for category items, Plant Care and Decor uses this directly
          */
-        RelativeLayout globalTagLayout;
+        LinearLayout globalTagLayout;
         ImageView globalTagImageView;
         TextView globalTagTextView;
 
@@ -77,7 +73,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     }
 
     private class PlantAndTreeViewHolder extends CategoryViewHolder{
-        RelativeLayout subCategoryLayout;
+        LinearLayout subCategoryLayout;
         TextView subCategoryTextView;
         ImageView subCategoryImageView;
 
@@ -110,7 +106,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     }
 
     private class PotAndPlanterViewHolder extends CategoryViewHolder{
-        RelativeLayout sizeTagLayout;
+        LinearLayout sizeTagLayout;
         ImageView sizeTagImageView;
         TextView sizeTagTextView;
 
@@ -175,21 +171,18 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
             return;
         }
 
-        vh.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext().getApplicationContext(), DetailActivity.class);
-                intent.putExtra("itemId", currentItem.getId());
-                intent.putExtra("userId", userId);
-                if(layoutId == R.layout.item_rv_wishlist){
-                    intent.putExtra("from", "Wishlist");
-                }else if(layoutId == R.layout.item_rv_main){
-                    intent.putExtra("from", "Main");
-                }
-                Log.d(TAG, "user id: " + userId);
-                Log.d(TAG, "item id: " + currentItem.getId());
-                v.getContext().startActivity(intent);
+        vh.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext().getApplicationContext(), DetailActivity.class);
+            intent.putExtra("itemId", currentItem.getId());
+            intent.putExtra("userId", userId);
+            if(layoutId == R.layout.item_rv_wishlist){
+                intent.putExtra("from", "Wishlist");
+            }else if(layoutId == R.layout.item_rv_main){
+                intent.putExtra("from", "Main");
             }
+            Log.d(TAG, "user id: " + userId);
+            Log.d(TAG, "item id: " + currentItem.getId());
+            v.getContext().startActivity(intent);
         });
 
         //shared view holder functionality
@@ -233,7 +226,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                     break;
                 default:
                     // Disable the tag if we cannot get the category or category not valid
-                    ((PlantAndTreeViewHolder) vh).subCategoryLayout.setVisibility(View.INVISIBLE);
+                    ((PlantAndTreeViewHolder) vh).subCategoryLayout.setVisibility(View.GONE);
             }
 
             if(currentItem.isBestSeller()){
@@ -245,7 +238,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                 ((PlantAndTreeViewHolder) vh).globalTagImageView.setImageResource(R.drawable.icon_new_in);
                 ((PlantAndTreeViewHolder) vh).globalTagTextView.setText(R.string.tag_newIn);
             } else{
-                ((PlantAndTreeViewHolder) vh).globalTagLayout.setVisibility(View.INVISIBLE);
+                ((PlantAndTreeViewHolder) vh).globalTagLayout.setVisibility(View.GONE);
             }
 
         }else if(vh.getClass() == SeedAndSeedlingViewHolder.class){
@@ -259,7 +252,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                 ((SeedAndSeedlingViewHolder) vh).globalTagImageView.setImageResource(R.drawable.icon_new_in);
                 ((SeedAndSeedlingViewHolder) vh).globalTagTextView.setText(R.string.tag_newIn);
             } else{
-                ((SeedAndSeedlingViewHolder) vh).globalTagLayout.setVisibility(View.INVISIBLE);
+                ((SeedAndSeedlingViewHolder) vh).globalTagLayout.setVisibility(View.GONE);
             }
 
             String subCategory = currentItem.getPlantSubTag();
@@ -294,7 +287,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                     break;
                 default:
                     // Disable the tag if we cannot get the category or category not valid
-                    ((SeedAndSeedlingViewHolder) vh).subCategoryLayout.setVisibility(View.INVISIBLE);
+                    ((SeedAndSeedlingViewHolder) vh).subCategoryLayout.setVisibility(View.GONE);
             }
 
             ((SeedAndSeedlingViewHolder) vh).seedSeedlingTagLayout.setVisibility(View.VISIBLE);
@@ -305,7 +298,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                 ((SeedAndSeedlingViewHolder) vh).seedSeedlingTagImageView.setImageResource(R.drawable.icon_seedling);
                 ((SeedAndSeedlingViewHolder) vh).seedSeedlingTagTextView.setText(R.string.tag_seedling);
             } else{
-                ((SeedAndSeedlingViewHolder) vh).seedSeedlingTagLayout.setVisibility(View.INVISIBLE);
+                ((SeedAndSeedlingViewHolder) vh).seedSeedlingTagLayout.setVisibility(View.GONE);
             }
 
         }else if(vh.getClass() == PotAndPlanterViewHolder.class){
@@ -318,7 +311,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                 ((PotAndPlanterViewHolder) vh).globalTagImageView.setImageResource(R.drawable.icon_new_in);
                 ((PotAndPlanterViewHolder) vh).globalTagTextView.setText(R.string.tag_newIn);
             } else{
-                ((PotAndPlanterViewHolder) vh).globalTagLayout.setVisibility(View.INVISIBLE);
+                ((PotAndPlanterViewHolder) vh).globalTagLayout.setVisibility(View.GONE);
             }
 
             ((PotAndPlanterViewHolder) vh).sizeTagLayout.setVisibility(View.VISIBLE);
@@ -337,7 +330,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                     ((PotAndPlanterViewHolder) vh).sizeTagTextView.setText(R.string.tag_largePot);
                     break;
                 default:
-                    ((PotAndPlanterViewHolder) vh).sizeTagLayout.setVisibility(View.INVISIBLE);
+                    ((PotAndPlanterViewHolder) vh).sizeTagLayout.setVisibility(View.GONE);
             }
 
         }else if(vh.getClass() == CategoryViewHolder.class){ //Plant care and decor category
@@ -350,7 +343,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
                 ((CategoryViewHolder) vh).globalTagImageView.setImageResource(R.drawable.icon_new_in);
                 ((CategoryViewHolder) vh).globalTagTextView.setText(R.string.tag_newIn);
             } else{
-                ((CategoryViewHolder) vh).globalTagLayout.setVisibility(View.INVISIBLE);
+                ((CategoryViewHolder) vh).globalTagLayout.setVisibility(View.GONE);
             }
         }
     }

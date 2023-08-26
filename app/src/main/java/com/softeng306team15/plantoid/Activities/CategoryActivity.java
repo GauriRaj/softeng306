@@ -225,7 +225,7 @@ public class CategoryActivity extends AppCompatActivity {
         if(category.equals("Seeds and Seedlings")){
             itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category_seeds, userId);
         }else{
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category, userId);
+            itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
         }
 
         vh.itemsRecyclerView.setAdapter(itemAdapter);
@@ -236,7 +236,7 @@ public class CategoryActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int columnNo = (int) dpWidth/170; //170 is item card width
+        int columnNo = (int) dpWidth/242; //170 is item card width
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }
