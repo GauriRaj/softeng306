@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewHolder {
         CardView seedsCardView, plantsCardView, plantersCardView, careCardView;
-        LinearLayout discoverButton, wishlistButton, profileButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton;
         SearchView searchBar;
         TextView usernameText;
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
 
             searchBar = findViewById(R.id.searchView);
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
+        vh.logoutButton.setOnClickListener(this::goLogout);
 
         vh.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -293,10 +293,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v, String userId) {
-        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        profileIntent.putExtra("User", userId);
-        startActivity(profileIntent);
+    public void goLogout(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent logoutIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(logoutIntent);
     }
 
 }

@@ -20,9 +20,6 @@
         <activity android:name=".Activities.DetailActivity"/>
         <activity android:name=".Activities.SearchActivity"/>
         <activity
-            android:name=".Activities.ProfileActivity">
-        </activity>
-        <activity
 
             android:name=".Activities.LogInActivity"
             android:exported="true">

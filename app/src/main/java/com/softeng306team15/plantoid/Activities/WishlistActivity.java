@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,13 +38,13 @@ import java.util.List;
 public class WishlistActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, profileButton;
+        LinearLayout discoverButton, logoutButton;
         TextView categoryNameText, emptyWishlistText;
         RecyclerView itemsRecyclerView;
 
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
             categoryNameText = findViewById(R.id.category_title_textView);
             emptyWishlistText = findViewById(R.id.emptyWishlistTextView);
 
@@ -75,7 +76,7 @@ public class WishlistActivity extends AppCompatActivity {
         
         vh.categoryNameText.setText("Your Wishlist");
         vh.discoverButton.setOnClickListener(this::goDiscover);
-        vh.profileButton.setOnClickListener(this::goProfile);
+        vh.logoutButton.setOnClickListener(this::goLogout);
 
     }
 
@@ -215,10 +216,10 @@ public class WishlistActivity extends AppCompatActivity {
         startActivity(mainActivityIntent);
     }
 
-    public void goProfile(View v) {
-        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        profileIntent.putExtra("User", userId);
-        startActivity(profileIntent);
+    public void goLogout(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent logoutIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(logoutIntent);
     }
 
 }
