@@ -1,11 +1,10 @@
-package com.softeng306team15.plantoid.Models;
+package com.softeng306team15.plantoid.UserModels;
 
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class User implements IUser{
+public class User implements IUser {
 
     String id, userName, userImage, phoneNumber, password, email, address;
 
