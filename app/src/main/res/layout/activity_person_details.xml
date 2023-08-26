@@ -469,7 +469,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:src="@drawable/discover_icon"
-                app:tint="@color/md_theme_Neutral80" />
+                app:tint="@color/md_theme_light_onPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -478,7 +478,7 @@
                 android:layout_weight="0"
                 android:text="Discover"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_Neutral80" />
+                android:textColor="@color/md_theme_light_onPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -498,7 +498,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:src="@drawable/wishlist_icon"
-                app:tint="@color/md_theme_Neutral80" />
+                app:tint="@color/md_theme_light_onPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -507,7 +507,7 @@
                 android:layout_weight="0"
                 android:text="Wishlist"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_Neutral80" />
+                android:textColor="@color/md_theme_light_onPrimary" />
         </LinearLayout>
 
         <LinearLayout
