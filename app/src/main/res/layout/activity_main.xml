@@ -11,67 +11,65 @@
     android:background="?attr/backgroundColor">
 
     <!-- Top bar with logo, user welcome and search bar -->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:paddingHorizontal="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/main_top_bar_layout"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_centerHorizontal="true">
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center">
             <!-- Logo Text -->
             <TextView
+                android:id="@+id/main_plantoid_logo_textView"
                 style="@style/plantoidLogoText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_weight="0"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toRightOf="@+id/main_plantoid_logo_imageView"
                 android:text="@string/app_name"
-                android:textSize="45sp"/>
+                android:textSize="45sp" />
             <!-- Logo -->
             <ImageView
+                android:id="@+id/main_plantoid_logo_imageView"
+                style="@style/plantoidLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="2dp"
-                android:layout_weight="0"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/logo_main_plantoid"
-                style="@style/plantoidLogo"/>
-            <!-- Welcome Text -->
-            <TextView
-                android:id="@+id/banner_welcome_text"
+                android:src="@drawable/logo_main_plantoid" />
+
+            <ImageView
+                android:id="@+id/show_search_imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:autoSizeTextType="uniform"
-                android:text="Welcome,\nUsername"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/md_theme_light_onPrimary"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/search_icon"
+                app:tint="@color/md_theme_light_primary"
+                android:visibility="gone"/>
+        </RelativeLayout>
         <!-- Search Bar -->
         <SearchView
             android:id="@+id/searchView"
             style="@style/globalSearchBar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:maxWidth="500dp"
             android:queryHint="@string/searchBarPrompt"
-            android:layout_marginHorizontal="10dp"
-            android:theme="@style/globalSearchBar" />
-    </RelativeLayout>
+            android:layout_margin="10dp"
+            android:theme="@style/globalSearchBar"/>
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="?attr/colorPrimary"/>
+        style="@style/insetDivider"/>
     <!-- Main Scrolling Section -->
     <ScrollView
         android:layout_width="match_parent"
@@ -200,13 +198,12 @@
 
                 </LinearLayout>
             </HorizontalScrollView>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="?attr/colorPrimary"
                 android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="10dp"/>
+                android:layout_marginHorizontal="10dp"
+                style="@style/insetDivider"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

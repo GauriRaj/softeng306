@@ -1,6 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.Plantoid" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
@@ -52,7 +53,7 @@
     </style>
 
     <style name="insetDivider" parent="Widget.AppCompat.TextView">
-        <item name="android:background">@color/md_theme_light_primary</item>
+        <item name="android:background">@color/md_theme_light_secondaryContainer</item>
     </style>
 
     <!-- TextView Styles -->

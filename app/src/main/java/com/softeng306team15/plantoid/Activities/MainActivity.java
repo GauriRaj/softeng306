@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout seedsCardView, plantsCardView, plantersCardView, careCardView;
         LinearLayout discoverButton, wishlistButton, logoutButton;
         SearchView searchBar;
-        TextView usernameText;
-
         RecyclerView forYouRecyclerView, bestSellerRecyclerView,newItemsRecyclerView;
 
         public ViewHolder() {
@@ -58,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             logoutButton = findViewById(R.id.profile_navbar_button);
 
             searchBar = findViewById(R.id.searchView);
-
-            usernameText = findViewById(R.id.banner_welcome_text);
 
             forYouRecyclerView = findViewById(R.id.recyclerView_main_1);
             bestSellerRecyclerView = findViewById(R.id.recyclerView_main_2);
@@ -131,9 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 if (userDoc1.exists()) {
                     IUser user = userDoc1.toObject(User.class);
 
-                    String message = "Welcome,\n" + user.getUserName();
-                    user.setId(userDoc1.getId());
-                    vh.usernameText.setText(message);
                     userTopCategory = user.getTopCategory();
                     userTopPrice = user.getTopPriceRange();
                 } else {
