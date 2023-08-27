@@ -282,7 +282,7 @@ public class SearchActivity extends AppCompatActivity {
                 itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
                 break;
             case "All":
-                itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
+                itemAdapter = new ItemAdaptor(data, R.layout.item_wishlist_card, userId);
                 break;
             case "Pots and Planters":
                 itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
@@ -305,7 +305,7 @@ public class SearchActivity extends AppCompatActivity {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int cardWidth;
 
-        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
+        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")) {
             cardWidth = 350;
         }else{ //if pots/planters or plant care/decor
             cardWidth = 180;
