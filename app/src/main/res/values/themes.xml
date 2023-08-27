@@ -146,7 +146,7 @@
     </style>
 
     <style name="navBarBackground">
-        <item name="android:background">@color/md_theme_light_primary</item>
+        <item name="android:background">@color/md_theme_light_secondary</item>
     </style>
 
     <!-- EditText styles -->
