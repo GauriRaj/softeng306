@@ -145,12 +145,12 @@
         <item name="android:paddingHorizontal">5dp</item>
         <item name="android:paddingVertical">3dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:background">@drawable/search_bar_background</item>
-        <item name="android:editTextColor">@color/md_theme_light_onPrimary</item>
-        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
-        <item name="android:textColorHint">@color/md_theme_Primary50</item>
-        <item name="android:iconifiedByDefault">false</item>
-        <item name="android:queryBackground">@android:color/transparent</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:textColorHighlight">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:cacheColorHint">@color/md_theme_Primary50</item>
+        <item name="android:textColorLink">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:background">@color/md_theme_Primary50</item>
     </style>
 
 </resources>
