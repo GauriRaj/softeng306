@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        CardView seedsCardView, plantsCardView, plantersCardView, careCardView;
+        RelativeLayout seedsCardView, plantsCardView, plantersCardView, careCardView;
         LinearLayout discoverButton, wishlistButton, logoutButton;
         SearchView searchBar;
         TextView usernameText;

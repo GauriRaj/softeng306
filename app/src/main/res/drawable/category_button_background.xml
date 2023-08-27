@@ -2,15 +2,10 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@android:color/white">
     <item>
-        <inset android:insetRight="5%p">
+        <inset android:inset="9%p">
             <shape android:shape="oval">
                 <solid android:color="@color/md_theme_Secondary90"/>
             </shape>
-        </inset>
-    </item>
-    <item>
-        <inset android:insetLeft="1%p">
-            <bitmap android:src="@drawable/category_art_seeds"/>
         </inset>
     </item>
 </ripple>

@@ -70,7 +70,8 @@
     </style>
 
     <style name="categoryTextView" parent="textViewOnSurface">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="detailTitleTextView" parent="textViewOnSurface">
