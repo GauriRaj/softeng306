@@ -36,8 +36,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/wishlist_icon"
-                    style="@style/drawables_style" />
+                    android:src="@drawable/wishlist_icon" />
 
                 <TextView
                     android:id="@+id/category_title_textView"
