@@ -2,6 +2,8 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, logoutButton, navbar;
+        LinearLayout discoverButton, wishlistButton, logoutButton, navBar;
         SearchView searchBar;
         TextView categoryNameText;
         TextView emptySearchTextView;
@@ -65,13 +67,14 @@ public class SearchActivity extends AppCompatActivity {
             loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
             loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
 
-            navbar = findViewById(R.id.navbar);
+            navBar = findViewById(R.id.navbar);
             scrollSection = findViewById(R.id.scroll_section);
             topBar = findViewById(R.id.top_bar);
         }
     }
     ViewHolder vh;
     String userId, category, query;
+    int shortAnimationDuration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +87,8 @@ public class SearchActivity extends AppCompatActivity {
 
         vh = new SearchActivity.ViewHolder();
         vh.loadingAnimation.start();
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         fetchQueryItemData(category);
 
@@ -267,12 +272,38 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void removeLoadingAnimation(){
-        Log.d(TAG, "Animation stopped");
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
-        vh.navbar.setVisibility(View.VISIBLE);
+
+        vh.navBar.setAlpha(0f);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.navBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.topBar.setAlpha(0f);
         vh.topBar.setVisibility(View.VISIBLE);
+        vh.topBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void propagateAdaptor(List<IItem> data) {

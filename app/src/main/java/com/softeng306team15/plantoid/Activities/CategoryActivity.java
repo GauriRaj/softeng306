@@ -2,6 +2,8 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -68,6 +70,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
     ViewHolder vh;
     String userId, category;
+    int shortAnimationDuration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,8 @@ public class CategoryActivity extends AppCompatActivity {
 
         vh = new CategoryActivity.ViewHolder();
         vh.loadingAnimation.start();
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         switch (category) {
             case "Plants":
@@ -235,10 +240,37 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void removeLoadingAnimation(){
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
+
+        vh.navBar.setAlpha(0f);
         vh.navBar.setVisibility(View.VISIBLE);
+        vh.navBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.topBar.setAlpha(0f);
         vh.topBar.setVisibility(View.VISIBLE);
+        vh.topBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void propagateAdaptor(List<IItem> data) {

@@ -2,6 +2,8 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -191,6 +193,7 @@ public class DetailActivity extends FragmentActivity {
 
     ViewHolder vh;
     String navigateFrom;
+    int shortAnimationDuration;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -201,6 +204,8 @@ public class DetailActivity extends FragmentActivity {
         // Back button functionality
         vh = new ViewHolder();
         vh.loadingAnimation.start();
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         // Get the user id and item id from previous activity
         String itemId, userId;
@@ -482,8 +487,29 @@ public class DetailActivity extends FragmentActivity {
 
     private void removeLoadingAnimation(){
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
+
+        vh.wishlistButton.setAlpha(0f);
         vh.wishlistButton.setVisibility(View.VISIBLE);
+        vh.wishlistButton.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
     }
 }
