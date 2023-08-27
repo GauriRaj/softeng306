@@ -56,8 +56,13 @@
     </style>
 
     <!-- TextView Styles -->
+    <style name="textViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="fontFamily">@font/rancho</item>
+    </style>
+
     <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
     </style>
 
     <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">
@@ -76,7 +81,7 @@
     <style name="detailPriceTextView" parent="textViewOnSurface">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/md_theme_light_primary</item>
+        <item name="android:textColor">@color/md_theme_light_onSurface</item>
     </style>
 
     <style name="wishlistEmptyTextView" parent="textViewOnSurface">
@@ -108,8 +113,16 @@
         <item name="android:tint">@color/md_theme_light_primary</item>
     </style>
 
-    <style name="detailTitleLayout">
-        <item name="android:background">@color/md_theme_light_background</item>
+    <style name="detailTagIcon">
+        <item name="android:tint">@color/md_theme_light_primary</item>
+    </style>
+
+    <style name="detailImageBackdrop">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="detailTagText">
+        <item name="android:textColor">@color/md_theme_light_primary</item>
     </style>
 
     <style name="item_card_main" parent="CardView">

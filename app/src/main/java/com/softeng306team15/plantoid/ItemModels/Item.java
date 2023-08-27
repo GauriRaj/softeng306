@@ -91,4 +91,8 @@ public abstract class Item implements IItem{
     public String getSeedSubTag(){
         throw new RuntimeException(this.getClass().getSimpleName() + " doesn't have this method");
     }
+
+    public String getScientific(){
+        throw new RuntimeException(this.getClass().getSimpleName() + " doesn't have this method");
+    }
 }

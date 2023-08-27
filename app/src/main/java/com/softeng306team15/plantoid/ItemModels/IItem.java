@@ -36,4 +36,6 @@ public interface IItem {
 
     public String getSeedSubTag();
 
+    public String getScientific();
+
 }
