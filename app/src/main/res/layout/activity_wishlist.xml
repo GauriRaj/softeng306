@@ -24,48 +24,40 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    style="@style/drawables_style"
-                    android:layout_width="30dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:src="@drawable/wishlist_icon" />
 
                 <TextView
                     android:id="@+id/category_title_textView"
                     style="@style/textViewTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="Wishlist"
                     android:textAlignment="center"
                     android:textSize="43sp" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/textView"
                 style="@style/insetDivider"
-                android:layout_width="350dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center" />
+                android:layout_width="370dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <!-- Search Bar -->
