@@ -74,6 +74,18 @@
         <item name="android:background">@color/md_theme_dark_background</item>
     </style>
 
+    <style name="detailTagIcon">
+        <item name="tint">@color/md_theme_dark_primary</item>
+    </style>
+
+    <style name="detailTagText">
+        <item name="android:textColor">@color/md_theme_dark_primary</item>
+    </style>
+
+    <style name="detailImageBackdrop">
+        <item name="android:background">@android:color/black</item>
+    </style>
+
     <style name="drawables_style">
         <item name="android:tint">@color/md_theme_dark_primary</item>
     </style>
