@@ -3,12 +3,15 @@ package com.softeng306team15.plantoid.Activities;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +40,13 @@ import java.util.List;
 public class WishlistActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, logoutButton;
+        LinearLayout discoverButton, logoutButton, navBar;
         TextView categoryNameText, emptyWishlistText;
         RecyclerView itemsRecyclerView;
+        ScrollView scrollSection;
+        RelativeLayout topBar;
+        AnimationDrawable loadingAnimation;
+        ImageView loadingAnimationImageView;
 
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
@@ -48,6 +55,13 @@ public class WishlistActivity extends AppCompatActivity {
             emptyWishlistText = findViewById(R.id.emptyWishlistTextView);
 
             itemsRecyclerView = findViewById(R.id.categoryRecyclerView);
+
+            loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
+            loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
+
+            navBar = findViewById(R.id.navbar);
+            scrollSection = findViewById(R.id.scroll_section);
+            topBar = findViewById(R.id.top_bar);
         }
     }
 
@@ -63,6 +77,8 @@ public class WishlistActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_wishlist);
         vh = new ViewHolder();
+        vh.loadingAnimation.start();
+
         getUserData(() -> user.loadWishlist(() -> {
             List<String> wishlist = user.getWishlist();
             if (wishlist.size() == 0){
@@ -154,6 +170,7 @@ public class WishlistActivity extends AppCompatActivity {
                 if (responses == 2*data.size()){
                     Log.d(TAG, "callback called adaptor");
                     propagateAdaptor(wishlist);
+                    removeLoadingAnimation();
                 }
             }
         };
@@ -193,6 +210,15 @@ public class WishlistActivity extends AppCompatActivity {
 
 
     }
+
+    private void removeLoadingAnimation(){
+        vh.loadingAnimation.stop();
+        vh.loadingAnimationImageView.setVisibility(View.GONE);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.topBar.setVisibility(View.VISIBLE);
+        vh.scrollSection.setVisibility(View.VISIBLE);
+    }
+
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_wishlist_card, userId);
         vh.itemsRecyclerView.setAdapter(itemAdapter);
