@@ -35,11 +35,12 @@
                 android:src="@drawable/logo_main_plantoid" />
 
             <TextView
-                style="@style/plantoidLogoText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
+                android:fontFamily="@font/rancho"
                 android:text="@string/app_name"
+                android:textColor="@color/md_theme_Primary90"
                 android:textSize="45sp" />
 
 
