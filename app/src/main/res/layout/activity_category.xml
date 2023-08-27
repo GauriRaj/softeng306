@@ -30,22 +30,25 @@
             android:textSize="43sp" />
         <TextView
             style="@style/insetDivider"
-            android:layout_width="370dp"
+            android:layout_width="400dp"
             android:layout_height="2dp"
             android:layout_marginTop="57dp"
             android:layout_marginStart="15dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"/>
 
         <!-- Search Bar -->
         <SearchView
             android:id="@+id/searchView"
             style="@style/globalSearchBar"
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:maxWidth="500dp"
             android:queryHint="@string/searchBarPrompt"
+            android:textAlignment="center"
             android:theme="@style/globalSearchBar" />
     </RelativeLayout>
 

@@ -46,7 +46,6 @@
 
         <!-- Search Bar -->
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -58,13 +57,48 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:paddingHorizontal="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="112dp"
+                        android:layout_height="91dp"
+                        android:layout_weight="0"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/logo_main_plantoid" />
+
+                    <TextView
+                        style="@style/plantoidLogoText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/app_name"
+                        android:textSize="45sp" />
+
+                </LinearLayout>
+
+                <!-- Search Bar -->
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:fontFamily="@font/rancho"
                 android:text="Log in"
                 android:textAlignment="center"
-                android:fontFamily="@font/rancho"
                 android:textColor="@color/md_theme_light_onSecondary"
                 android:textSize="34sp" />
 
@@ -117,16 +151,20 @@
 
             <Button
                 android:id="@+id/btnSignIn"
+                style="@style/LoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@color/md_theme_light_primary"
                 android:text="Sign in" />
 
             <Button
                 android:id="@+id/btnNewAccount"
+                style="@style/LoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@color/md_theme_light_primary"
                 android:text="Create New Account" />
 
         </LinearLayout>
