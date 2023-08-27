@@ -22,10 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
-import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.MainItem;
-import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.ItemModels.IItem;
+import com.softeng306team15.plantoid.UserModels.IUser;
+import com.softeng306team15.plantoid.ItemModels.MainItem;
+import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                         newItems.add(item);
                     }
                     if(item.getTags().contains(userTopPrice)){
+                        Log.d(TAG, "item " + item.getItemName());
                         if (item.getCategory().equals(userTopCategory)){
                             forYouItems.add(item);
                         }

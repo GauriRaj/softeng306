@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,19 +23,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Fragments.ImageSlidePageFragment;
-import com.softeng306team15.plantoid.Models.DetailedItem;
-import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.MainItem;
-import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.ItemModels.DetailedItem;
+import com.softeng306team15.plantoid.ItemModels.IItem;
+import com.softeng306team15.plantoid.UserModels.IUser;
+import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class DetailActivity extends FragmentActivity {
 

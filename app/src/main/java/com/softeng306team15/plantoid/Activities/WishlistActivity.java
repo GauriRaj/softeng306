@@ -22,10 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
-import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.MainItem;
-import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.ItemModels.IItem;
+import com.softeng306team15.plantoid.UserModels.IUser;
+import com.softeng306team15.plantoid.ItemModels.MainItem;
+import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
