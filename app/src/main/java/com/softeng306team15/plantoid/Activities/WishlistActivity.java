@@ -194,7 +194,7 @@ public class WishlistActivity extends AppCompatActivity {
 
     }
     private void propagateAdaptor(List<IItem> data) {
-        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_wishlist, userId);
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_wishlist_card, userId);
         vh.itemsRecyclerView.setAdapter(itemAdapter);
         GridLayoutManager lm =new GridLayoutManager(this,calculateNumberOfColumns());
         vh.itemsRecyclerView.setLayoutManager(lm);

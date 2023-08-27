@@ -71,9 +71,7 @@ public class SearchActivity extends AppCompatActivity {
 
         fetchQueryItemData(category);
 
-        vh.backButton.setOnClickListener(v -> {
-            finish();
-        });
+        vh.backButton.setOnClickListener(v -> finish());
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.wishlistButton.setOnClickListener(this::goWishlist);
         vh.logoutButton.setOnClickListener(this::goLogout);
@@ -225,12 +223,22 @@ public class SearchActivity extends AppCompatActivity {
 
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
-        if(category.equals("Seeds and Seedlings")){
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category_seeds, userId);
-        }else if (category.equals("All")) {
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
-        } else{
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category, userId);
+        switch (category) {
+            case "Seeds and Seedlings":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
+                break;
+            case "All":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
+                break;
+            case "Pots and Planters":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
+                break;
+            case "Plant Care and Decor":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plant_care_decor_card, userId);
+                break;
+            default:
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
+                break;
         }
 
         vh.itemsRecyclerView.setAdapter(itemAdapter);
