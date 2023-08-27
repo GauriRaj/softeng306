@@ -9,7 +9,7 @@
             <gradient
                 android:type="linear"
                 android:centerX="0.40"
-                android:startColor="#00FFFFFF"
+                android:startColor="@color/md_theme_dark_surface_container_gradient_transparent"
                 android:centerColor="@color/md_theme_dark_surface_container_gradient_midtone"
                 android:endColor="@color/md_theme_dark_surface_container">
             </gradient>

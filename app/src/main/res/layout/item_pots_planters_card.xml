@@ -74,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
                         style="@style/drawables_style"
-                        android:contentDescription="Plant category tag icon image" />
+                        android:contentDescription="Pot and planter size tag icon image" />
                     <TextView
                         android:id="@+id/category_tag_textView"
                         android:layout_width="wrap_content"
