@@ -31,13 +31,13 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    style="@style/drawables_style"
                     android:layout_width="30dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/wishlist_icon"
-                    style="@style/drawables_style" />
+                    android:src="@drawable/wishlist_icon" />
 
                 <TextView
                     android:id="@+id/category_title_textView"
@@ -65,7 +65,7 @@
                 style="@style/insetDivider"
                 android:layout_width="350dp"
                 android:layout_height="1dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <!-- Search Bar -->

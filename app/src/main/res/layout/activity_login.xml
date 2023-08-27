@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:configChanges="keyboardHidden|orientation|screenSize"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_surface_container_highest"
+    android:background="@color/md_theme_light_primary"
+    android:configChanges="keyboardHidden|orientation|screenSize"
     android:orientation="vertical"
     android:theme="@style/Theme.Plantoid"
     tools:context=".Activities.MainActivity">
@@ -14,7 +14,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_light_primary"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
@@ -50,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
-        android:background="@color/md_theme_light_primary">
+        android:background="?attr/backgroundColor">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,13 +58,20 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/textViewOnPrimary"
+                style="@style/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:text="Log in"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/insetDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/textError"
@@ -75,7 +81,7 @@
                 android:textColor="@color/md_theme_dark_secondary" />
 
             <TextView
-                style="@style/textViewOnPrimary"
+                style="@style/textViewOnSurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -95,7 +101,7 @@
                 android:queryHint="Username" />
 
             <TextView
-                style="@style/textViewOnPrimary"
+                style="@style/textViewOnSurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -120,19 +126,11 @@
                 android:layout_height="wrap_content"
                 android:text="Sign in" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btnNewAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="60dp"
-                    android:layout_marginVertical="30dp"
-                    android:text="Create New Account" />
-            </RelativeLayout>
+            <Button
+                android:id="@+id/btnNewAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create New Account" />
 
         </LinearLayout>
     </ScrollView>
