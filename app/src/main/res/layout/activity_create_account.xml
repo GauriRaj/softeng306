@@ -97,6 +97,25 @@
 
             <TextView
                 style="@style/textViewOnPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="Email Address"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editEmail"
+                style="@style/textInputBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="5dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                style="@style/textViewOnPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -133,44 +152,6 @@
                 android:ems="10"
                 android:hint="Confirm Password"
                 android:inputType="text" />
-
-            <TextView
-                style="@style/textViewOnPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:textAlignment="center"
-                android:text="Email Address" />
-
-            <EditText
-                android:id="@+id/editEmail"
-                style="@style/textInputBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginVertical="5dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-
-            <TextView
-                style="@style/textViewOnPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:textAlignment="center"
-                android:text="Phone Number" />
-
-            <EditText
-                android:id="@+id/editPhone"
-                style="@style/textInputBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginVertical="5dp"
-                android:ems="10"
-                android:hint="Phone"
-                android:inputType="phone" />
 
             <Button
                 android:id="@+id/btnCreateAccount"
