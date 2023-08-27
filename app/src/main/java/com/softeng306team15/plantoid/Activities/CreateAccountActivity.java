@@ -49,6 +49,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
 
     ViewHolder vh;
     private FirebaseAuth mAuth;
+    public Boolean createFail = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,15 @@ public class CreateAccountActivity  extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            callback.onCallback();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            return;
+                            vh.createErrorText.setText("Invalid email address");
+                            createFail = true;
+                            callback.onCallback();
                         }
                     }
                 });
@@ -95,7 +99,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            return;
+                            vh.createErrorText.setText("Invalid email address");
                         }
                     }
                 });
@@ -107,23 +111,29 @@ public class CreateAccountActivity  extends AppCompatActivity {
         MyCallback callback = new MyCallback() {
             @Override
             public void onCallback() {
-                signIn(email, password);
+                if (!createFail) {
+                    signIn(email, password);
+                    IUser userInfo = new User(username, email);
+                    userInfo.createNewUserDocument(new MyCallback(){
+                        @Override
+                        public void onCallback() {
+                            Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+                            mainIntent.putExtra("User", userInfo.getId());
+                            startActivity(mainIntent);
+                        }
+                    });
+                } else {
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    Log.d(TAG, "currentUser " + currentUser);
+                    if(currentUser == null){
+                        vh.createErrorText.setText("Invalid email address");
+                    }
+                }
+                createFail = false;
             }
         };
 
         createFirebaseAccount(email, password, callback);
-
-        IUser userInfo = new User(username, email);
-        userInfo.createNewUserDocument(new MyCallback(){
-            @Override
-            public void onCallback() {
-                Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
-                mainIntent.putExtra("User", userInfo.getId());
-                startActivity(mainIntent);
-            }
-        });
-
-
     }
 
     public void verifyInputs(View v) {
@@ -139,17 +149,17 @@ public class CreateAccountActivity  extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 6) {
-            vh.createErrorText.setText("Password must be at least 6 characters");
-            vh.passText.setText("");
-            vh.confirmPassText.setText("");
-            return;
-        }
-
         String email = vh.emailText.getText().toString();
 
         if (username.equals("") || password.equals("") || email.equals("")) {
             vh.createErrorText.setText("All fields must be filled");
+            return;
+        }
+
+        if (password.length() < 6) {
+            vh.createErrorText.setText("Password must be at least 6 characters");
+            vh.passText.setText("");
+            vh.confirmPassText.setText("");
             return;
         }
 
