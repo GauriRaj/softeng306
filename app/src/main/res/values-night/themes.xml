@@ -43,7 +43,7 @@
     </style>
 
     <style name="insetDivider" parent="Widget.AppCompat.TextView">
-        <item name="android:background">@color/md_theme_dark_primary</item>
+        <item name="android:background">@color/md_theme_dark_secondary</item>
     </style>
 
     <style name="textViewTitle" parent="Widget.AppCompat.TextView">
