@@ -56,8 +56,13 @@
     </style>
 
     <!-- TextView Styles -->
+    <style name="textViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="fontFamily">@font/rancho</item>
+    </style>
+
     <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
     </style>
 
     <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">
