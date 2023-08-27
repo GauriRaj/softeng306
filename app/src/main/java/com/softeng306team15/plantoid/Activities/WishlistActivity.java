@@ -229,7 +229,7 @@ public class WishlistActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int columnNo = (int) dpWidth/170; //170 is item card width
+        int columnNo = (int) dpWidth/180; //180 is item card width
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }

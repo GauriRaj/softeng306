@@ -292,7 +292,7 @@ public class SearchActivity extends AppCompatActivity {
         if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
             cardWidth = 350;
         }else{ //if pots/planters or plant care/decor
-            cardWidth = 170;
+            cardWidth = 180;
         }
 
         int columnNo = (int) dpWidth/cardWidth;
