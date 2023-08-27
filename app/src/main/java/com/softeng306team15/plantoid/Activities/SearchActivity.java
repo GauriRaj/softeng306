@@ -119,7 +119,11 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                             if (itemList.size() > 0) {
-                                vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                if(itemList.size() == 1){
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " item for \"" + query + "\"");
+                                } else{
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                }
                                 vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 // Once the task is successful and data is fetched, get the tag and image data
                                 getItemSubCollections(itemList);
@@ -161,11 +165,18 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                             if (itemList.size() > 0) {
+                                if(itemList.size() == 1){
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " item for \"" + query + "\"");
+                                } else{
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                }
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 // Once the task is successful and data is fetched, get the tag and image data
                                 getItemSubCollections(itemList);
 
                             } else {
-                                Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
+                                vh.emptySearchTextView.setText("Search for \"" + query + "\" returned no results.");
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 Log.d(TAG, "No such document");
                             }
                         } else {
