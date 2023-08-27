@@ -1,20 +1,20 @@
-package com.softeng306team15.plantoid.Models;
+package com.softeng306team15.plantoid.ItemModels;
 
 import java.util.List;
 
-public class PlantTreeItem extends Item{
+public class PotPlanterItem extends Item{
 
     @Override
-    public String getPlantSubTag(){
+    public String getSize(){
         for(String tag: tags){
-            if (plantAndTreeSubTags.contains(tag)){
+            if (sizeSubTags.contains(tag)){
                 return tag;
             }
         }
         return "Misc";
     }
 
-    public PlantTreeItem(String id, String category, String itemName, float itemPrice, List<String> pics, List<String> tags){
+    public PotPlanterItem(String id, String category, String itemName, float itemPrice, List<String> pics, List<String> tags){
         this.id = id;
         this.category = category;
         this.itemName = itemName;
@@ -23,7 +23,8 @@ public class PlantTreeItem extends Item{
         this.tags = tags;
     }
 
-    public PlantTreeItem(){
+    public PotPlanterItem(){
 
     }
+
 }

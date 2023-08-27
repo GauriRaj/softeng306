@@ -1,4 +1,4 @@
-package com.softeng306team15.plantoid.Models;
+package com.softeng306team15.plantoid.UserModels;
 
 import com.softeng306team15.plantoid.MyCallback;
 
