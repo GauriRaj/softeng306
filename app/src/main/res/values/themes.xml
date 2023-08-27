@@ -97,7 +97,11 @@
     <!-- Only for branding text -->
     <style name="plantoidLogoText" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/rancho</item>
-        <item name="android:textColor">@color/md_theme_Primary90</item>
+        <item name="android:textColor">@color/md_theme_light_primary</item>
+    </style>
+
+    <style name="plantoidLogo">
+        <item name="android:tint">@color/md_theme_light_primary</item>
     </style>
 
     <style name="detailTitleLayout">

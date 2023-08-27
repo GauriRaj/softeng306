@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:background="@color/md_theme_light_primary"
+        android:background="@color/md_theme_light_surface"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
@@ -41,7 +41,8 @@
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/logo_main_plantoid" />
+                android:src="@drawable/logo_main_plantoid"
+                style="@style/plantoidLogo"/>
             <!-- Welcome Text -->
             <TextView
                 android:id="@+id/banner_welcome_text"
@@ -86,6 +87,16 @@
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src=""/>
+                </RelativeLayout>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/seeds_category_card"
@@ -297,7 +308,8 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/navbar_button_ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -326,7 +338,8 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/navbar_button_ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -355,7 +368,8 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/navbar_button_ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
