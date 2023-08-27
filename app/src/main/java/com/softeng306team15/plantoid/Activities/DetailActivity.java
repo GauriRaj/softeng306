@@ -64,6 +64,7 @@ public class DetailActivity extends FragmentActivity {
         TextView itemTitleTextView;
         TextView itemPriceTextView;
         TextView itemDescTextView;
+        TextView itemScientificTextView;
         CompoundButton wishlistButton;
 
         LinearLayout tagsLayout;
@@ -81,6 +82,7 @@ public class DetailActivity extends FragmentActivity {
             itemTitleTextView = findViewById(R.id.detail_title_textView);
             itemPriceTextView = findViewById(R.id.detail_price_textView);
             itemDescTextView = findViewById(R.id.detail_description_textView);
+            itemScientificTextView = findViewById(R.id.detail_scientific_textView);
             wishlistButton = findViewById(R.id.wishlist_button);
             tagsLayout = findViewById(R.id.detail_tags_layout);
             tag1Layout = findViewById(R.id.tag1Layout);
@@ -127,11 +129,13 @@ public class DetailActivity extends FragmentActivity {
                 DocumentSnapshot itemDoc = task.getResult();
                 if(itemDoc != null){
                     item = itemDoc.toObject(DetailedItem.class);
-                    item.setId(itemDoc.getId());
+                    if(item != null){
+                        item.setId(itemDoc.getId());
+                    }
                 }
                 if (item != null) {
                     // Once the task is successful and data is fetched, get the tag and image data
-                    fetchItemSubCollections(item, callback);
+                    callback.onCallback();
 
                 } else {
                     Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
@@ -144,24 +148,9 @@ public class DetailActivity extends FragmentActivity {
         });
     }
 
-    private void fetchItemSubCollections(IItem item, MyCallback callback) {
+    private void fetchItemTags(IItem item, MyCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("/items/" + item.getId() + "/images").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot results = task.getResult();
-                List<String> images = new ArrayList<>();
-                for (QueryDocumentSnapshot imageDoc : results) {
-                    images.add((String) imageDoc.get("image"));
-                }
-
-                //TODO remove
-                for (String s: images) {
-                    Log.d(TAG, "image " + s + "loaded");
-                }
-                item.setImages(images);
-            }
-        });
         db.collection("items/" + item.getId() + "/tags").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot results = task.getResult();
@@ -176,6 +165,27 @@ public class DetailActivity extends FragmentActivity {
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
                 Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void fetchItemImages(IItem item, MyCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("/items/" + item.getId() + "/images").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot results = task.getResult();
+                List<String> images = new ArrayList<>();
+                for (QueryDocumentSnapshot imageDoc : results) {
+                    images.add((String) imageDoc.get("image"));
+                }
+                //TODO remove
+                for (String s: images) {
+                    Log.d(TAG, "image " + s + "loaded");
+                }
+                item.setImages(images);
+                callback.onCallback();
             }
         });
     }
@@ -249,6 +259,7 @@ public class DetailActivity extends FragmentActivity {
                             addToWishlist(itemId);
                         });
                     }
+
                     // Set up wishlist button animation
                     ScaleAnimation scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
                     scaleAnimation.setDuration(500);
@@ -262,12 +273,28 @@ public class DetailActivity extends FragmentActivity {
                         }
                     });
 
-                    // Use loaded item tag data to populate tag icons
-                    updateTagIcons();
+                    // Fetch and set scientific name if product is a botanical
+                    if(item.getCategory().equals("Plants and Trees") || item.getCategory().equals("Seeds and Seedlings")){
+                        String scientific = item.getScientific();
+                        if(!scientific.equals("")){
+                            vh.itemScientificTextView.setText(scientific);
+                            vh.itemScientificTextView.setVisibility(View.VISIBLE);
+                        } else{
+                            vh.itemScientificTextView.setVisibility(View.GONE);
+                        }
+                    } else {
+                        vh.itemScientificTextView.setVisibility(View.GONE);
+                    }
 
-                    // ViewPager acts as parent to the fragment collection,
-                    // ImageSlidePagerAdapter handles each fragment (for displaying images)
-                    viewPager.setAdapter(pagerAdapter);
+                    // Use loaded item tag data to populate tag icons
+                    fetchItemTags(item, this::updateTagIcons);
+
+                    fetchItemImages(item, () -> {
+                        // ViewPager acts as parent to the fragment collection,
+                        // ImageSlidePagerAdapter handles each fragment (for displaying images)
+                        viewPager.setAdapter(pagerAdapter);
+                    });
+
                 });});});
     }
 
@@ -334,6 +361,7 @@ public class DetailActivity extends FragmentActivity {
 
         if(category.equals("Plants and Trees") || category.equals("Seeds and Seedlings")){
             boolean tagged = false;
+            vh.tagsLayout.setVisibility(View.VISIBLE);
             for (String subCategory : tags){
                 switch (subCategory){
                     case "Evergreen":
@@ -398,6 +426,7 @@ public class DetailActivity extends FragmentActivity {
 
         }else if(category.equals("Pots and Planters")){
             boolean tagged = false;
+            vh.tagsLayout.setVisibility(View.VISIBLE);
             for(String size : tags){
                 switch (size){
                     case "S":
@@ -433,6 +462,7 @@ public class DetailActivity extends FragmentActivity {
         // Global tags
         for(String globalTag : tags) {
             if (globalTag.equals("BestSeller")) {
+                vh.tagsLayout.setVisibility(View.VISIBLE);
                 vh.tag3ImageView.setImageResource(R.drawable.icon_best_seller);
                 vh.tag3TextView.setText(R.string.tag_bestSeller);
                 tagged = true;
@@ -440,6 +470,7 @@ public class DetailActivity extends FragmentActivity {
         }
         for(String globalTag : tags) {
             if (globalTag.equals("NewItem") && !tagged) {
+                vh.tagsLayout.setVisibility(View.VISIBLE);
                 vh.tag3ImageView.setImageResource(R.drawable.icon_best_seller);
                 vh.tag3TextView.setText(R.string.tag_bestSeller);
                 tagged = true;

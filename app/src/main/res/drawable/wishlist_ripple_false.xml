@@ -4,9 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/md_theme_Primary60">
 
-    <item android:drawable="@drawable/wishlist_false"/>
+    <item android:drawable="@drawable/icon_wishlist_false"/>
 
     <item android:id="@android:id/mask"
-        android:drawable="@drawable/wishlist_true"/>
+        android:drawable="@drawable/icon_wishlist_mask"/>
 
 </ripple>

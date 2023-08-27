@@ -25,56 +25,62 @@
                     android:id="@+id/image_pager"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
-                    android:background="#EEEEEE"/>
+                    style="@style/detailImageBackdrop"/>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:orientation="horizontal"
                     style="@style/detailTitleLayout"
-                    android:layout_alignParentBottom="true">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/detail_title_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Item Title"
-                        android:layout_marginTop="80dp"
-                        android:paddingLeft="20dp"
-                        style="@style/detailTitleTextView"
-                        android:layout_weight="1"
-                        android:maxLines="2"
-                        android:ellipsize="end"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/detail_price_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$142.00"
-                        android:paddingHorizontal="20dp"
-                        android:layout_weight="0"
-                        android:layout_gravity="bottom"
-                        style="@style/detailPriceTextView"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/detail_scientific_name_textView"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem Ipsum Dolor Sit Amet"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/detail_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Title"
+                    android:paddingLeft="20dp"
+                    style="@style/detailTitleTextView"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/detail_price_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$142.00"
+                    android:paddingHorizontal="20dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="bottom"
+                    style="@style/detailPriceTextView"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/detail_scientific_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textSize="18sp"
-                android:paddingVertical="10dp"
                 android:paddingHorizontal="20dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/md_theme_light_tertiary"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/detail_tags_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="100dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
                 <LinearLayout
                     android:id="@+id/tag1Layout"
                     android:layout_width="wrap_content"
@@ -85,7 +91,6 @@
                         android:id="@+id/tag1ImageView"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/icon_best_seller"
                         android:adjustViewBounds="true"
                         android:layout_gravity="center"
                         style="@style/detailTagIcon"/>
@@ -93,7 +98,6 @@
                         android:id="@+id/tag1TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Evergreen"
                         android:textAlignment="center"
                         android:layout_gravity="center"
                         style="@style/detailTagText"/>
@@ -108,7 +112,6 @@
                         android:id="@+id/tag2ImageView"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/icon_best_seller"
                         android:adjustViewBounds="true"
                         android:layout_gravity="center"
                         style="@style/detailTagIcon"/>
@@ -116,7 +119,6 @@
                         android:id="@+id/tag2TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Evergreen"
                         android:textAlignment="center"
                         android:layout_gravity="center"
                         style="@style/detailTagText"/>
@@ -131,7 +133,6 @@
                         android:id="@+id/tag3ImageView"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/icon_best_seller"
                         android:adjustViewBounds="true"
                         android:layout_gravity="center"
                         style="@style/detailTagIcon"/>
@@ -139,7 +140,6 @@
                         android:id="@+id/tag3TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Evergreen"
                         android:textAlignment="center"
                         android:layout_gravity="center"
                         style="@style/detailTagText"/>
@@ -150,13 +150,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/md_theme_light_primary"
+                android:layout_marginVertical="20dp"
                 android:layout_marginHorizontal="40dp"/>
 
             <TextView
                 android:id="@+id/detail_description_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
                 android:paddingHorizontal="40dp"
                 style="@style/textViewOnSurface"
                 android:textSize="16sp"
