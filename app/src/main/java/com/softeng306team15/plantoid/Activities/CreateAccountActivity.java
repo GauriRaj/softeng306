@@ -19,11 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.UserModels.IUser;
+import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
