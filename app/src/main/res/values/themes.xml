@@ -57,7 +57,7 @@
 
     <!-- TextView Styles -->
     <style name="textViewOnSurface" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
     </style>
 
     <style name="textViewOnPrimary" parent="Widget.AppCompat.TextView">

@@ -13,24 +13,61 @@
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/md_theme_light_primary"
+        android:layout_height="65dp"
+        android:background="?attr/backgroundColor"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
-        <TextView
-            android:id="@+id/category_title_textView"
-            style="@style/textViewOnPrimary"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Wishlist"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/wishlist_icon"
+                    app:tint="@color/md_theme_light_primary" />
+
+                <TextView
+                    android:id="@+id/category_title_textView"
+                    style="@style/textViewOnSurface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Wishlist"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/insetDivider"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/md_theme_light_onPrimaryContainer" />
+        </LinearLayout>
 
         <!-- Search Bar -->
     </RelativeLayout>
