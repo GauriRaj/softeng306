@@ -67,7 +67,10 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:text="Nothing to show!"/>
+                android:text="Nothing to show!"
+                style="@style/mainRecyclerViewTitleTextView"
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRecyclerView"
