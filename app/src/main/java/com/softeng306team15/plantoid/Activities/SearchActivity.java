@@ -38,7 +38,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private class ViewHolder {
         LinearLayout discoverButton, wishlistButton, logoutButton;
-        ImageView backButton;
         SearchView searchBar;
         TextView categoryNameText;
         RecyclerView itemsRecyclerView;
@@ -47,7 +46,6 @@ public class SearchActivity extends AppCompatActivity {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
             logoutButton = findViewById(R.id.profile_navbar_button);
-            backButton = findViewById(R.id.back_button);
 
             searchBar = findViewById(R.id.searchView);
             categoryNameText = findViewById(R.id.category_title_textView);
@@ -71,7 +69,6 @@ public class SearchActivity extends AppCompatActivity {
 
         fetchQueryItemData(category);
 
-        vh.backButton.setOnClickListener(v -> finish());
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.wishlistButton.setOnClickListener(this::goWishlist);
         vh.logoutButton.setOnClickListener(this::goLogout);
@@ -249,7 +246,15 @@ public class SearchActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int columnNo = (int) dpWidth/170; //170 is item card width
+        int cardWidth;
+
+        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
+            cardWidth = 350;
+        }else{ //if pots/planters or plant care/decor
+            cardWidth = 170;
+        }
+
+        int columnNo = (int) dpWidth/cardWidth;
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -38,7 +37,6 @@ public class CategoryActivity extends AppCompatActivity {
 
     private class ViewHolder {
         LinearLayout discoverButton, wishlistButton, logoutButton;
-        ImageView backButton;
         SearchView searchBar;
         TextView categoryNameText;
         RecyclerView itemsRecyclerView;
@@ -47,7 +45,6 @@ public class CategoryActivity extends AppCompatActivity {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
             logoutButton = findViewById(R.id.profile_navbar_button);
-            backButton = findViewById(R.id.back_button);
 
             searchBar = findViewById(R.id.searchView);
             categoryNameText = findViewById(R.id.category_title_textView);
@@ -89,7 +86,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         fetchCategoryItemData();
 
-        vh.backButton.setOnClickListener(this::goDiscover);
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.wishlistButton.setOnClickListener(this::goWishlist);
         vh.logoutButton.setOnClickListener(this::goLogin);
