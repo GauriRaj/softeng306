@@ -44,8 +44,8 @@
 
     <style name="globalSearchBar" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/search_bar_background</item>
-        <item name="android:editTextColor">@color/md_theme_light_onPrimary</item>
-        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+        <item name="android:editTextColor">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="android:textColor">@color/md_theme_light_onSecondaryContainer</item>
         <item name="android:textColorHint">@color/md_theme_Primary50</item>
         <item name="android:iconifiedByDefault">false</item>
         <item name="android:queryBackground">@android:color/transparent</item>
