@@ -118,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUserDisplay(String id) {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
+        Log.d(TAG, "user " + firebaseUser);
+        Log.d(TAG, "user " + id);
+        Log.d(TAG, "user ");
         // set to actual user's name
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -128,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
                 DocumentSnapshot userDoc1 = task.getResult();
                 if (userDoc1.exists()) {
                     IUser user = userDoc1.toObject(User.class);
-                    String message = "Welcome,\n" + firebaseUser.getDisplayName();
+
+                    String message = "Welcome,\n" + user.getUserName();
                     user.setId(userDoc1.getId());
                     vh.usernameText.setText(message);
                     userTopCategory = user.getTopCategory();

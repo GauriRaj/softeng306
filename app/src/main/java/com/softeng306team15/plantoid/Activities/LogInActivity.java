@@ -26,13 +26,14 @@ import com.softeng306team15.plantoid.R;
 
 public class LogInActivity extends AppCompatActivity {
     private class ViewHolder {
-        EditText enterEmail, enterPassword;
+        EditText enterUsername, enterEmail, enterPassword;
         Button btnSignIn, btnCreateAccount;
 
         TextView textLoginError;
 
         public ViewHolder() {
 
+            enterUsername = findViewById(R.id.editTextUsername);
             enterEmail = findViewById(R.id.editTextEmail);
             enterPassword = findViewById(R.id.editTextPassword);
 
@@ -60,9 +61,10 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void getUserId() {
+        Log.d(TAG, "Email " + vh.enterEmail.getText().toString());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
-                .whereEqualTo("email", vh.enterEmail.getText().toString())
+                .whereEqualTo("userName", vh.enterUsername.getText().toString())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -77,6 +79,7 @@ public class LogInActivity extends AppCompatActivity {
                                 vh.textLoginError.setText("Email not in database");
                                 vh.enterEmail.setText("");
                                 vh.enterPassword.setText("");
+                                Log.d(TAG, "Email not found " + vh.enterEmail.getText().toString());
                             }
 
                         } else {
@@ -90,6 +93,10 @@ public class LogInActivity extends AppCompatActivity {
         String email = vh.enterEmail.getText().toString();
         String password = vh.enterPassword.getText().toString();
 
+        if (vh.enterUsername.getText().toString().equals("")){
+            vh.textLoginError.setText("Please enter username");
+        }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -98,6 +105,7 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             getUserId();
+                            Log.d(TAG, "user id: " + userId);
                             Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
                             mainIntent.putExtra("User", userId);
                             startActivity(mainIntent);

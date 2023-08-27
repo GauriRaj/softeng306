@@ -20,9 +20,7 @@ public interface IUser {
      String getId();
 
      void setId(String id);
-
-     String getUserImage();
-
+     String getUserName();
      String getEmail();
 
 
@@ -45,12 +43,6 @@ public interface IUser {
      void incrementCategoryHit(String category);
 
      void incrementPriceRangeHit(String priceRange);
-
-
-     void updateUserImage(String newUserImage);
-
-     void updateEmail(String newEmail);
-
 
      void loadWishlist(MyCallback callback);
      void createNewUserDocument(MyCallback myCallback);

@@ -33,13 +33,14 @@ public class CreateAccountActivity  extends AppCompatActivity {
 
         TextView createErrorText;
 
-        EditText passText, confirmPassText, emailText;
+        EditText usernameText, passText, confirmPassText, emailText;
 
         Button btnCreate, btnLogin;
 
         public ViewHolder() {
             createErrorText = findViewById(R.id.textErrorCreate);
 
+            usernameText = findViewById(R.id.editUsername);
             passText = findViewById(R.id.editPassword);
             confirmPassText = findViewById(R.id.editPasswordConfirm);
             emailText = findViewById(R.id.editEmail);
@@ -63,7 +64,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
         vh.btnLogin.setOnClickListener(this::goLogin);
     }
 
-    public void createAccount(String email, String password) {
+    public void createAccount(String username, String email, String password) {
         mAuth = FirebaseAuth.getInstance();
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -79,9 +80,13 @@ public class CreateAccountActivity  extends AppCompatActivity {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 });
+
+        IUser userInfo = new User(username, email);
+        Log.d(TAG, "user user user user user" + userInfo.getId());
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -96,12 +101,11 @@ public class CreateAccountActivity  extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 });
 
-
-        IUser userInfo = new User(email);
         userInfo.createNewUserDocument(new MyCallback(){
             @Override
             public void onCallback() {
@@ -110,12 +114,15 @@ public class CreateAccountActivity  extends AppCompatActivity {
                 startActivity(mainIntent);
             }
         });
+
+
     }
 
     public void verifyInputs(View v) {
         // Check if passwords match
         String password = vh.passText.getText().toString();
         String confPassword = vh.confirmPassText.getText().toString();
+        String username = vh.usernameText.getText().toString();
 
         if (!password.equals(confPassword)) {
             vh.createErrorText.setText("Passwords must match");
@@ -124,14 +131,21 @@ public class CreateAccountActivity  extends AppCompatActivity {
             return;
         }
 
+        if (password.length() < 6) {
+            vh.createErrorText.setText("Password must be at least 6 characters");
+            vh.passText.setText("");
+            vh.confirmPassText.setText("");
+            return;
+        }
+
         String email = vh.emailText.getText().toString();
 
-        if (password.equals("") || email.equals("")) {
+        if (username.equals("") || password.equals("") || email.equals("")) {
             vh.createErrorText.setText("All fields must be filled");
             return;
         }
 
-        createAccount(email, password);
+        createAccount(username, email, password);
 
     }
 

@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class User implements IUser{
 
-    String id, userImage, email;
+    String id, userName, email;
 
 
     Map<String, Integer> categoryHits, priceRangeHits;
@@ -37,9 +37,8 @@ public class User implements IUser{
         this.id = id;
     }
 
-
-    public String getUserImage() {
-        return this.userImage;
+    public String getUserName() {
+        return this.userName;
     }
 
     public String getEmail() {
@@ -194,36 +193,12 @@ public class User implements IUser{
         });
     }
 
-
-    public void updateUserImage(String newUserImage) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("userImage", newUserImage).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                userImage = newUserImage;
-            } else {
-                Log.d(TAG, "failed to update user image");
-            }
-        });
-    }
-
-    public void updateEmail(String newEmail) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("email", newEmail).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                email = newEmail;
-            } else {
-                Log.d(TAG, "failed to update email");
-            }
-        });
-    }
-
     public User(){}
 
-    public User(String email){
+    public User(String userName, String email){
         //set default image
-        this.userImage = "https://firebasestorage.googleapis.com/v0/b/plantoid-64f52.appspot.com/o/userPics%2Fplant%20image.jpg?alt=media&token=795f3517-e412-456f-9910-0ccb0b9db4e3";
-
         this.email = email;
+        this.userName = userName;
 
         this.categoryHits = new HashMap<>();
         categoryHits.put(plantsAndTrees, 0);
