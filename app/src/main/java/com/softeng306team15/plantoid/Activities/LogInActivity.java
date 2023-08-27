@@ -75,6 +75,7 @@ public class LogInActivity extends AppCompatActivity {
                                 IUser user = document.toObject(User.class);
                                 email = user.getEmail();
                                 userId = document.getId();
+                                callback.onCallback();
                             }
                             // The above loop will not run if no users are found matching the results
                             if(task.getResult().size() == 0){
@@ -83,7 +84,6 @@ public class LogInActivity extends AppCompatActivity {
                                 vh.enterPassword.setText("");
                                 Log.d(TAG, "Username not found " + vh.enterUsername.getText().toString());
                             }
-                            callback.onCallback();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
