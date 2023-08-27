@@ -44,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         LinearLayout discoverButton, wishlistButton, logoutButton, navbar;
         SearchView searchBar;
         TextView categoryNameText;
+        TextView emptySearchTextView;
         RecyclerView itemsRecyclerView;
         ScrollView scrollSection;
         RelativeLayout topBar;
@@ -57,6 +58,7 @@ public class SearchActivity extends AppCompatActivity {
 
             searchBar = findViewById(R.id.searchView);
             categoryNameText = findViewById(R.id.category_title_textView);
+            emptySearchTextView = findViewById(R.id.empty_search_textView);
 
             itemsRecyclerView = findViewById(R.id.categoryRecyclerView);
 
@@ -133,11 +135,14 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                             if (itemList.size() > 0) {
+                                vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 // Once the task is successful and data is fetched, get the tag and image data
                                 getItemSubCollections(itemList);
 
                             } else {
-                                Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
+                                vh.emptySearchTextView.setText("Search for \"" + query + "\" returned no results.");
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 Log.d(TAG, "No such document");
                                 removeLoadingAnimation();
                             }
