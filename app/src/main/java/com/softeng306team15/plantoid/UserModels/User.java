@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class User implements IUser {
 
-    String id, userName, userImage, phoneNumber, password, email, address;
+    String id, userName, email;
 
 
     Map<String, Integer> categoryHits, priceRangeHits;
@@ -40,24 +40,8 @@ public class User implements IUser {
         return this.userName;
     }
 
-    public String getUserImage() {
-        return this.userImage;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
     public String getEmail() {
         return this.email;
-    }
-
-    public String getAddress() {
-        return this.address;
     }
 
     public Map<String, Integer> getCategoryHits() {
@@ -208,83 +192,12 @@ public class User implements IUser {
         });
     }
 
-    public void updateUserName(String newUserName) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("userName", newUserName).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                userName = newUserName;
-            } else {
-                Log.d(TAG, "failed to update username");
-            }
-        });
-    }
-
-    public void updateUserImage(String newUserImage) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("userImage", newUserImage).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                userImage = newUserImage;
-            } else {
-                Log.d(TAG, "failed to update user image");
-            }
-        });
-    }
-
-    public void updatePassword(String newPassword) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("password", newPassword).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                password = newPassword;
-            } else {
-                Log.d(TAG, "failed to update password");
-            }
-        });
-    }
-
-    public void updatePhoneNumber(String newPhoneNumber) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("phoneNumber", newPhoneNumber).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                phoneNumber = newPhoneNumber;
-            } else {
-                Log.d(TAG, "failed to update phone number");
-            }
-        });
-    }
-
-    public void updateEmail(String newEmail) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("email", newEmail).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                email = newEmail;
-            } else {
-                Log.d(TAG, "failed to update email");
-            }
-        });
-    }
-
-    public void updateAddress(String newAddress) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).update("address", newAddress).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                address = newAddress;
-            } else {
-                Log.d(TAG, "failed to update address");
-            }
-        });
-    }
-
     public User(){}
 
-    public User(String userName, String email, String password, String phoneNumber){
-        this.userName = userName;
-        this.password = password;
+    public User(String userName, String email){
         //set default image
-        this.userImage = "https://firebasestorage.googleapis.com/v0/b/plantoid-64f52.appspot.com/o/userPics%2Fplant%20image.jpg?alt=media&token=795f3517-e412-456f-9910-0ccb0b9db4e3";
-
-        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.address = "";
+        this.userName = userName;
 
         this.categoryHits = new HashMap<>();
         categoryHits.put(plantsAndTrees, 0);

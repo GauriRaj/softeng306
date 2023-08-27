@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,7 +37,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, profileButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton;
         ImageView backButton;
         SearchView searchBar;
         TextView categoryNameText;
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
             backButton = findViewById(R.id.back_button);
 
             searchBar = findViewById(R.id.searchView);
@@ -70,12 +71,10 @@ public class SearchActivity extends AppCompatActivity {
 
         fetchQueryItemData(category);
 
-        vh.backButton.setOnClickListener(v -> {
-            finish();
-        });
+        vh.backButton.setOnClickListener(v -> finish());
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.wishlistButton.setOnClickListener(this::goWishlist);
-        vh.profileButton.setOnClickListener(this::goProfile);
+        vh.logoutButton.setOnClickListener(this::goLogout);
         String categoryName = "Search " + category;
         vh.categoryNameText.setText(categoryName);
 
@@ -224,12 +223,22 @@ public class SearchActivity extends AppCompatActivity {
 
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
-        if(category.equals("Seeds and Seedlings")){
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category_seeds, userId);
-        }else if (category.equals("All")) {
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
-        } else{
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category, userId);
+        switch (category) {
+            case "Seeds and Seedlings":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
+                break;
+            case "All":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
+                break;
+            case "Pots and Planters":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
+                break;
+            case "Plant Care and Decor":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plant_care_decor_card, userId);
+                break;
+            default:
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
+                break;
         }
 
         vh.itemsRecyclerView.setAdapter(itemAdapter);
@@ -258,10 +267,10 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v) {
-        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        profileIntent.putExtra("User", userId);
-        startActivity(profileIntent);
+    public void goLogout(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent logoutIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(logoutIntent);
     }
 
 }

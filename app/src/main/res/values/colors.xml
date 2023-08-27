@@ -70,11 +70,15 @@
     <color name="md_theme_light_surface_container_high">#E5F6FF</color>
     <color name="md_theme_light_surface_container">#F5FAFF</color>
     <color name="md_theme_light_surface_container_low">#FAFDFF</color>
+    <color name="md_theme_light_surface_container_gradient_midtone">#F9F5FAFF</color>
+    <color name="md_theme_light_surface_container_gradient_transparent">#00F5FAFF</color>
 
     <color name="md_theme_dark_surface_container_highest">#3B3331</color>
     <color name="md_theme_dark_surface_container_high">#2F2826</color>
     <color name="md_theme_dark_surface_container">#251E1C</color>
     <color name="md_theme_dark_surface_container_low">#201A18</color>
+    <color name="md_theme_dark_surface_container_gradient_midtone">#F9251E1C</color>
+    <color name="md_theme_dark_surface_container_gradient_transparent">#00251E1C</color>
 
     <!-- Material Design Reference Colours -->
     <color name="md_theme_onPrimaryVariant">#005237</color>

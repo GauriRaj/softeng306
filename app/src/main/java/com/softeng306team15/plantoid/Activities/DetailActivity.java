@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,6 +49,7 @@ public class DetailActivity extends FragmentActivity {
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
 
+    private FirebaseAuth mAuth;
     private class ViewHolder {
         TextView itemTitleTextView;
         TextView itemPriceTextView;
@@ -85,7 +88,7 @@ public class DetailActivity extends FragmentActivity {
     }
 
     private void fetchUserData(String userId, MyCallback callback){
-
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Change the 1 to whichever user is being displayed
@@ -96,7 +99,7 @@ public class DetailActivity extends FragmentActivity {
                 if (userDoc1.exists()) {
                     user = userDoc1.toObject(User.class);
                     user.setId(userDoc1.getId());
-                    Log.d(TAG, "got me a user " + user.getUserName());
+                    Log.d(TAG, "got me a user " + currentUser.getDisplayName());
                     callback.onCallback();
                 } else {
                     Log.d(TAG, "No such document");
@@ -184,6 +187,7 @@ public class DetailActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_detail);
         // Back button functionality
         vh = new ViewHolder();
@@ -201,9 +205,10 @@ public class DetailActivity extends FragmentActivity {
 
         pagerAdapter = new ImageSlidePagerAdapter(this);
         viewPager = findViewById(R.id.image_pager);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         fetchUserData(userId, () ->{
-            Log.d(TAG, "fetched user " + user.getUserName());
+            Log.d(TAG, "fetched user " + currentUser.getDisplayName());
             user.loadWishlist(() -> {
                 Log.d(TAG, "fetched wishlist");
                 fetchItemData(itemId, () -> {

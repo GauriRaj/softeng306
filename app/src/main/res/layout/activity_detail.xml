@@ -32,6 +32,7 @@
                     android:layout_height="100dp"
                     android:orientation="horizontal"
                     style="@style/detailTitleLayout"
+                    android:background="@drawable/detail_title_gradient"
                     android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
