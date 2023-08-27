@@ -247,10 +247,10 @@ public class CategoryActivity extends AppCompatActivity {
         if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
             cardWidth = 350;
         }else{ //if pots/planters or plant care/decor
-            cardWidth = 170;
+            cardWidth = 180;
         }
 
-        int columnNo = (int) dpWidth/cardWidth;
+        int columnNo = (int) dpWidth/(cardWidth+10);
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }
