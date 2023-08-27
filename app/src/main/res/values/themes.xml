@@ -140,6 +140,11 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="LoginButton" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/md_theme_light_primary</item>
+        <item name="backgroundTint">@color/md_theme_light_primary</item>
+    </style>
+
     <style name="navBarBackground">
         <item name="android:background">@color/md_theme_light_primary</item>
     </style>
@@ -151,7 +156,7 @@
         <item name="android:paddingHorizontal">5dp</item>
         <item name="android:paddingVertical">3dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
         <item name="android:textColorHighlight">@color/md_theme_light_onPrimaryContainer</item>
         <item name="android:cacheColorHint">@color/md_theme_Primary50</item>
         <item name="android:textColorLink">@color/md_theme_light_onPrimaryContainer</item>
