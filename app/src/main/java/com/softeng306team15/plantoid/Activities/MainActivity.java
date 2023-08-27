@@ -214,10 +214,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "callback called responses number " + responses);
                 if (responses == 2*data.size()){
                     Log.d(TAG, "callback called adaptor");
-                    removeLoadingAnimation();
                     propagateAdaptor(forYouItems, vh.forYouRecyclerView);
                     propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
                     propagateAdaptor(newItems, vh.newItemsRecyclerView);
+                    removeLoadingAnimation();
                 }
             }
         };

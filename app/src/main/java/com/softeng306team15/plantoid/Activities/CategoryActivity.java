@@ -3,11 +3,15 @@ package com.softeng306team15.plantoid.Activities;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,11 +40,14 @@ import java.util.List;
 public class CategoryActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, logoutButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton, navBar;
         SearchView searchBar;
         TextView categoryNameText;
         RecyclerView itemsRecyclerView;
-
+        ScrollView scrollSection;
+        RelativeLayout topBar;
+        AnimationDrawable loadingAnimation;
+        ImageView loadingAnimationImageView;
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
@@ -50,6 +57,13 @@ public class CategoryActivity extends AppCompatActivity {
             categoryNameText = findViewById(R.id.category_title_textView);
 
             itemsRecyclerView = findViewById(R.id.categoryRecyclerView);
+
+            loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
+            loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
+
+            navBar = findViewById(R.id.navbar);
+            scrollSection = findViewById(R.id.scroll_section);
+            topBar = findViewById(R.id.top_bar);
         }
     }
     ViewHolder vh;
@@ -64,6 +78,7 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         vh = new CategoryActivity.ViewHolder();
+        vh.loadingAnimation.start();
 
         switch (category) {
             case "Plants":
@@ -176,6 +191,7 @@ public class CategoryActivity extends AppCompatActivity {
                 if (responses == 2*data.size()){
                     Log.d(TAG, "callback called adaptor");
                     propagateAdaptor(categoryItems);
+                    removeLoadingAnimation();
                 }
             }
         };
@@ -215,6 +231,14 @@ public class CategoryActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private void removeLoadingAnimation(){
+        vh.loadingAnimation.stop();
+        vh.loadingAnimationImageView.setVisibility(View.GONE);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.topBar.setVisibility(View.VISIBLE);
+        vh.scrollSection.setVisibility(View.VISIBLE);
     }
 
     private void propagateAdaptor(List<IItem> data) {

@@ -3,12 +3,15 @@ package com.softeng306team15.plantoid.Activities;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ import com.softeng306team15.plantoid.ItemModels.PlantCareDecorItem;
 import com.softeng306team15.plantoid.ItemModels.PlantTreeItem;
 import com.softeng306team15.plantoid.ItemModels.PotPlanterItem;
 import com.softeng306team15.plantoid.ItemModels.SeedSeedlingItem;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;
@@ -37,10 +41,14 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, logoutButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton, navbar;
         SearchView searchBar;
         TextView categoryNameText;
         RecyclerView itemsRecyclerView;
+        ScrollView scrollSection;
+        RelativeLayout topBar;
+        AnimationDrawable loadingAnimation;
+        ImageView loadingAnimationImageView;
 
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
@@ -51,6 +59,13 @@ public class SearchActivity extends AppCompatActivity {
             categoryNameText = findViewById(R.id.category_title_textView);
 
             itemsRecyclerView = findViewById(R.id.categoryRecyclerView);
+
+            loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
+            loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
+
+            navbar = findViewById(R.id.navbar);
+            scrollSection = findViewById(R.id.scroll_section);
+            topBar = findViewById(R.id.top_bar);
         }
     }
     ViewHolder vh;
@@ -66,6 +81,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         vh = new SearchActivity.ViewHolder();
+        vh.loadingAnimation.start();
 
         fetchQueryItemData(category);
 
@@ -123,6 +139,7 @@ public class SearchActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
                                 Log.d(TAG, "No such document");
+                                removeLoadingAnimation();
                             }
                         } else {
                             Log.d(TAG, "get failed with ", task.getException());
@@ -162,6 +179,7 @@ public class SearchActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
                                 Log.d(TAG, "No such document");
+                                removeLoadingAnimation();
                             }
                         } else {
                             Log.d(TAG, "get failed with ", task.getException());
@@ -180,6 +198,22 @@ public class SearchActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<IItem> categoryItems = new LinkedList<>();
 
+        //Due to async loading it is not known what finishes loading first. Callback counter ensures
+        //adaptor is only called when all of the items have fully loaded.
+        MyCallback callback = new MyCallback() {
+            int responses = 0;
+            @Override
+            public void onCallback() {
+                responses ++;
+                Log.d(TAG, "callback called responses number " + responses);
+                if (responses == 2*data.size()){
+                    Log.d(TAG, "callback called adaptor");
+                    propagateAdaptor(categoryItems);
+                    removeLoadingAnimation();
+                }
+            }
+        };
+
         for(IItem item: data){
             //load all images for item
             db.collection("/items/"+item.getId()+"/images").get().addOnCompleteListener(task -> {
@@ -190,10 +224,7 @@ public class SearchActivity extends AppCompatActivity {
                         images.add((String) imageDoc.get("image"));
                     }
                     item.setImages(images);
-                    if(item == data.get(data.size()-1)){
-                        //propagate to adaptors to fill the recycler view once all images are loaded
-                        propagateAdaptor(categoryItems);
-                    }
+                    callback.onCallback();
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading items images failed from Firestore!", Toast.LENGTH_LONG).show();
@@ -209,6 +240,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                     item.setTags(tags);
                     categoryItems.add(item);
+                    callback.onCallback();
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
@@ -216,6 +248,15 @@ public class SearchActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private void removeLoadingAnimation(){
+        Log.d(TAG, "Animation stopped");
+        vh.loadingAnimation.stop();
+        vh.loadingAnimationImageView.setVisibility(View.GONE);
+        vh.navbar.setVisibility(View.VISIBLE);
+        vh.topBar.setVisibility(View.VISIBLE);
+        vh.scrollSection.setVisibility(View.VISIBLE);
     }
 
     private void propagateAdaptor(List<IItem> data) {

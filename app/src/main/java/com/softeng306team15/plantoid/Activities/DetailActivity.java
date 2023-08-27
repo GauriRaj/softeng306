@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,8 @@ public class DetailActivity extends FragmentActivity {
         TextView itemScientificTextView;
         CompoundButton wishlistButton;
 
+        ScrollView scrollSection;
+
         LinearLayout tagsLayout;
         LinearLayout tag1Layout;
         LinearLayout tag2Layout;
@@ -67,6 +71,9 @@ public class DetailActivity extends FragmentActivity {
         TextView tag1TextView;
         TextView tag2TextView;
         TextView tag3TextView;
+
+        AnimationDrawable loadingAnimation;
+        ImageView loadingAnimationImageView;
 
         public ViewHolder(){
             itemTitleTextView = findViewById(R.id.detail_title_textView);
@@ -84,6 +91,10 @@ public class DetailActivity extends FragmentActivity {
             tag1TextView = findViewById(R.id.tag1TextView);
             tag2TextView = findViewById(R.id.tag2TextView);
             tag3TextView = findViewById(R.id.tag3TextView);
+
+            scrollSection = findViewById(R.id.scroll_section);
+            loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
+            loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
         }
     }
 
@@ -191,6 +202,8 @@ public class DetailActivity extends FragmentActivity {
         setContentView(R.layout.activity_detail);
         // Back button functionality
         vh = new ViewHolder();
+        vh.loadingAnimation.start();
+
         // Get the user id and item id from previous activity
         String itemId, userId;
         Intent intent = getIntent();
@@ -285,6 +298,7 @@ public class DetailActivity extends FragmentActivity {
                         // ViewPager acts as parent to the fragment collection,
                         // ImageSlidePagerAdapter handles each fragment (for displaying images)
                         viewPager.setAdapter(pagerAdapter);
+                        removeLoadingAnimation();
                     });
 
                 });});});
@@ -474,5 +488,12 @@ public class DetailActivity extends FragmentActivity {
                 vh.tagsLayout.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void removeLoadingAnimation(){
+        vh.loadingAnimation.stop();
+        vh.loadingAnimationImageView.setVisibility(View.GONE);
+        vh.wishlistButton.setVisibility(View.VISIBLE);
+        vh.scrollSection.setVisibility(View.VISIBLE);
     }
 }

@@ -11,11 +11,13 @@
 
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/category_title_textView"
@@ -51,10 +53,12 @@
 
     <!-- Main Scrolling Section -->
     <ScrollView
+        android:id="@+id/scroll_section"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,10 +76,12 @@
 
     <!-- TODO Navigation bar -->
     <LinearLayout
+        android:id="@+id/navbar"
         android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         style="@style/navBarBackground">
 
         <LinearLayout
@@ -166,5 +172,11 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <!--Loading animation-->
+    <ImageView
+        android:id="@+id/leaf_animation"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:src="@drawable/loading_animation_leaf"/>
 </LinearLayout>

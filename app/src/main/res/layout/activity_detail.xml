@@ -8,9 +8,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
+        android:id="@+id/scroll_section"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -162,10 +164,7 @@
                 style="@style/textViewOnSurface"
                 android:textSize="16sp"
                 android:text="@string/lorem_ipsum"/>
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
     </ScrollView>
 
     <ToggleButton
@@ -178,14 +177,15 @@
         android:textOff=""
         android:textOn=""
         android:layout_margin="20dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:visibility="gone"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </RelativeLayout>
-
-
+    <!--Loading animation-->
+    <ImageView
+        android:id="@+id/leaf_animation"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:src="@drawable/loading_animation_leaf"/>
 
 </RelativeLayout>
