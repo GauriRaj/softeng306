@@ -2,11 +2,14 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
@@ -72,6 +75,10 @@ public class DetailActivity extends FragmentActivity {
 
         AnimationDrawable loadingAnimation;
         ImageView loadingAnimationImageView;
+        LinearLayout navBar;
+        LinearLayout discoverButton;
+        LinearLayout wishlistNavButton;
+        LinearLayout logoutButton;
 
         public ViewHolder(){
             itemTitleTextView = findViewById(R.id.detail_title_textView);
@@ -89,6 +96,11 @@ public class DetailActivity extends FragmentActivity {
             tag1TextView = findViewById(R.id.tag1TextView);
             tag2TextView = findViewById(R.id.tag2TextView);
             tag3TextView = findViewById(R.id.tag3TextView);
+
+            navBar = findViewById(R.id.navbar);
+            discoverButton = findViewById(R.id.discover_navbar_button);
+            wishlistNavButton = findViewById(R.id.wishlist_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
 
             scrollSection = findViewById(R.id.scroll_section);
             loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
@@ -137,12 +149,10 @@ public class DetailActivity extends FragmentActivity {
                     callback.onCallback();
 
                 } else {
-                    Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
                     Log.d(TAG, "No such document");
                 }
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
-                Toast.makeText(getBaseContext(), "Loading items collection failed from Firestore!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -163,7 +173,6 @@ public class DetailActivity extends FragmentActivity {
                 callback.onCallback();
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
-                Toast.makeText(getBaseContext(), "Loading items tags failed from Firestore!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -191,6 +200,7 @@ public class DetailActivity extends FragmentActivity {
 
     ViewHolder vh;
     String navigateFrom;
+    int shortAnimationDuration;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -201,6 +211,12 @@ public class DetailActivity extends FragmentActivity {
         // Back button functionality
         vh = new ViewHolder();
         vh.loadingAnimation.start();
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
+
+        vh.discoverButton.setOnClickListener(this::goDiscover);
+        vh.wishlistNavButton.setOnClickListener(this::goWishlist);
+        vh.logoutButton.setOnClickListener(this::goLogin);
 
         // Get the user id and item id from previous activity
         String itemId, userId;
@@ -303,6 +319,7 @@ public class DetailActivity extends FragmentActivity {
         CharSequence text = "Added to Wishlist";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
         toast.show();
         vh.wishlistButton.setOnClickListener(v -> removeFromWishlist(itemId));
     }
@@ -312,6 +329,7 @@ public class DetailActivity extends FragmentActivity {
         CharSequence text = "Removed from Wishlist";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
         toast.show();
         vh.wishlistButton.setOnClickListener(v -> addToWishlist(itemId));
     }
@@ -482,8 +500,53 @@ public class DetailActivity extends FragmentActivity {
 
     private void removeLoadingAnimation(){
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
+
+        vh.navBar.setAlpha(0f);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.navBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.wishlistButton.setAlpha(0f);
         vh.wishlistButton.setVisibility(View.VISIBLE);
+        vh.wishlistButton.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    public void goDiscover(View v) {
+        Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
+        mainActivityIntent.putExtra("User", user.getId());
+        startActivity(mainActivityIntent);
+    }
+    public void goWishlist(View v) {
+        Intent wishlistIntent = new Intent(getBaseContext(), WishlistActivity.class);
+        wishlistIntent.putExtra("User", user.getId());
+        startActivity(wishlistIntent);
+    }
+
+    public void goLogin(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent loginIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(loginIntent);
     }
 }

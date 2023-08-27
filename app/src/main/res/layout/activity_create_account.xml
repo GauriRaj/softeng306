@@ -66,7 +66,7 @@
                 android:fontFamily="@font/rancho"
                 android:text="Create New Account"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_light_onSecondary"
+                android:textColor="@color/md_theme_light_onPrimary"
                 android:textSize="34sp" />
 
             <TextView
@@ -82,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Username"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editUsername"
@@ -101,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Email Address"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editEmail"
@@ -120,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Password"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editPassword"
@@ -140,7 +143,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Confirm Password"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editPasswordConfirm"
@@ -159,7 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/md_theme_light_primary"
-                android:text="Create Account" />
+                android:text="Create Account"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <Button
                 android:id="@+id/btnLogIn"
@@ -167,7 +172,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/md_theme_light_primary"
-                android:text="Sign into existing account" />
+                android:text="Sign into existing account"
+                android:textColor="@color/md_theme_light_onPrimary" />
         </LinearLayout>
     </ScrollView>
 

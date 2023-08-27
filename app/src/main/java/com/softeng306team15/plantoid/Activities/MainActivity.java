@@ -7,6 +7,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String userTopCategory, userTopPrice,userId;
 
+    int shortAnimationDuration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
         setUserDisplay(userId);
         fetchItemData();
         vh.loadingAnimation.start();
+
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         vh.seedsCardView.setOnClickListener(this::goSeeds);
 
@@ -272,10 +279,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void removeLoadingAnimation(){
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
+
+        vh.navBar.setAlpha(0f);
         vh.navBar.setVisibility(View.VISIBLE);
+        vh.navBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.topBar.setAlpha(0f);
         vh.topBar.setVisibility(View.VISIBLE);
+        vh.topBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
     }
 
     // Categories

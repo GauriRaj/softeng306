@@ -2,6 +2,8 @@ package com.softeng306team15.plantoid.Activities;
 
 import static android.content.ContentValues.TAG;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, logoutButton, navbar;
+        LinearLayout discoverButton, wishlistButton, logoutButton, navBar;
         SearchView searchBar;
         TextView categoryNameText;
         TextView emptySearchTextView;
@@ -65,13 +67,14 @@ public class SearchActivity extends AppCompatActivity {
             loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
             loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
 
-            navbar = findViewById(R.id.navbar);
+            navBar = findViewById(R.id.navbar);
             scrollSection = findViewById(R.id.scroll_section);
             topBar = findViewById(R.id.top_bar);
         }
     }
     ViewHolder vh;
     String userId, category, query;
+    int shortAnimationDuration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +87,8 @@ public class SearchActivity extends AppCompatActivity {
 
         vh = new SearchActivity.ViewHolder();
         vh.loadingAnimation.start();
+        shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         fetchQueryItemData(category);
 
@@ -135,7 +140,11 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                             if (itemList.size() > 0) {
-                                vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                if(itemList.size() == 1){
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " item for \"" + query + "\"");
+                                } else{
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                }
                                 vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 // Once the task is successful and data is fetched, get the tag and image data
                                 getItemSubCollections(itemList);
@@ -178,11 +187,18 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                             if (itemList.size() > 0) {
+                                if(itemList.size() == 1){
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " item for \"" + query + "\"");
+                                } else{
+                                    vh.emptySearchTextView.setText("Showing " + itemList.size() + " items for \"" + query + "\"");
+                                }
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 // Once the task is successful and data is fetched, get the tag and image data
                                 getItemSubCollections(itemList);
 
                             } else {
-                                Toast.makeText(getBaseContext(), "Collection was empty!", Toast.LENGTH_LONG).show();
+                                vh.emptySearchTextView.setText("Search for \"" + query + "\" returned no results.");
+                                vh.emptySearchTextView.setVisibility(View.VISIBLE);
                                 Log.d(TAG, "No such document");
                                 removeLoadingAnimation();
                             }
@@ -256,12 +272,38 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void removeLoadingAnimation(){
-        Log.d(TAG, "Animation stopped");
         vh.loadingAnimation.stop();
-        vh.loadingAnimationImageView.setVisibility(View.GONE);
-        vh.navbar.setVisibility(View.VISIBLE);
+
+        vh.navBar.setAlpha(0f);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.navBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.topBar.setAlpha(0f);
         vh.topBar.setVisibility(View.VISIBLE);
+        vh.topBar.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.scrollSection.setAlpha(0f);
         vh.scrollSection.setVisibility(View.VISIBLE);
+        vh.scrollSection.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        vh.loadingAnimationImageView.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        vh.loadingAnimationImageView.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void propagateAdaptor(List<IItem> data) {
@@ -271,7 +313,7 @@ public class SearchActivity extends AppCompatActivity {
                 itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
                 break;
             case "All":
-                itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
+                itemAdapter = new ItemAdaptor(data, R.layout.item_wishlist_card, userId);
                 break;
             case "Pots and Planters":
                 itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
@@ -294,7 +336,7 @@ public class SearchActivity extends AppCompatActivity {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int cardWidth;
 
-        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
+        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")) {
             cardWidth = 350;
         }else{ //if pots/planters or plant care/decor
             cardWidth = 180;
