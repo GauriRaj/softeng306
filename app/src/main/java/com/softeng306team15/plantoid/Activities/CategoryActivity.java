@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,7 +37,7 @@ import java.util.List;
 public class CategoryActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        LinearLayout discoverButton, wishlistButton, profileButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton;
         ImageView backButton;
         SearchView searchBar;
         TextView categoryNameText;
@@ -45,7 +46,7 @@ public class CategoryActivity extends AppCompatActivity {
         public ViewHolder() {
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
             backButton = findViewById(R.id.back_button);
 
             searchBar = findViewById(R.id.searchView);
@@ -91,7 +92,7 @@ public class CategoryActivity extends AppCompatActivity {
         vh.backButton.setOnClickListener(this::goDiscover);
         vh.discoverButton.setOnClickListener(this::goDiscover);
         vh.wishlistButton.setOnClickListener(this::goWishlist);
-        vh.profileButton.setOnClickListener(this::goProfile);
+        vh.logoutButton.setOnClickListener(this::goLogin);
         vh.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -222,10 +223,19 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void propagateAdaptor(List<IItem> data) {
         ItemAdaptor itemAdapter;
-        if(category.equals("Seeds and Seedlings")){
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category_seeds, userId);
-        }else{
-            itemAdapter = new ItemAdaptor(data, R.layout.item_rv_category, userId);
+        switch (category) {
+            case "Seeds and Seedlings":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
+                break;
+            case "Pots and Planters":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);
+                break;
+            case "Plant Care and Decor":
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plant_care_decor_card, userId);
+                break;
+            default:
+                itemAdapter = new ItemAdaptor(data, R.layout.item_plants_trees_card, userId);
+                break;
         }
 
         vh.itemsRecyclerView.setAdapter(itemAdapter);
@@ -236,7 +246,15 @@ public class CategoryActivity extends AppCompatActivity {
     private int calculateNumberOfColumns(){
         DisplayMetrics displayMetrics = getBaseContext().getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int columnNo = (int) dpWidth/170; //170 is item card width
+        int cardWidth;
+
+        if(category.equals("Seeds and Seedlings") || category.equals("Plants and Trees")){
+            cardWidth = 350;
+        }else{ //if pots/planters or plant care/decor
+            cardWidth = 170;
+        }
+
+        int columnNo = (int) dpWidth/cardWidth;
         if (columnNo < 1){ //show at least one column
             columnNo = 1;
         }
@@ -254,10 +272,10 @@ public class CategoryActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v) {
-        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        profileIntent.putExtra("User", userId);
-        startActivity(profileIntent);
+    public void goLogin(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent loginIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(loginIntent);
     }
 
 }

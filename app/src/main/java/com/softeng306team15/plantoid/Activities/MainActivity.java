@@ -16,6 +16,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewHolder {
         CardView seedsCardView, plantsCardView, plantersCardView, careCardView;
-        LinearLayout discoverButton, wishlistButton, profileButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton;
         SearchView searchBar;
         TextView usernameText;
 
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             discoverButton = findViewById(R.id.discover_navbar_button);
             wishlistButton = findViewById(R.id.wishlist_navbar_button);
-            profileButton = findViewById(R.id.profile_navbar_button);
+            logoutButton = findViewById(R.id.profile_navbar_button);
 
             searchBar = findViewById(R.id.searchView);
 
@@ -66,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ViewHolder vh;
+    private FirebaseAuth mAuth;
     String userTopCategory, userTopPrice,userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         //get intent to get userID
         userId = getIntent().getStringExtra("User");
         setContentView(R.layout.activity_main);
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         vh.wishlistButton.setOnClickListener(this::goWishlist);
 
-        vh.profileButton.setOnClickListener(view -> goProfile(view, userId));
+        vh.logoutButton.setOnClickListener(this::goLogout);
 
         vh.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -112,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUserDisplay(String id) {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Log.d(TAG, "user " + firebaseUser);
+        Log.d(TAG, "user " + id);
+        Log.d(TAG, "user ");
         // set to actual user's name
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -121,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 DocumentSnapshot userDoc1 = task.getResult();
                 if (userDoc1.exists()) {
                     IUser user = userDoc1.toObject(User.class);
+
                     String message = "Welcome,\n" + user.getUserName();
                     user.setId(userDoc1.getId());
                     vh.usernameText.setText(message);
@@ -245,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void propagateAdaptor(List<IItem> data, RecyclerView recyclerView) {
-        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
         recyclerView.setAdapter(itemAdapter);
         LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(lm);
@@ -287,10 +296,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(wishlistIntent);
     }
 
-    public void goProfile(View v, String userId) {
-        Intent profileIntent = new Intent(getBaseContext(), ProfileActivity.class);
-        profileIntent.putExtra("User", userId);
-        startActivity(profileIntent);
+    public void goLogout(View v) {
+        FirebaseAuth.getInstance().signOut();
+        Intent logoutIntent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(logoutIntent);
     }
 
 }
