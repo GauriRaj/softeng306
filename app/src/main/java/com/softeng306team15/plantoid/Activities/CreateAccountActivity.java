@@ -64,9 +64,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
         vh.btnLogin.setOnClickListener(this::goLogin);
     }
 
-    public void createAccount(String username, String email, String password) {
-        mAuth = FirebaseAuth.getInstance();
-
+    public void createFirebaseAccount(String email, String password, MyCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -84,10 +82,9 @@ public class CreateAccountActivity  extends AppCompatActivity {
                         }
                     }
                 });
+    }
 
-        IUser userInfo = new User(username, email);
-        Log.d(TAG, "user user user user user" + userInfo.getId());
-
+    public void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -105,7 +102,21 @@ public class CreateAccountActivity  extends AppCompatActivity {
                         }
                     }
                 });
+    }
 
+    public void createAccount(String username, String email, String password) {
+        mAuth = FirebaseAuth.getInstance();
+
+        MyCallback callback = new MyCallback() {
+            @Override
+            public void onCallback() {
+                signIn(email, password);
+            }
+        };
+
+        createFirebaseAccount(email, password, callback);
+
+        IUser userInfo = new User(username, email);
         userInfo.createNewUserDocument(new MyCallback(){
             @Override
             public void onCallback() {

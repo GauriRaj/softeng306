@@ -22,19 +22,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.softeng306team15.plantoid.Models.IUser;
+import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
 public class LogInActivity extends AppCompatActivity {
     private class ViewHolder {
-        EditText enterUsername, enterEmail, enterPassword;
+        EditText enterUsername, enterPassword;
         Button btnSignIn, btnCreateAccount;
-
         TextView textLoginError;
 
         public ViewHolder() {
 
             enterUsername = findViewById(R.id.editTextUsername);
-            enterEmail = findViewById(R.id.editTextEmail);
             enterPassword = findViewById(R.id.editTextPassword);
 
             btnSignIn = findViewById(R.id.btnSignIn);
@@ -47,6 +48,7 @@ public class LogInActivity extends AppCompatActivity {
     ViewHolder vh;
     private FirebaseAuth mAuth;
     private String userId;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,7 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    public void getUserId() {
-        Log.d(TAG, "Email " + vh.enterEmail.getText().toString());
+    public void getUserIdAndEmail(MyCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .whereEqualTo("userName", vh.enterUsername.getText().toString())
@@ -72,16 +73,18 @@ public class LogInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                IUser user = document.toObject(User.class);
+                                email = user.getEmail();
                                 userId = document.getId();
                             }
                             // The above loop will not run if no users are found matching the results
                             if(task.getResult().size() == 0){
-                                vh.textLoginError.setText("Email not in database");
-                                vh.enterEmail.setText("");
+                                vh.textLoginError.setText("Username not in database");
+                                vh.enterUsername.setText("");
                                 vh.enterPassword.setText("");
-                                Log.d(TAG, "Email not found " + vh.enterEmail.getText().toString());
+                                Log.d(TAG, "Username not found " + vh.enterUsername.getText().toString());
                             }
-
+                            callback.onCallback();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -89,14 +92,8 @@ public class LogInActivity extends AppCompatActivity {
                 });
     }
 
-    public void onSignIn(View v) {
-        String email = vh.enterEmail.getText().toString();
+    public void signInEmailPassword() {
         String password = vh.enterPassword.getText().toString();
-
-        if (vh.enterUsername.getText().toString().equals("")){
-            vh.textLoginError.setText("Please enter username");
-        }
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -104,24 +101,34 @@ public class LogInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            getUserId();
-                            Log.d(TAG, "user id: " + userId);
+                            if (userId == null) {
+                                vh.textLoginError.setText("Error retrieving user data");
+                                return;
+                            }
                             Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
                             mainIntent.putExtra("User", userId);
                             startActivity(mainIntent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            vh.textLoginError.setText("Email or password is incorrect");
-                            vh.enterEmail.setText("");
+                            vh.textLoginError.setText("Username or password is incorrect");
+                            vh.enterUsername.setText("");
                             vh.enterPassword.setText("");
                             Toast.makeText(LogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
+    }
 
+    public void onSignIn(View v) {
+        MyCallback callback = new MyCallback() {
+            @Override
+            public void onCallback() {
+                signInEmailPassword();
+            }
+        };
+        getUserIdAndEmail(callback);
     }
 
     public void goCreateAccount(View v) {
