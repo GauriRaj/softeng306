@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/backgroundColor"
-    android:theme="@style/Theme.Plantoid"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:theme="@style/Theme.Plantoid">
 
     <ScrollView
         android:id="@+id/scroll_section"

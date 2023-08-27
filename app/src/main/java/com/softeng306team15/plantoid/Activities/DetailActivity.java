@@ -39,8 +39,6 @@ import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.MyCallback;
 import com.softeng306team15.plantoid.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -255,14 +253,10 @@ public class DetailActivity extends FragmentActivity {
                     }
                     if (isInWishlist){
                         vh.wishlistButton.setChecked(true);
-                        vh.wishlistButton.setOnClickListener(v -> {
-                            removeFromWishlist(itemId);
-                        });
+                        vh.wishlistButton.setOnClickListener(v -> removeFromWishlist(itemId));
                     } else {
                         vh.wishlistButton.setChecked(false);
-                        vh.wishlistButton.setOnClickListener(v2 -> {
-                            addToWishlist(itemId);
-                        });
+                        vh.wishlistButton.setOnClickListener(v2 -> addToWishlist(itemId));
                     }
 
                     // Set up wishlist button animation
@@ -310,9 +304,7 @@ public class DetailActivity extends FragmentActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
         toast.show();
-        vh.wishlistButton.setOnClickListener(v -> {
-            removeFromWishlist(itemId);
-        });
+        vh.wishlistButton.setOnClickListener(v -> removeFromWishlist(itemId));
     }
 
     private void removeFromWishlist(String itemId){
@@ -321,9 +313,7 @@ public class DetailActivity extends FragmentActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
         toast.show();
-        vh.wishlistButton.setOnClickListener(v -> {
-            addToWishlist(itemId);
-        });
+        vh.wishlistButton.setOnClickListener(v -> addToWishlist(itemId));
     }
 
     private class ImageSlidePagerAdapter extends FragmentStateAdapter {
