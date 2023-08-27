@@ -64,7 +64,7 @@
                 android:fontFamily="@font/rancho"
                 android:text="Log in"
                 android:textAlignment="center"
-                android:textColor="@color/md_theme_light_onSecondary"
+                android:textColor="@color/md_theme_light_onPrimary"
                 android:textSize="34sp" />
 
             <TextView
@@ -80,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Username"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editTextUsername"
@@ -100,7 +101,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="Password"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -121,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:background="@color/md_theme_light_primary"
-                android:text="Sign in" />
+                android:text="Sign in"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <Button
                 android:id="@+id/btnNewAccount"
@@ -130,7 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:background="@color/md_theme_light_primary"
-                android:text="Create New Account" />
+                android:text="Create New Account"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
         </LinearLayout>
     </ScrollView>
