@@ -251,7 +251,6 @@
 
     </ScrollView>
 
-    <!-- TODO Navigation bar -->
     <LinearLayout
         android:id="@+id/navbar"
         android:baselineAligned="false"
@@ -270,8 +269,8 @@
             android:layout_weight="1"
             android:padding="5dp"
             android:gravity="center"
-            android:background="@drawable/navbar_button_ripple">
-
+            android:background="@drawable/navbar_button_ripple"
+            android:clickable="true">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -280,7 +279,6 @@
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
                 app:tint="@color/md_theme_Primary90"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -300,8 +298,8 @@
             android:layout_weight="1"
             android:padding="5dp"
             android:gravity="center"
-            android:background="@drawable/navbar_button_ripple">
-
+            android:background="@drawable/navbar_button_ripple"
+            android:clickable="true">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -310,7 +308,6 @@
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
                 app:tint="@color/md_theme_light_onPrimary"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -320,7 +317,6 @@
                 android:layout_weight="0"
                 android:textColor="@color/md_theme_light_onPrimary"/>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/profile_navbar_button"
             android:layout_width="match_parent"
@@ -330,8 +326,8 @@
             android:layout_weight="1"
             android:padding="5dp"
             android:gravity="center"
-            android:background="@drawable/navbar_button_ripple">
-
+            android:background="@drawable/navbar_button_ripple"
+            android:clickable="true">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -340,7 +336,6 @@
                 android:layout_gravity="top|center"
                 android:layout_weight="1"
                 app:tint="@color/md_theme_light_onPrimary"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -105,8 +105,9 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navbar_button_ripple">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -134,7 +135,9 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navbar_button_ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -163,7 +166,9 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navbar_button_ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -191,5 +196,6 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:src="@drawable/loading_animation_leaf"/>
+        android:src="@drawable/loading_animation_leaf"
+        android:visibility="visible"/>
 </LinearLayout>
