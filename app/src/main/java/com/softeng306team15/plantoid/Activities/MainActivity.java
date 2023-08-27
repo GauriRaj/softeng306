@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,12 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewHolder {
         CardView seedsCardView, plantsCardView, plantersCardView, careCardView;
-        LinearLayout discoverButton, wishlistButton, logoutButton;
+        LinearLayout discoverButton, wishlistButton, logoutButton, navBar;
+        ScrollView scrollSection;
+        RelativeLayout topBar;
         SearchView searchBar;
         TextView usernameText;
 
         RecyclerView forYouRecyclerView, bestSellerRecyclerView,newItemsRecyclerView;
 
+        AnimationDrawable loadingAnimation;
+        ImageView loadingAnimationImageView;
         public ViewHolder() {
 
             seedsCardView = findViewById(R.id.seeds_category_card);
@@ -64,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
             bestSellerRecyclerView = findViewById(R.id.recyclerView_main_2);
             newItemsRecyclerView = findViewById(R.id.recyclerView_main_3);
 
+            loadingAnimationImageView = (ImageView) findViewById(R.id.leaf_animation);
+            loadingAnimation = (AnimationDrawable) loadingAnimationImageView.getDrawable();
+
+            navBar = findViewById(R.id.navbar);
+            scrollSection = findViewById(R.id.scroll_section);
+            topBar = findViewById(R.id.top_bar);
         }
     }
 
@@ -82,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         vh = new ViewHolder();
         setUserDisplay(userId);
         fetchItemData();
+        vh.loadingAnimation.start();
 
         vh.seedsCardView.setOnClickListener(this::goSeeds);
 
@@ -113,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     public void setUserDisplay(String id) {
@@ -198,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "callback called responses number " + responses);
                 if (responses == 2*data.size()){
                     Log.d(TAG, "callback called adaptor");
+                    removeLoadingAnimation();
                     propagateAdaptor(forYouItems, vh.forYouRecyclerView);
                     propagateAdaptor(bestSellerItems, vh.bestSellerRecyclerView);
                     propagateAdaptor(newItems, vh.newItemsRecyclerView);
@@ -258,6 +275,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(itemAdapter);
         LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(lm);
+    }
+
+    private void removeLoadingAnimation(){
+        vh.loadingAnimation.stop();
+        vh.loadingAnimationImageView.setVisibility(View.GONE);
+        vh.navBar.setVisibility(View.VISIBLE);
+        vh.topBar.setVisibility(View.VISIBLE);
+        vh.scrollSection.setVisibility(View.VISIBLE);
     }
 
     // Categories
