@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -38,7 +37,6 @@ public class WishlistActivity extends AppCompatActivity {
 
     private class ViewHolder {
         LinearLayout discoverButton, profileButton;
-        SearchView searchBar;
         TextView categoryNameText, emptyWishlistText;
         RecyclerView itemsRecyclerView;
 
@@ -195,7 +193,7 @@ public class WishlistActivity extends AppCompatActivity {
 
     }
     private void propagateAdaptor(List<IItem> data) {
-        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_wishlist, userId);
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_wishlist_card, userId);
         vh.itemsRecyclerView.setAdapter(itemAdapter);
         GridLayoutManager lm =new GridLayoutManager(this,calculateNumberOfColumns());
         vh.itemsRecyclerView.setLayoutManager(lm);

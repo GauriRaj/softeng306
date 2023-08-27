@@ -74,7 +74,7 @@
     </style>
 
     <style name="item_card_main" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/md_theme_dark_surface_container_highest</item>
+        <item name="cardBackgroundColor">@color/md_theme_dark_primary</item>
         <item name="cardCornerRadius">8dp</item>
     </style>
 

@@ -52,30 +52,5 @@
             </LinearLayout>
 
         </LinearLayout>
-        <!-- Item tag -->
-        <LinearLayout
-            android:id="@+id/global_tag_layout"
-            android:layout_width="95dp"
-            android:layout_height="95dp"
-            android:layout_marginTop="135dp"
-            android:layout_marginStart="115dp"
-            android:layout_gravity="end"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:background="@drawable/item_card_tag_radial_gradient">
-            <ImageView
-                android:id="@+id/global_tag_imageView"
-                android:layout_width="47dp"
-                android:layout_height="30dp"
-                style="@style/drawables_style"
-                android:contentDescription="Item global tag icon image" />
-            <TextView
-                android:id="@+id/global_tag_textView"
-                android:layout_width="47dp"
-                android:layout_height="15dp"
-                android:textAlignment="center"
-                style="@style/categoryTagTextView"/>
-        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

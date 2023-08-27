@@ -227,7 +227,7 @@ public class SearchActivity extends AppCompatActivity {
                 itemAdapter = new ItemAdaptor(data, R.layout.item_seeds_seedlings_card, userId);
                 break;
             case "All":
-                itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
+                itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
                 break;
             case "Pots and Planters":
                 itemAdapter = new ItemAdaptor(data, R.layout.item_pots_planters_card, userId);

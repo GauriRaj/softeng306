@@ -2,14 +2,17 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/seed_seedling_card"
-    android:layout_width="350dp"
-    android:layout_height="165dp"
+    android:layout_width="352dp"
+    android:layout_height="167dp"
     android:layout_margin="5dp"
     style="@style/item_card_main">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foreground="@drawable/item_card_background">
+        android:layout_width="350dp"
+        android:layout_height="165dp"
+        android:layout_gravity="right"
+        android:foreground="@drawable/item_card_background"
+        android:background="@drawable/image_rounded_corners"
+        android:clipToOutline="true">
         <ImageView
             android:id="@+id/key_imageView"
             android:layout_width="205dp"
@@ -35,6 +38,7 @@
                     android:layout_width="90dp"
                     android:layout_height="35dp"
                     android:maxLines="2"
+                    android:ellipsize="end"
                     style="@style/textViewOnSurface"/>
                 <TextView
                     android:id="@+id/price_textView"

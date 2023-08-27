@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -245,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void propagateAdaptor(List<IItem> data, RecyclerView recyclerView) {
-        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_rv_main, userId);
+        ItemAdaptor itemAdapter = new ItemAdaptor(data, R.layout.item_main_card, userId);
         recyclerView.setAdapter(itemAdapter);
         LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(lm);

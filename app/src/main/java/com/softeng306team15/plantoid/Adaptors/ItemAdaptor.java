@@ -174,9 +174,9 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
             Intent intent = new Intent(v.getContext().getApplicationContext(), DetailActivity.class);
             intent.putExtra("itemId", currentItem.getId());
             intent.putExtra("userId", userId);
-            if(layoutId == R.layout.item_rv_wishlist){
+            if(layoutId == R.layout.item_wishlist_card){
                 intent.putExtra("from", "Wishlist");
-            }else if(layoutId == R.layout.item_rv_main){
+            }else if(layoutId == R.layout.item_main_card){
                 intent.putExtra("from", "Main");
             }
             Log.d(TAG, "user id: " + userId);

@@ -109,7 +109,7 @@
     </style>
 
     <style name="item_card_main" parent="CardView">
-        <item name="cardBackgroundColor">@color/md_theme_light_surface_container</item>
+        <item name="cardBackgroundColor">@color/md_theme_light_primary</item>
         <item name="cardCornerRadius">8dp</item>
     </style>
 
