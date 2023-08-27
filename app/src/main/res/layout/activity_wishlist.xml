@@ -13,7 +13,7 @@
     <!-- Top bar with logo, user welcome and search bar -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="80dp"
         android:background="?attr/backgroundColor"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
@@ -37,11 +37,11 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:src="@drawable/wishlist_icon"
-                    app:tint="@color/md_theme_light_primary" />
+                    style="@style/drawables_style" />
 
                 <TextView
                     android:id="@+id/category_title_textView"
-                    style="@style/textViewOnSurface"
+                    style="@style/textViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="Wishlist"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="43sp" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -65,8 +65,7 @@
                 style="@style/insetDivider"
                 android:layout_width="350dp"
                 android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:background="@color/md_theme_light_onPrimaryContainer" />
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <!-- Search Bar -->
