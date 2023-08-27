@@ -1,4 +1,4 @@
-package com.softeng306team15.plantoid.Models;
+package com.softeng306team15.plantoid.ItemModels;
 
 import com.google.firebase.firestore.Exclude;
 

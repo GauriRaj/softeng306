@@ -16,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.User;
+import com.softeng306team15.plantoid.UserModels.IUser;
+import com.softeng306team15.plantoid.UserModels.User;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
 

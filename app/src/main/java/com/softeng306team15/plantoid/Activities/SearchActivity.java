@@ -21,12 +21,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.softeng306team15.plantoid.Adaptors.ItemAdaptor;
-import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.MainItem;
-import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
-import com.softeng306team15.plantoid.Models.PlantTreeItem;
-import com.softeng306team15.plantoid.Models.PotPlanterItem;
-import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
+import com.softeng306team15.plantoid.ItemModels.IItem;
+import com.softeng306team15.plantoid.ItemModels.MainItem;
+import com.softeng306team15.plantoid.ItemModels.PlantCareDecorItem;
+import com.softeng306team15.plantoid.ItemModels.PlantTreeItem;
+import com.softeng306team15.plantoid.ItemModels.PotPlanterItem;
+import com.softeng306team15.plantoid.ItemModels.SeedSeedlingItem;
 import com.softeng306team15.plantoid.R;
 
 import java.util.ArrayList;

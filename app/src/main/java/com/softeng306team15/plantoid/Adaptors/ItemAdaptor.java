@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +16,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.softeng306team15.plantoid.Activities.CategoryActivity;
 import com.softeng306team15.plantoid.Activities.DetailActivity;
-import com.softeng306team15.plantoid.Activities.MainActivity;
-import com.softeng306team15.plantoid.Models.IItem;
-import com.softeng306team15.plantoid.Models.IUser;
-import com.softeng306team15.plantoid.Models.MainItem;
-import com.softeng306team15.plantoid.Models.PlantCareDecorItem;
-import com.softeng306team15.plantoid.Models.PlantTreeItem;
-import com.softeng306team15.plantoid.Models.PotPlanterItem;
-import com.softeng306team15.plantoid.Models.SeedSeedlingItem;
+import com.softeng306team15.plantoid.ItemModels.IItem;
+import com.softeng306team15.plantoid.ItemModels.MainItem;
+import com.softeng306team15.plantoid.ItemModels.PlantCareDecorItem;
+import com.softeng306team15.plantoid.ItemModels.PlantTreeItem;
+import com.softeng306team15.plantoid.ItemModels.PotPlanterItem;
+import com.softeng306team15.plantoid.ItemModels.SeedSeedlingItem;
 import com.softeng306team15.plantoid.R;
 import com.squareup.picasso.Picasso;
 
