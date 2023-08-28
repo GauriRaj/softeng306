@@ -87,6 +87,7 @@ public class WishlistActivity extends AppCompatActivity {
         getUserData(() -> user.loadWishlist(() -> {
             List<String> wishlist = user.getWishlist();
             if (wishlist.size() == 0){
+                removeLoadingAnimation();
                 vh.emptyWishlistText.setVisibility(View.VISIBLE);
             }else{
                 Log.d(TAG, "Wishlist items " + wishlist.size());
@@ -141,6 +142,7 @@ public class WishlistActivity extends AppCompatActivity {
                     }else {
                         Toast.makeText(getBaseContext(), "Item does not exist!", Toast.LENGTH_LONG).show();
                         Log.d(TAG, "No such document");
+                        removeLoadingAnimation();
                     }
                     if (itemList.size() == wishlistIds.size()){
                         Log.d(TAG, "got to run sub collection");
@@ -149,6 +151,7 @@ public class WishlistActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                     Toast.makeText(getBaseContext(), "Loading item failed from Firestore!", Toast.LENGTH_LONG).show();
+                    removeLoadingAnimation();
                 }
             });
         }
